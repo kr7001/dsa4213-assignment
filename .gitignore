@@ -1,0 +1,17 @@
+# Python and tooling
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+
+# Raw data is downloaded by scripts/download_data.py and never committed:
+# the dataset has no stated licence, so we share the download script instead.
+# The leading "/" matters: it ignores only the top-level data folder, not src/a1/data.
+/data/
+*.part
+
+# Files that quote review text stay local for the same reason.
+results/**/examples*.txt
+
+.DS_Store
