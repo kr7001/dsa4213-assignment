@@ -1,0 +1,9 @@
+Counted n-grams of 1 to 5 tokens in 14 s (10,958,154 training targets)
+  n=1: Kneser-Ney J 6.0550 (PPL 426.3);  add-k J 6.0550 (PPL 426.3, k=1e-08, tried 1e-08, 1e-07, 1e-06, 1e-05, 0.0001, 0.001, 0.01, 0.1, 1)
+  n=2: Kneser-Ney J 4.5679 (PPL 96.3);  add-k J 4.6199 (PPL 101.5, k=0.001, tried 0.0001, 0.001, 0.01, 0.1, 1)
+  n=3: Kneser-Ney J 4.1824 (PPL 65.5);  add-k J 4.3270 (PPL 75.7, k=0.0001, tried 1e-05, 0.0001, 0.001, 0.01, 0.1, 1)
+  n=4: Kneser-Ney J 4.1164 (PPL 61.3);  add-k J 4.2870 (PPL 72.7, k=1e-05, tried 1e-06, 1e-05, 0.0001, 0.001, 0.01, 0.1, 1)
+  n=5: Kneser-Ney J 4.1135 (PPL 61.2);  add-k J 4.2828 (PPL 72.4, k=1e-05, tried 1e-06, 1e-05, 0.0001, 0.001, 0.01, 0.1, 1)
+Validation n-grams never seen in training: 1: 0.0%, 2: 4.8%, 3: 25.7%, 4: 55.9%, 5: 79.1%
+Peak memory of this process: 1.66 GB
+Chosen on validation: {'kneser_ney': {'order': 5, 'k': None}, 'add_k': {'order': 5, 'k': 1e-05}}. Wrote results/ngram/ngram.json
