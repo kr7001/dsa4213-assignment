@@ -9,15 +9,24 @@ then m reviews of one product carry the information of
 independent reviews (Kish, 1965, Survey Sampling), which levels off at 1 / rho
 however large m gets. The cap is the smallest m that reaches INFORMATION_SHARE
 of that limit. Each product above the cap keeps a random subset of its reviews.
+
+rho is computed from the ratings of every product, including the products
+that will later fall in the test pile. That uses no model results, and
+:func:`cap_on_random_halves` checks that it does not matter: it recomputes rho
+and the cap on many random halves of the products.
 """
 
 from __future__ import annotations
 
 import math
+from typing import Any
 
 import numpy as np
 
+from a1.data.product_checks import intraclass_correlation
+
 INFORMATION_SHARE = 0.95
+CHECK_REPEATS = 50  # random halves of the products in the stability check
 
 
 def information(m: float, rho: float) -> float:
@@ -57,7 +66,9 @@ def cap_mask(product: np.ndarray, kept: np.ndarray, cap: int, seed: int) -> np.n
         Boolean mask of the reviews kept after the cap.
     """
     index = np.flatnonzero(kept)
-    keys = np.random.default_rng(seed).random(index.size)
+    # Every review gets a fixed random number from its position in the raw file,
+    # so a change upstream never reshuffles which reviews another product keeps.
+    keys = np.random.default_rng(seed).random(product.size)[index]
     order = np.lexsort((keys, product[index]))
     products = product[index][order]
     starts = np.flatnonzero(np.concatenate(([True], products[1:] != products[:-1])))
@@ -66,3 +77,55 @@ def cap_mask(product: np.ndarray, kept: np.ndarray, cap: int, seed: int) -> np.n
     result = np.zeros(product.size, dtype=bool)
     result[index[order[rank < cap]]] = True
     return result
+
+
+def cap_on_random_halves(
+    ratings: np.ndarray, products: np.ndarray, seed: int, repeats: int = CHECK_REPEATS
+) -> dict[str, Any]:
+    """Recompute rho and the cap on random halves of the products.
+
+    If the cap barely moves when only a random half of the products is used,
+    it does not depend on which products end up in the test pile.
+
+    Args:
+        ratings: Star rating per review (the reviews the cap is computed on).
+        products: Product id per review (non-negative integers).
+        seed: Seed for choosing the halves.
+        repeats: How many random halves to try.
+
+    Returns:
+        The number of halves tried and the smallest, median and largest rho and
+        cap over them. ``no_cap`` counts halves whose rho was 0 or below.
+    """
+    ids = np.unique(products)
+    rng = np.random.default_rng(seed)
+    in_half = np.zeros(int(products.max()) + 1, dtype=bool)
+    rhos: list[float] = []
+    caps: list[int] = []
+    for _ in range(repeats):
+        in_half[:] = False
+        in_half[ids[rng.random(ids.size) < 0.5]] = True
+        mask = in_half[products]
+        rho = intraclass_correlation(ratings[mask], products[mask])
+        if rho is None:
+            continue
+        rhos.append(rho)
+        if 0 < rho < 1:
+            caps.append(design_effect_cap(rho))
+
+    def spread(values: list[float] | list[int]) -> dict[str, float | None]:
+        if not values:
+            return {"min": None, "median": None, "max": None}
+        return {
+            "min": float(min(values)),
+            "median": float(np.median(values)),
+            "max": float(max(values)),
+        }
+
+    return {
+        "repeats": repeats,
+        "share_of_products": 0.5,
+        "icc": spread(rhos),
+        "cap": spread(caps),
+        "no_cap": len(rhos) - len(caps),
+    }

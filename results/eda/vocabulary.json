@@ -1,0 +1,596 @@
+{
+  "halves": {
+    "split_key_below": 0.5,
+    "reviews": [
+      295645,
+      291488
+    ],
+    "tokens": [
+      10662509,
+      10540032
+    ]
+  },
+  "special_tokens": [
+    "<pad>",
+    "<unk>",
+    "<bos>",
+    "<eos>"
+  ],
+  "by_size": {
+    "built_on_a_tested_on_b": [
+      {
+        "kept_tokens": 2000,
+        "vocabulary_size": 2004,
+        "smallest_count_kept": 325,
+        "held_out_unk_share": 0.06595321532230647,
+        "build_unk_share": 0.06588402410727157,
+        "held_out_reviews_with_unk": 0.6173633219892414
+      },
+      {
+        "kept_tokens": 5000,
+        "vocabulary_size": 5004,
+        "smallest_count_kept": 62,
+        "held_out_unk_share": 0.02530542601768193,
+        "build_unk_share": 0.024880166572426754,
+        "held_out_reviews_with_unk": 0.38215981446920627
+      },
+      {
+        "kept_tokens": 10000,
+        "vocabulary_size": 10004,
+        "smallest_count_kept": 15,
+        "held_out_unk_share": 0.011275961970513948,
+        "build_unk_share": 0.010465454237834626,
+        "held_out_reviews_with_unk": 0.2246679108573938
+      },
+      {
+        "kept_tokens": 15000,
+        "vocabulary_size": 15004,
+        "smallest_count_kept": 6,
+        "held_out_unk_share": 0.007125405311862454,
+        "build_unk_share": 0.006097532954016716,
+        "held_out_reviews_with_unk": 0.1597218410363377
+      },
+      {
+        "kept_tokens": 20000,
+        "vocabulary_size": 20004,
+        "smallest_count_kept": 3,
+        "held_out_unk_share": 0.005300173661711871,
+        "build_unk_share": 0.0040518605892853055,
+        "held_out_reviews_with_unk": 0.12657124821605006
+      },
+      {
+        "kept_tokens": 25000,
+        "vocabulary_size": 25004,
+        "smallest_count_kept": 2,
+        "held_out_unk_share": 0.004352263826143954,
+        "build_unk_share": 0.0028942531256010984,
+        "held_out_reviews_with_unk": 0.10781918981227358
+      },
+      {
+        "kept_tokens": 30000,
+        "vocabulary_size": 30004,
+        "smallest_count_kept": 1,
+        "held_out_unk_share": 0.003765168834402033,
+        "build_unk_share": 0.002085719224246385,
+        "held_out_reviews_with_unk": 0.09555110330442419
+      },
+      {
+        "kept_tokens": 40000,
+        "vocabulary_size": 40004,
+        "smallest_count_kept": 1,
+        "held_out_unk_share": 0.003283860997765453,
+        "build_unk_share": 0.0011478536618351187,
+        "held_out_reviews_with_unk": 0.08545806345372708
+      },
+      {
+        "kept_tokens": 50000,
+        "vocabulary_size": 50004,
+        "smallest_count_kept": 1,
+        "held_out_unk_share": 0.0028061584632760317,
+        "build_unk_share": 0.00020998809942385233,
+        "held_out_reviews_with_unk": 0.07496363486661543
+      },
+      {
+        "kept_tokens": 52239,
+        "vocabulary_size": 52243,
+        "smallest_count_kept": 1,
+        "held_out_unk_share": 0.002704640744923714,
+        "build_unk_share": 0.0,
+        "held_out_reviews_with_unk": 0.07250384235371611
+      }
+    ],
+    "built_on_b_tested_on_a": [
+      {
+        "kept_tokens": 2000,
+        "vocabulary_size": 2004,
+        "smallest_count_kept": 322,
+        "held_out_unk_share": 0.06624922895727448,
+        "build_unk_share": 0.06564164131569994,
+        "held_out_reviews_with_unk": 0.6180723502849701
+      },
+      {
+        "kept_tokens": 5000,
+        "vocabulary_size": 5004,
+        "smallest_count_kept": 63,
+        "held_out_unk_share": 0.02535003721919482,
+        "build_unk_share": 0.024852486216360603,
+        "held_out_reviews_with_unk": 0.3819344145850598
+      },
+      {
+        "kept_tokens": 10000,
+        "vocabulary_size": 10004,
+        "smallest_count_kept": 14,
+        "held_out_unk_share": 0.011298654003480846,
+        "build_unk_share": 0.010434693177402088,
+        "held_out_reviews_with_unk": 0.22547311809771856
+      },
+      {
+        "kept_tokens": 15000,
+        "vocabulary_size": 15004,
+        "smallest_count_kept": 6,
+        "held_out_unk_share": 0.007139689166968166,
+        "build_unk_share": 0.006043150533129316,
+        "held_out_reviews_with_unk": 0.16096331749226267
+      },
+      {
+        "kept_tokens": 20000,
+        "vocabulary_size": 20004,
+        "smallest_count_kept": 3,
+        "held_out_unk_share": 0.005299315573848551,
+        "build_unk_share": 0.0040036880343437,
+        "held_out_reviews_with_unk": 0.12729455935327844
+      },
+      {
+        "kept_tokens": 25000,
+        "vocabulary_size": 25004,
+        "smallest_count_kept": 2,
+        "held_out_unk_share": 0.004372516825073669,
+        "build_unk_share": 0.002854355660400265,
+        "held_out_reviews_with_unk": 0.10896852644218573
+      },
+      {
+        "kept_tokens": 30000,
+        "vocabulary_size": 30004,
+        "smallest_count_kept": 1,
+        "held_out_unk_share": 0.003804639227033668,
+        "build_unk_share": 0.0020658381302827156,
+        "held_out_reviews_with_unk": 0.09723485937526426
+      },
+      {
+        "kept_tokens": 40000,
+        "vocabulary_size": 40004,
+        "smallest_count_kept": 1,
+        "held_out_unk_share": 0.0033110405815366395,
+        "build_unk_share": 0.0011170744073641936,
+        "held_out_reviews_with_unk": 0.08664783777841668
+      },
+      {
+        "kept_tokens": 50000,
+        "vocabulary_size": 50004,
+        "smallest_count_kept": 1,
+        "held_out_unk_share": 0.0028285087496761063,
+        "build_unk_share": 0.00016831068444578268,
+        "held_out_reviews_with_unk": 0.07556698066938389
+      },
+      {
+        "kept_tokens": 51774,
+        "vocabulary_size": 51778,
+        "smallest_count_kept": 1,
+        "held_out_unk_share": 0.0027338781144288227,
+        "build_unk_share": 0.0,
+        "held_out_reviews_with_unk": 0.07326692485920615
+      }
+    ]
+  },
+  "by_min_count": {
+    "built_on_a_tested_on_b": [
+      {
+        "min_count": 1,
+        "vocabulary_size": 52243,
+        "held_out_unk_share": 0.002704640744923714
+      },
+      {
+        "min_count": 2,
+        "vocabulary_size": 28625,
+        "held_out_unk_share": 0.0038379390119498424
+      },
+      {
+        "min_count": 3,
+        "vocabulary_size": 22347,
+        "held_out_unk_share": 0.004739644054211567
+      },
+      {
+        "min_count": 5,
+        "vocabulary_size": 17068,
+        "held_out_unk_share": 0.00619808364908192
+      },
+      {
+        "min_count": 10,
+        "vocabulary_size": 12150,
+        "held_out_unk_share": 0.009009650065578523
+      },
+      {
+        "min_count": 20,
+        "vocabulary_size": 8759,
+        "held_out_unk_share": 0.01312851801588455
+      },
+      {
+        "min_count": 50,
+        "vocabulary_size": 5611,
+        "held_out_unk_share": 0.022180198314388444
+      }
+    ],
+    "built_on_b_tested_on_a": [
+      {
+        "min_count": 1,
+        "vocabulary_size": 51778,
+        "held_out_unk_share": 0.0027338781144288227
+      },
+      {
+        "min_count": 2,
+        "vocabulary_size": 28315,
+        "held_out_unk_share": 0.0038830447880512375
+      },
+      {
+        "min_count": 3,
+        "vocabulary_size": 22118,
+        "held_out_unk_share": 0.004804403916564115
+      },
+      {
+        "min_count": 5,
+        "vocabulary_size": 16978,
+        "held_out_unk_share": 0.0062456219263214985
+      },
+      {
+        "min_count": 10,
+        "vocabulary_size": 12105,
+        "held_out_unk_share": 0.009048995878924937
+      },
+      {
+        "min_count": 20,
+        "vocabulary_size": 8716,
+        "held_out_unk_share": 0.013276800047718584
+      },
+      {
+        "min_count": 50,
+        "vocabulary_size": 5570,
+        "held_out_unk_share": 0.022402982262429982
+      }
+    ]
+  },
+  "contractions": {
+    "types": 2837,
+    "tokens": 383611,
+    "share_of_tokens": 0.01809268992806098,
+    "most_common": {
+      "it's": 80940,
+      "don't": 43044,
+      "i'm": 38962,
+      "i've": 33304,
+      "doesn't": 31138,
+      "didn't": 27650,
+      "can't": 15480,
+      "they're": 8165,
+      "won't": 8096,
+      "that's": 7991,
+      "wasn't": 7939,
+      "isn't": 7304,
+      "i'll": 6791,
+      "wouldn't": 5968,
+      "haven't": 5939
+    }
+  },
+  "chosen_rule": {
+    "min_count": 5,
+    "kept_tokens_on_a": 17064,
+    "kept_tokens_on_whole_corpus": 22992
+  },
+  "glove": {
+    "glove-wiki-gigaword-50.gz": {
+      "words": 400000,
+      "coverage_built_on_a": [
+        {
+          "kept_tokens": 10000,
+          "types_covered_whole": 0.9608,
+          "token_share_covered_whole": 0.973521048426076,
+          "types_covered_split": 0.9733,
+          "token_share_covered_split": 0.9915033638695339,
+          "contraction_types": 130,
+          "contraction_types_covered_whole": 4,
+          "contraction_types_covered_split": 129,
+          "most_frequent_missing_after_split": {
+            "<num>": 77521,
+            "scrunchies": 458,
+            "locs": 440,
+            "moisturizes": 425,
+            "covid": 388,
+            "detangling": 325,
+            "sonicare": 317,
+            "idk": 269,
+            "wefts": 251,
+            "detangle": 246,
+            "flosser": 240,
+            "polygel": 211,
+            "detangler": 210,
+            "ipsy": 174,
+            "scrunchie": 172,
+            "detangles": 157,
+            "y'all": 146,
+            "epilator": 145,
+            "eyeshadows": 145,
+            "eyeliners": 140,
+            "ombr": 139,
+            "reccomend": 135,
+            "gelish": 107,
+            "exfoliator": 106,
+            "bday": 99
+          }
+        },
+        {
+          "kept_tokens": 17064,
+          "types_covered_whole": 0.920182841068917,
+          "token_share_covered_whole": 0.9731075933028752,
+          "types_covered_split": 0.9363572433192686,
+          "token_share_covered_split": 0.9910889128704735,
+          "contraction_types": 293,
+          "contraction_types_covered_whole": 8,
+          "contraction_types_covered_split": 284,
+          "most_frequent_missing_after_split": {
+            "<num>": 77521,
+            "scrunchies": 458,
+            "locs": 440,
+            "moisturizes": 425,
+            "covid": 388,
+            "detangling": 325,
+            "sonicare": 317,
+            "idk": 269,
+            "wefts": 251,
+            "detangle": 246,
+            "flosser": 240,
+            "polygel": 211,
+            "detangler": 210,
+            "ipsy": 174,
+            "scrunchie": 172,
+            "detangles": 157,
+            "y'all": 146,
+            "epilator": 145,
+            "eyeshadows": 145,
+            "eyeliners": 140,
+            "ombr": 139,
+            "reccomend": 135,
+            "gelish": 107,
+            "exfoliator": 106,
+            "bday": 99
+          }
+        },
+        {
+          "kept_tokens": 20000,
+          "types_covered_whole": 0.9005,
+          "token_share_covered_whole": 0.9729837408175832,
+          "types_covered_split": 0.9182,
+          "token_share_covered_split": 0.9909718157892929,
+          "contraction_types": 384,
+          "contraction_types_covered_whole": 10,
+          "contraction_types_covered_split": 364,
+          "most_frequent_missing_after_split": {
+            "<num>": 77521,
+            "scrunchies": 458,
+            "locs": 440,
+            "moisturizes": 425,
+            "covid": 388,
+            "detangling": 325,
+            "sonicare": 317,
+            "idk": 269,
+            "wefts": 251,
+            "detangle": 246,
+            "flosser": 240,
+            "polygel": 211,
+            "detangler": 210,
+            "ipsy": 174,
+            "scrunchie": 172,
+            "detangles": 157,
+            "y'all": 146,
+            "epilator": 145,
+            "eyeshadows": 145,
+            "eyeliners": 140,
+            "ombr": 139,
+            "reccomend": 135,
+            "gelish": 107,
+            "exfoliator": 106,
+            "bday": 99
+          }
+        },
+        {
+          "kept_tokens": 30000,
+          "types_covered_whole": 0.8156666666666667,
+          "token_share_covered_whole": 0.9726932833743495,
+          "types_covered_split": 0.8382333333333334,
+          "token_share_covered_split": 0.9906943075309796,
+          "contraction_types": 752,
+          "contraction_types_covered_whole": 13,
+          "contraction_types_covered_split": 690,
+          "most_frequent_missing_after_split": {
+            "<num>": 77521,
+            "scrunchies": 458,
+            "locs": 440,
+            "moisturizes": 425,
+            "covid": 388,
+            "detangling": 325,
+            "sonicare": 317,
+            "idk": 269,
+            "wefts": 251,
+            "detangle": 246,
+            "flosser": 240,
+            "polygel": 211,
+            "detangler": 210,
+            "ipsy": 174,
+            "scrunchie": 172,
+            "detangles": 157,
+            "y'all": 146,
+            "epilator": 145,
+            "eyeshadows": 145,
+            "eyeliners": 140,
+            "ombr": 139,
+            "reccomend": 135,
+            "gelish": 107,
+            "exfoliator": 106,
+            "bday": 99
+          }
+        }
+      ]
+    },
+    "glove.2024.wikigiga.50d.zip": {
+      "words": 1291147,
+      "coverage_built_on_a": [
+        {
+          "kept_tokens": 10000,
+          "types_covered_whole": 0.977,
+          "token_share_covered_whole": 0.9738405898831256,
+          "types_covered_split": 0.9895,
+          "token_share_covered_split": 0.9918229053265833,
+          "contraction_types": 130,
+          "contraction_types_covered_whole": 4,
+          "contraction_types_covered_split": 129,
+          "most_frequent_missing_after_split": {
+            "<num>": 77521,
+            "cannot": 1744,
+            "dont": 1637,
+            "didnt": 888,
+            "doesnt": 802,
+            "gonna": 519,
+            "polygel": 211,
+            "detangles": 157,
+            "y'all": 146,
+            "epilator": 145,
+            "reccomend": 135,
+            "theyre": 91,
+            "arcitec": 71,
+            "spoolie": 70,
+            "excelent": 64,
+            "detangled": 58,
+            "epilady": 50,
+            "microblading": 49,
+            "deoderant": 46,
+            "salux": 44,
+            "pravana": 40,
+            "cerave": 39,
+            "loveee": 39,
+            "dosent": 38,
+            "wunderbrow": 38
+          }
+        },
+        {
+          "kept_tokens": 17064,
+          "types_covered_whole": 0.9526488513830286,
+          "token_share_covered_whole": 0.9736751511068953,
+          "types_covered_split": 0.9689990623534928,
+          "token_share_covered_split": 0.991656566142585,
+          "contraction_types": 293,
+          "contraction_types_covered_whole": 10,
+          "contraction_types_covered_split": 289,
+          "most_frequent_missing_after_split": {
+            "<num>": 77521,
+            "cannot": 1744,
+            "dont": 1637,
+            "didnt": 888,
+            "doesnt": 802,
+            "gonna": 519,
+            "polygel": 211,
+            "detangles": 157,
+            "y'all": 146,
+            "epilator": 145,
+            "reccomend": 135,
+            "theyre": 91,
+            "arcitec": 71,
+            "spoolie": 70,
+            "excelent": 64,
+            "detangled": 58,
+            "epilady": 50,
+            "microblading": 49,
+            "deoderant": 46,
+            "salux": 44,
+            "pravana": 40,
+            "cerave": 39,
+            "loveee": 39,
+            "dosent": 38,
+            "wunderbrow": 38
+          }
+        },
+        {
+          "kept_tokens": 20000,
+          "types_covered_whole": 0.93995,
+          "token_share_covered_whole": 0.9736126891518717,
+          "types_covered_split": 0.9579,
+          "token_share_covered_split": 0.9916009548874074,
+          "contraction_types": 384,
+          "contraction_types_covered_whole": 17,
+          "contraction_types_covered_split": 376,
+          "most_frequent_missing_after_split": {
+            "<num>": 77521,
+            "cannot": 1744,
+            "dont": 1637,
+            "didnt": 888,
+            "doesnt": 802,
+            "gonna": 519,
+            "polygel": 211,
+            "detangles": 157,
+            "y'all": 146,
+            "epilator": 145,
+            "reccomend": 135,
+            "theyre": 91,
+            "arcitec": 71,
+            "spoolie": 70,
+            "excelent": 64,
+            "detangled": 58,
+            "epilady": 50,
+            "microblading": 49,
+            "deoderant": 46,
+            "salux": 44,
+            "pravana": 40,
+            "cerave": 39,
+            "loveee": 39,
+            "dosent": 38,
+            "wunderbrow": 38
+          }
+        },
+        {
+          "kept_tokens": 30000,
+          "types_covered_whole": 0.8741,
+          "token_share_covered_whole": 0.9734464965776846,
+          "types_covered_split": 0.8973,
+          "token_share_covered_split": 0.9914480921440024,
+          "contraction_types": 752,
+          "contraction_types_covered_whole": 25,
+          "contraction_types_covered_split": 721,
+          "most_frequent_missing_after_split": {
+            "<num>": 77521,
+            "cannot": 1744,
+            "dont": 1637,
+            "didnt": 888,
+            "doesnt": 802,
+            "gonna": 519,
+            "polygel": 211,
+            "detangles": 157,
+            "y'all": 146,
+            "epilator": 145,
+            "reccomend": 135,
+            "theyre": 91,
+            "arcitec": 71,
+            "spoolie": 70,
+            "excelent": 64,
+            "detangled": 58,
+            "epilady": 50,
+            "microblading": 49,
+            "deoderant": 46,
+            "salux": 44,
+            "pravana": 40,
+            "cerave": 39,
+            "loveee": 39,
+            "dosent": 38,
+            "wunderbrow": 38
+          }
+        }
+      ]
+    }
+  }
+}

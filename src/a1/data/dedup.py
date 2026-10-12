@@ -4,14 +4,20 @@ Among the reviews still kept, taken in time order (earliest first):
 
 1. An exact copy of an earlier review by the same person is removed, whatever
    its length: it is the same review counted again.
-2. An exact copy of an earlier review of 7+ words by a different person is
-   removed: long texts are almost never written twice independently.
+2. An exact copy of an earlier review of 14+ words by a different person is
+   removed: at that length, a match is very unlikely to be chance (see below).
 3. A near copy by the same person (two reviews of 7+ words sharing at least
    90% of their distinct words, measured by Jaccard overlap) is removed,
    keeping the earliest review of each group of near copies.
 
-Exact copies of 1 to 6 words by different people are kept: common phrases
-such as "love it" are written independently by many people.
+Exact copies of 1 to 13 words by different people are kept: people write
+common sentences such as "love it" or "it broke the first time I used it"
+independently.
+
+Where 14 comes from: in the clean corpus, two different people wrote
+near-identical reviews (90%+ shared words, not exact copies) at every length
+from 7 to 13 words, and not once from 14 to 26 words; the few pairs above that
+read as copies (scripts/check_corpus.py measures this, see corpus_checks.py).
 
 "Exact copy" means the same token sequence after the step 1 cleaning.
 """
@@ -25,14 +31,15 @@ import numpy as np
 from a1.data.language import SHORT_MAX_WORDS
 from a1.data.review_table import ReviewTable
 
-LONG_MIN_WORDS = SHORT_MAX_WORDS + 1
+LONG_MIN_WORDS = SHORT_MAX_WORDS + 1  # near copies by the same person: 7+ words
+OTHER_PERSON_MIN_WORDS = 14  # exact copies by another person: 14+ words (see above)
 NEAR_COPY_JACCARD = 0.9
 MAX_REVIEWS_PER_USER_COMPARED = 400  # bounds the pairwise work for the busiest users
 
-KEEP, SAME_PERSON_COPY, LONG_COPY_OTHER_PERSON, SAME_PERSON_NEAR_COPY = 0, 1, 2, 3
+KEEP, SAME_PERSON_COPY, OTHER_PERSON_COPY, SAME_PERSON_NEAR_COPY = 0, 1, 2, 3
 REASONS = {
     SAME_PERSON_COPY: "exact copy by the same person",
-    LONG_COPY_OTHER_PERSON: "exact copy of 7+ words by another person",
+    OTHER_PERSON_COPY: f"exact copy of {OTHER_PERSON_MIN_WORDS}+ words by another person",
     SAME_PERSON_NEAR_COPY: "near copy by the same person (90%+ word overlap)",
 }
 
@@ -49,8 +56,10 @@ def duplicate_reasons(
 
     Returns:
         ``reasons``: KEEP or the rule that removes each review (int8).
-        ``original``: for a removed review, the index of the earlier review it
-        copies (-1 otherwise), so samples can show both.
+        ``original``: for a review whose cleaned text repeats an earlier review,
+        the index of that earlier review, whether the repeat is removed or kept
+        (a short copy by another person); -1 otherwise. Samples use it to show
+        both texts.
     """
     reasons = np.zeros(len(table), dtype=np.int8)
     original = np.full(len(table), -1, dtype=np.int64)
@@ -78,14 +87,15 @@ def _exact_copies(
             continue
         members = order[start:end]
         first = int(members[0])
-        is_long = table.words[first] >= LONG_MIN_WORDS
+        is_long = table.words[first] >= OTHER_PERSON_MIN_WORDS
         users = {int(table.user[first])}
         for member in members[1:]:
             user = int(table.user[member])
+            original[member] = first
             if user in users:
-                reasons[member], original[member] = SAME_PERSON_COPY, first
+                reasons[member] = SAME_PERSON_COPY
             elif is_long:
-                reasons[member], original[member] = LONG_COPY_OTHER_PERSON, first
+                reasons[member] = OTHER_PERSON_COPY
             users.add(user)
 
 

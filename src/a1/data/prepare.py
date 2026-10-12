@@ -7,7 +7,12 @@
 5. Cap per product (D0.10): see cap.py. The cap is computed from the ratings
    of the reviews left after step 4. If ratings of the same product are no
    more alike than ratings of different products (correlation 0 or below),
-   extra reviews never stop adding information, so no cap is applied.
+   extra reviews never stop adding information, so no cap is applied. The cap
+   is also recomputed on random halves of the products, to show it does not
+   depend on which products end up in the test pile.
+
+The corpus is written with a fixed gzip header, and the report records the
+SHA-256 of its uncompressed content, so a re-run can be checked as identical.
 
 Every product also gets a fixed random split key in [0, 1), from a hash of
 its id and the seed. The piles (language-model training, validation and test,
@@ -29,7 +34,13 @@ from typing import Any
 import numpy as np
 
 from a1.data import dedup, language_filter
-from a1.data.cap import INFORMATION_SHARE, cap_mask, design_effect_cap, information
+from a1.data.cap import (
+    INFORMATION_SHARE,
+    cap_mask,
+    cap_on_random_halves,
+    design_effect_cap,
+    information,
+)
 from a1.data.clean import clean_text, tokenize
 from a1.data.explore import iter_reviews
 from a1.data.product_checks import intraclass_correlation
@@ -58,11 +69,14 @@ class Prepared:
         stages: Boolean mask of the reviews kept after each step, in order.
         language: Per review, KEEP (0) or the English-only rule that removes it.
         duplicate: Per review, KEEP (0) or the duplicate rule that removes it.
-        duplicate_of: For a removed duplicate, the earlier review it copies.
+        duplicate_of: For a review that repeats an earlier text (removed, or
+            kept as a short copy by another person), that earlier review; else -1.
         rho: Intraclass correlation of star ratings within products (after
             step 4), or None if it cannot be computed.
         cap: Most reviews kept per product, or None for no cap.
         seed: Seed for the cap, the split keys and the samples.
+        cap_check: rho and the cap recomputed on random halves of the products,
+            or None when there is no cap.
     """
 
     table: ReviewTable
@@ -73,6 +87,7 @@ class Prepared:
     rho: float | None
     cap: int | None
     seed: int
+    cap_check: dict[str, Any] | None = None
 
     @property
     def final(self) -> np.ndarray:
@@ -98,13 +113,15 @@ def prepare(path: Path, seed: int = SEED) -> Prepared:
     stages["after duplicates"] = stages["after English only"] & (duplicate == dedup.KEEP)
     kept = stages["after duplicates"]
     rho = intraclass_correlation(table.rating[kept], table.product[kept])
+    cap_check = None
     if rho is not None and 0 < rho < 1:
         cap: int | None = design_effect_cap(rho)
         stages["after cap"] = cap_mask(table.product, kept, cap, seed)
+        cap_check = cap_on_random_halves(table.rating[kept], table.product[kept], seed)
     else:
         cap = None
         stages["after cap"] = kept.copy()
-    return Prepared(table, stages, language, duplicate, duplicate_of, rho, cap, seed)
+    return Prepared(table, stages, language, duplicate, duplicate_of, rho, cap, seed, cap_check)
 
 
 def split_key(product: str, seed: int = SEED) -> float:
@@ -113,11 +130,31 @@ def split_key(product: str, seed: int = SEED) -> float:
     return int.from_bytes(digest, "big") / 2**64
 
 
-def write_corpus(raw_path: Path, prepared: Prepared, out_path: Path, quote: set[int]) -> dict:
+@dataclass
+class CorpusWritten:
+    """What :func:`write_corpus` wrote.
+
+    Attributes:
+        rows: Reviews written.
+        sha256: SHA-256 of the uncompressed content, the same value that
+            ``gunzip -c reviews.jsonl.gz | shasum -a 256`` prints.
+        excerpts: Excerpts of the reviews the hand-check samples quote, by index.
+    """
+
+    rows: int
+    sha256: str
+    excerpts: dict[int, str]
+
+
+def write_corpus(
+    raw_path: Path, prepared: Prepared, out_path: Path, quote: set[int]
+) -> CorpusWritten:
     """Write the kept reviews, cleaned and tokenized, one JSON object per line.
 
     Each line holds the raw file position ("id"), product, user, time, stars,
     the product's split key and the cleaned tokens joined by single spaces.
+    The gzip header carries no time or file name, so the same data always
+    gives the same file.
 
     Args:
         raw_path: The raw review file the table was built from.
@@ -126,13 +163,18 @@ def write_corpus(raw_path: Path, prepared: Prepared, out_path: Path, quote: set[
         quote: Review indices whose excerpts the hand-check samples need.
 
     Returns:
-        Excerpts of the quoted reviews, by index.
+        The row count, the fingerprint and the excerpts.
     """
     table, final = prepared.table, prepared.final
     keys: dict[int, float] = {}
     excerpts: dict[int, str] = {}
+    digest = hashlib.sha256()
+    rows = 0
     out_path.parent.mkdir(parents=True, exist_ok=True)
-    with gzip.open(out_path, "wt", encoding="utf-8") as handle:
+    with (
+        out_path.open("wb") as file,
+        gzip.GzipFile(filename="", mode="wb", fileobj=file, mtime=0) as handle,
+    ):
         for index, record in enumerate(iter_reviews(raw_path)):
             raw = record.get("text") or ""
             if index in quote:
@@ -151,8 +193,11 @@ def write_corpus(raw_path: Path, prepared: Prepared, out_path: Path, quote: set[
                 "split_key": keys[product],
                 "text": " ".join(tokenize(clean_text(raw))),
             }
-            handle.write(json.dumps(row) + "\n")
-    return excerpts
+            line = (json.dumps(row) + "\n").encode("utf-8")
+            handle.write(line)
+            digest.update(line)
+            rows += 1
+    return CorpusWritten(rows=rows, sha256=digest.hexdigest(), excerpts=excerpts)
 
 
 def _counts(table: ReviewTable, mask: np.ndarray) -> dict[str, Any]:
@@ -187,8 +232,8 @@ def _by_group(
     return rows
 
 
-def summarize(prepared: Prepared) -> dict[str, Any]:
-    """Every number the report needs, by step."""
+def summarize(prepared: Prepared, corpus: CorpusWritten | None = None) -> dict[str, Any]:
+    """Every number the report needs, by step, plus the corpus fingerprint if written."""
     table, stages = prepared.table, prepared.stages
     names = list(stages)
     lengths_in, language_in = stages["raw"], stages["after lengths"]
@@ -233,6 +278,10 @@ def summarize(prepared: Prepared) -> dict[str, Any]:
         "cap": _cap_summary(prepared, product_counts, cap_in, final),
         "final": _counts(table, final) | {"users": int(np.unique(table.user[final]).size)},
         "markup_reviews": dict(table.markup_reviews.most_common()),
+        "email_addresses_removed_from_reviews": table.email_reviews,
+        "corpus": None
+        if corpus is None
+        else {"rows": corpus.rows, "sha256_uncompressed": corpus.sha256},
     }
 
 
@@ -250,6 +299,7 @@ def _cap_summary(
         "products_above_cap": int((product_counts > cap).sum()) if has_cap else 0,
         "removed": int((cap_in & ~final).sum()),
         "share_kept": float(final.sum() / cap_in.sum()),
+        "check_random_halves": prepared.cap_check,
     }
 
 
@@ -257,6 +307,7 @@ def _cap_summary(
 class _Sample:
     title: str
     rows: list[tuple[int, int]]  # (review, its original or -1)
+    verb: str = "removed"  # how the first review of a pair is labelled
 
 
 def choose_samples(prepared: Prepared) -> list[_Sample]:
@@ -295,7 +346,7 @@ def choose_samples(prepared: Prepared) -> list[_Sample]:
         ),
     ]
     duplicates_in = stages["after English only"]
-    for code in (dedup.SAME_PERSON_NEAR_COPY, dedup.LONG_COPY_OTHER_PERSON):
+    for code in (dedup.SAME_PERSON_NEAR_COPY, dedup.OTHER_PERSON_COPY):
         chosen = pick(duplicates_in & (prepared.duplicate == code), SAMPLES["duplicates"])
         samples.append(
             _Sample(
@@ -303,6 +354,23 @@ def choose_samples(prepared: Prepared) -> list[_Sample]:
                 [(i, int(prepared.duplicate_of[i])) for i in chosen],
             )
         )
+    # The other side of the copy rule: exact copies by another person below the
+    # 14-word line are kept, because people write common sentences independently.
+    low, high = dedup.LONG_MIN_WORDS, dedup.OTHER_PERSON_MIN_WORDS - 1
+    kept_copies = (
+        duplicates_in
+        & (prepared.duplicate == dedup.KEEP)
+        & (prepared.duplicate_of >= 0)
+        & in_group(table.words, low, high)
+    )
+    chosen = pick(kept_copies, SAMPLES["duplicates"])
+    samples.append(
+        _Sample(
+            f"Duplicates, kept: exact copy of {low}-{high} words by another person",
+            [(i, int(prepared.duplicate_of[i])) for i in chosen],
+            verb="kept",
+        )
+    )
     return samples
 
 
@@ -341,7 +409,7 @@ def render_samples(
                 lines.append(language_line(review))
             else:
                 lines.append(
-                    f"{table.rating[review]}* | removed: {excerpts.get(review, '')}\n"
+                    f"{table.rating[review]}* | {sample.verb}: {excerpts.get(review, '')}\n"
                     f"    copy of ({table.rating[source]}*): {excerpts.get(source, '')}"
                 )
         rendered[sample.title] = lines
@@ -397,6 +465,13 @@ def format_report(summary: dict[str, Any]) -> list[str]:
             f"  {cap['products_above_cap']:,} products above the cap; {cap['removed']:,} "
             f"reviews removed; {cap['share_kept']:.1%} of reviews kept.",
         ]
+        check = cap["check_random_halves"]
+        if check is not None and check["cap"]["min"] is not None:
+            lines.append(
+                f"  Check: on {check['repeats']} random halves of the products the cap ranges "
+                f"from {check['cap']['min']:.0f} to {check['cap']['max']:.0f} "
+                f"(median {check['cap']['median']:.0f})."
+            )
     lines.append("")
     final = summary["final"]
     stars = ", ".join(f"{s}*: {n:,}" for s, n in final["by_stars"].items())
@@ -406,5 +481,11 @@ def format_report(summary: dict[str, Any]) -> list[str]:
         f"  {stars}",
         "Amazon markup found: "
         + ", ".join(f"{name} in {n:,} reviews" for name, n in summary["markup_reviews"].items()),
+        f"Email addresses removed from {summary['email_addresses_removed_from_reviews']:,} "
+        "reviews.",
     ]
+    corpus = summary.get("corpus")
+    if corpus is not None:
+        fingerprint = corpus["sha256_uncompressed"]
+        lines.append(f"Corpus fingerprint (SHA-256 of the uncompressed file): {fingerprint}")
     return lines

@@ -17,7 +17,7 @@ from pathlib import Path
 
 import numpy as np
 
-from a1.data.clean import clean_text, tokenize
+from a1.data.clean import clean_text, has_email, tokenize
 from a1.data.explore import iter_reviews
 from a1.data.language import (
     SENTENCE_MIN_PROBABILITY,
@@ -100,6 +100,7 @@ class ReviewTable:
         evidence: Word evidence learnt from confidently identified long reviews.
         markup_reviews: Reviews containing each kind of "[[NAME:" markup.
         markup_examples: A few raw markup strings per kind, as they appear.
+        email_reviews: Reviews that had an email address (removed by cleaning).
         flagged_long_words: For reviews of SHORT_MAX_WORDS + 1 or more words
             that fastText does not call English, their words (any script),
             so the word score can check fastText's call.
@@ -129,6 +130,7 @@ class ReviewTable:
     flagged_long_words: dict[int, list[str]] = field(default_factory=dict)
     product_names: list[str] = field(default_factory=list)
     user_names: list[str] = field(default_factory=list)
+    email_reviews: int = 0
 
     def __len__(self) -> int:
         return int(self.rating.size)
@@ -181,6 +183,7 @@ def build_review_table(path: Path, identifier: LanguageIdentifier | None = None)
     flagged_long_words: dict[int, list[str]] = {}
     markup_reviews: Counter[str] = Counter()
     markup_examples: dict[str, list[str]] = {}
+    email_reviews = 0
     evidence = WordEvidence()
 
     def intern(kind: str, key: str | bytes) -> int:
@@ -204,6 +207,7 @@ def build_review_table(path: Path, identifier: LanguageIdentifier | None = None)
                 closing = raw.find("]]", match.start())
                 end = closing + 2 if closing != -1 else match.start() + EXCERPT_CHARS
                 found.append(raw[match.start() : min(end, match.start() + EXCERPT_CHARS)])
+        email_reviews += has_email(raw)
         tokens = tokenize(clean_text(raw))
         word_tokens = [token for token in tokens if token[0].isalpha()]
         digest = hashlib.blake2b(" ".join(tokens).encode("utf-8"), digest_size=12).digest()
@@ -279,6 +283,7 @@ def build_review_table(path: Path, identifier: LanguageIdentifier | None = None)
         foreign_sentences=foreign_sentences,
         markup_reviews=markup_reviews,
         markup_examples=markup_examples,
+        email_reviews=email_reviews,
         flagged_long_words=flagged_long_words,
         product_names=names("product"),
         user_names=names("user"),

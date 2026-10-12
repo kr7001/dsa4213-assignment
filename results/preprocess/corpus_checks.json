@@ -1,0 +1,187 @@
+{
+  "structure": {
+    "rows": 587133,
+    "tokens": 21202541,
+    "matches_report": {
+      "rows": true,
+      "tokens": true,
+      "fingerprint": true
+    },
+    "sha256_uncompressed": "16ec4ec1af0b7cb1a10302ddde5810059657b5a7741ad2296899cbbfb8184bcd",
+    "schemas": {
+      "id, product, split_key, stars, text, time, user": 587133
+    },
+    "ids_unique_and_increasing": true,
+    "invalid_tokens": 0,
+    "invalid_token_examples": [],
+    "fewest_words": 1,
+    "most_tokens": 512,
+    "within_length_limits": true,
+    "words_percentiles": {
+      "p1": 1.0,
+      "p5": 2.0,
+      "p25": 8.0,
+      "p50": 19.0,
+      "p75": 40.0,
+      "p95": 105.0,
+      "p99": 205.0
+    },
+    "tokens_percentiles": {
+      "p1": 1.0,
+      "p5": 2.0,
+      "p25": 10.0,
+      "p50": 22.0,
+      "p75": 45.0,
+      "p95": 117.0,
+      "p99": 228.0
+    },
+    "stars": {
+      "1": 87884,
+      "2": 37085,
+      "3": 48195,
+      "4": 66949,
+      "5": 347020
+    },
+    "years": [
+      2001,
+      2023
+    ],
+    "products": 111348,
+    "most_reviews_per_product": 90,
+    "products_at_cap": 821,
+    "within_cap": true,
+    "products_with_several_split_keys": 0,
+    "split_keys_per_tenth": [
+      11120,
+      11001,
+      11237,
+      11000,
+      11220,
+      11006,
+      11198,
+      11183,
+      11207,
+      11176
+    ],
+    "users": 536445,
+    "share_of_reviews_by_users_with_2_plus": 0.1449126518182422
+  },
+  "duplicates": {
+    "exact": {
+      "same_person_same_text": 0,
+      "copies_of_14_plus_words_by_other_people": 0,
+      "copies_by_other_people_kept": {
+        "1-6": 43370,
+        "7": 64,
+        "8": 15,
+        "9": 6,
+        "10": 1,
+        "12": 1,
+        "13": 1
+      }
+    },
+    "near_identical": {
+      "search_complete": true,
+      "overlap_at_least": 0.9,
+      "pairs_by_other_people": 376,
+      "by_words_of_longer_review": {
+        "7": 142,
+        "8": 111,
+        "9": 38,
+        "10": 40,
+        "11": 29,
+        "12": 7,
+        "13": 2,
+        "27": 1,
+        "39": 1,
+        "40": 1,
+        "53": 1,
+        "62": 1,
+        "106": 1,
+        "110": 1
+      },
+      "pairs_below_14_words": 369,
+      "pairs_of_14_plus_words": 7,
+      "longest_pair_below_14_words": 13,
+      "shortest_pair_of_14_plus_words": 27,
+      "pairs_of_14_plus_words_on_the_same_product": 5,
+      "pairs_by_the_same_person": 0
+    }
+  },
+  "leftovers": {
+    "accent_fragments": {
+      "reviews_with_any": 302,
+      "share_of_reviews": 0.0005143638664493395,
+      "reviews_by_word": {
+        "fianc\u00e9(e)": 112,
+        "cr\u00e8me": 47,
+        "L'Or\u00e9al": 35,
+        "Lanc\u00f4me": 32,
+        "d\u00e9collet\u00e9": 18,
+        "d\u00e9colletage": 15,
+        "souffl\u00e9": 13,
+        "ros\u00e9": 6,
+        "br\u00fbl\u00e9e": 6,
+        "pi\u00f1a colada": 5,
+        "Herm\u00e8s": 4,
+        "jalape\u00f1o": 3,
+        "prot\u00e9g\u00e9": 3,
+        "saut\u00e9": 2,
+        "glac\u00e9": 1,
+        "proven\u00e7al": 1,
+        "clich\u00e9": 1,
+        "Av\u00e8ne": 1,
+        "entr\u00e9e": 1,
+        "pur\u00e9e": 1
+      },
+      "note": "only the listed words are searched, so this is a lower bound"
+    },
+    "contractions": {
+      "whole": 367723,
+      "split": 388,
+      "share_split": 0.001054029898590371,
+      "reviews_with_a_split_one": 361
+    },
+    "punctuation_runs": {
+      "tokens_in_runs_of_4_plus": 72092,
+      "share_of_tokens": 0.0034001584998703694,
+      "by_mark": {
+        ".": 43116,
+        "!": 27940,
+        "?": 801,
+        ",": 189,
+        ":": 46
+      },
+      "reviews": 12833,
+      "share_of_reviews": 0.021857057940875408,
+      "longest_run": 81
+    },
+    "email_addresses": {
+      "reviews": 0
+    },
+    "markup_tokens": {
+      "br": 30,
+      "nbsp": 0,
+      "quot": 0,
+      "amp": 35,
+      "lt": 22,
+      "gt": 4,
+      "videoid": 0,
+      "asin": 5,
+      "http": 0,
+      "https": 0,
+      "www": 2,
+      "href": 2
+    },
+    "num_tokens": 154621,
+    "repetitive_reviews": 5,
+    "reviews_with_4_plus_foreign_function_words": {
+      "es": 1,
+      "fr": 0,
+      "pt": 1,
+      "it": 0,
+      "de": 0,
+      "tl": 0
+    }
+  }
+}

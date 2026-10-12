@@ -1,6 +1,6 @@
 """Tests for the step 1 cleaning rules and the tokenizer that keeps <num>."""
 
-from a1.data.clean import clean_text, count_words, is_word, tokenize
+from a1.data.clean import clean_text, count_words, has_email, is_word, tokenize
 
 
 def _tokens(raw: str) -> list[str]:
@@ -66,3 +66,14 @@ def test_word_counting_skips_punctuation_and_numbers() -> None:
     assert not is_word("<num>") and not is_word("!") and is_word("don't")
     assert count_words(_tokens("10/10 !!!")) == 0
     assert count_words(_tokens("\U0001f44d")) == 0
+
+
+def test_email_addresses_become_spaces() -> None:
+    assert _tokens("Email me at jane.doe99@gmail.com for help") == [
+        "email", "me", "at", "for", "help",
+    ]  # fmt: skip
+    assert _tokens("write to JANE&#64;YAHOO.COM.") == ["write", "to", "."]  # escaped "@"
+    assert _tokens("@sephora has it at 5@ each") == [
+        "sephora", "has", "it", "at", "<num>", "each",
+    ]  # fmt: skip
+    assert has_email("mail bob_smith@mail.co.uk") and not has_email("@sephora")

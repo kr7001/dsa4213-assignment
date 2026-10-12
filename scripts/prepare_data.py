@@ -8,9 +8,12 @@ duplicates (D0.11) and the cap per product (D0.10); see src/a1/data/prepare.py.
 
 Writes:
     data/processed/reviews.jsonl.gz          the clean corpus (never committed)
-    results/preprocess/report.json           counts after every step, by star
+    results/preprocess/report.json           counts after every step, by star, the
+                                             cap check and the corpus fingerprint
     results/preprocess/examples_check.txt    random samples to check by hand
                                              (git-ignored, it quotes the data)
+
+Then run scripts/check_corpus.py to check the corpus it wrote.
 """
 
 from __future__ import annotations
@@ -54,14 +57,14 @@ def main() -> int:
     prepared = prepare(args.input, seed=args.seed)
     samples = choose_samples(prepared)
     print("Step 2 of 2: writing the clean corpus...", flush=True)
-    excerpts = write_corpus(args.input, prepared, args.corpus, sample_indices(samples))
+    written = write_corpus(args.input, prepared, args.corpus, sample_indices(samples))
 
-    summary = summarize(prepared)
+    summary = summarize(prepared, written)
     args.results.mkdir(parents=True, exist_ok=True)
     report_path = args.results / "report.json"
     examples_path = args.results / "examples_check.txt"
     report_path.write_text(json.dumps(summary, indent=2) + "\n", encoding="utf-8")
-    rendered = render_samples(prepared, samples, excerpts)
+    rendered = render_samples(prepared, samples, written.excerpts)
     examples_path.write_text(
         "\n\n".join(
             f"## {title}\n" + ("\n".join(f"- {line}" for line in lines) or "- (none)")
