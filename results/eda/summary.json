@@ -1,0 +1,364 @@
+{
+  "size": {
+    "reviews": 701528,
+    "products": 112565,
+    "users": 631986,
+    "course_tokens": 25690896,
+    "years": {
+      "first": 2000,
+      "last": 2023,
+      "per_year": {
+        "2000": 1,
+        "2001": 12,
+        "2002": 24,
+        "2003": 56,
+        "2004": 134,
+        "2005": 267,
+        "2006": 419,
+        "2007": 1162,
+        "2008": 1269,
+        "2009": 1207,
+        "2010": 1586,
+        "2011": 1877,
+        "2012": 2803,
+        "2013": 7948,
+        "2014": 16279,
+        "2015": 36239,
+        "2016": 62747,
+        "2017": 68035,
+        "2018": 72707,
+        "2019": 99120,
+        "2020": 126753,
+        "2021": 124897,
+        "2022": 61581,
+        "2023": 14405
+      }
+    },
+    "verified_purchase_share": 0.9051228176209645
+  },
+  "ratings": {
+    "counts": {
+      "1": 102080,
+      "2": 43034,
+      "3": 56307,
+      "4": 79381,
+      "5": 420726
+    },
+    "shares": {
+      "1": 0.14551094182983432,
+      "2": 0.06134323932900754,
+      "3": 0.0802633679625047,
+      "4": 0.11315442861867238,
+      "5": 0.5997280222599811
+    }
+  },
+  "products": {
+    "reviews_per_product_mean": 6.2322036156887135,
+    "reviews_per_product_percentiles": {
+      "p1": 1.0,
+      "p5": 1.0,
+      "p10": 1.0,
+      "p25": 1.0,
+      "p50": 2.0,
+      "p75": 4.0,
+      "p90": 11.0,
+      "p95": 21.0,
+      "p99": 73.0,
+      "p99.9": 310.0
+    },
+    "max_reviews_one_product": 1962,
+    "largest_product_share_of_reviews": 0.0027967522322701302,
+    "share_products_with_one_review": 0.42256474037222935,
+    "products_with_at_least": {
+      "2": 64999,
+      "5": 27533,
+      "10": 13257,
+      "30": 3692,
+      "100": 744,
+      "1000": 11
+    },
+    "share_of_reviews_in_top_1pct_products": 0.27870733598658926,
+    "share_of_reviews_in_top_10pct_products": 0.629394692727874,
+    "cap_table": [
+      {
+        "cap": 1,
+        "share_reviews_kept": 0.16045688839219532,
+        "products_above_cap": 64999,
+        "largest_product_after_cap": 1
+      },
+      {
+        "cap": 2,
+        "share_reviews_kept": 0.2531103534000068,
+        "products_above_cap": 45125,
+        "largest_product_after_cap": 2
+      },
+      {
+        "cap": 3,
+        "share_reviews_kept": 0.3174342292823665,
+        "products_above_cap": 34263,
+        "largest_product_after_cap": 3
+      },
+      {
+        "cap": 5,
+        "share_reviews_kept": 0.40552194637990213,
+        "products_above_cap": 22866,
+        "largest_product_after_cap": 5
+      },
+      {
+        "cap": 10,
+        "share_reviews_kept": 0.5300372900297636,
+        "products_above_cap": 11981,
+        "largest_product_after_cap": 10
+      },
+      {
+        "cap": 20,
+        "share_reviews_kept": 0.651016067783467,
+        "products_above_cap": 5716,
+        "largest_product_after_cap": 20
+      },
+      {
+        "cap": 30,
+        "share_reviews_kept": 0.7164674824098254,
+        "products_above_cap": 3551,
+        "largest_product_after_cap": 30
+      },
+      {
+        "cap": 50,
+        "share_reviews_kept": 0.7909848217034815,
+        "products_above_cap": 1859,
+        "largest_product_after_cap": 50
+      },
+      {
+        "cap": 100,
+        "share_reviews_kept": 0.873553158248851,
+        "products_above_cap": 730,
+        "largest_product_after_cap": 100
+      },
+      {
+        "cap": 200,
+        "share_reviews_kept": 0.9344145921474267,
+        "products_above_cap": 246,
+        "largest_product_after_cap": 200
+      },
+      {
+        "cap": 500,
+        "share_reviews_kept": 0.9793778723016044,
+        "products_above_cap": 40,
+        "largest_product_after_cap": 500
+      },
+      {
+        "cap": 1000,
+        "share_reviews_kept": 0.994031599594029,
+        "products_above_cap": 11,
+        "largest_product_after_cap": 1000
+      }
+    ]
+  },
+  "users": {
+    "max_reviews_one_user": 165,
+    "share_reviews_by_users_with_10_plus": 0.010193463411296485
+  },
+  "lengths": {
+    "unit": "course-tokenizer tokens on the raw text, before any cleaning",
+    "mean": 36.62134084455646,
+    "percentiles": {
+      "p1": 1.0,
+      "p5": 2.0,
+      "p10": 4.0,
+      "p25": 10.0,
+      "p50": 22.0,
+      "p75": 45.0,
+      "p90": 82.0,
+      "p95": 118.0,
+      "p99": 238.0,
+      "p99.9": 524.0
+    },
+    "max": 2843,
+    "empty_text": 720,
+    "empty_text_with_title": 720,
+    "zero_tokens_nonempty_text": 857,
+    "share_shorter_than": {
+      "1": 0.0022479501887308845,
+      "3": 0.05701839413394761,
+      "5": 0.1154850554788975,
+      "10": 0.24953672554766168,
+      "20": 0.459749290120993,
+      "50": 0.7819131951967705
+    },
+    "share_longer_than": {
+      "128": 0.04175029364472979,
+      "256": 0.008296176346489378,
+      "512": 0.0010833494885450045,
+      "1024": 0.0001026331094411057
+    },
+    "share_of_tokens_in_reviews_longer_than": {
+      "128": 0.243104444469356,
+      "256": 0.08683624736171132,
+      "512": 0.021047378028387954,
+      "1024": 0.003821081211025104
+    },
+    "by_star": {
+      "1": {
+        "reviews": 102080,
+        "median": 23.0,
+        "mean": 33.83838166144201,
+        "share_shorter_than": {
+          "1": 0.0017927115987460816,
+          "3": 0.031583072100313477,
+          "5": 0.079516065830721,
+          "10": 0.21274490595611284,
+          "20": 0.443064263322884,
+          "50": 0.8005877742946709
+        },
+        "share_longer_than": {
+          "128": 0.026969043887147336,
+          "256": 0.003996865203761755,
+          "512": 0.0004702194357366771,
+          "1024": 5.877742946708464e-05
+        }
+      },
+      "2": {
+        "reviews": 43034,
+        "median": 27.0,
+        "mean": 40.75514709299623,
+        "share_shorter_than": {
+          "1": 0.0010689222475252127,
+          "3": 0.021610819352140168,
+          "5": 0.05860482409257796,
+          "10": 0.16951712599340057,
+          "20": 0.3777478272993447,
+          "50": 0.7401124692103918
+        },
+        "share_longer_than": {
+          "128": 0.04403494911000604,
+          "256": 0.007157131570386206,
+          "512": 0.0009294976065436631,
+          "1024": 0.00011618720081795789
+        }
+      },
+      "3": {
+        "reviews": 56307,
+        "median": 27.0,
+        "mean": 43.22482107020441,
+        "share_shorter_than": {
+          "1": 0.0008347097163762942,
+          "3": 0.02985419219635214,
+          "5": 0.06191059726144174,
+          "10": 0.16692418349405935,
+          "20": 0.3695277674179054,
+          "50": 0.7315076278260252
+        },
+        "share_longer_than": {
+          "128": 0.053368142504484344,
+          "256": 0.010797946969293338,
+          "512": 0.0012787042463636847,
+          "1024": 0.0002308771555934431
+        }
+      },
+      "4": {
+        "reviews": 79381,
+        "median": 28.0,
+        "mean": 47.23637898237614,
+        "share_shorter_than": {
+          "1": 0.0015746841183658558,
+          "3": 0.04821052896788904,
+          "5": 0.0929063629835855,
+          "10": 0.19711265920056437,
+          "20": 0.3761479447222887,
+          "50": 0.7033547070457666
+        },
+        "share_longer_than": {
+          "128": 0.070948967637092,
+          "256": 0.016036583061437876,
+          "512": 0.0021667653468714176,
+          "1024": 0.0002393519859916101
+        }
+      },
+      "5": {
+        "reviews": 420726,
+        "median": 19.0,
+        "mean": 33.98716979697,
+        "share_shorter_than": {
+          "1": 0.002795168351848947,
+          "3": 0.07210868831496033,
+          "5": 0.1414602377794574,
+          "10": 0.2875957273855193,
+          "20": 0.5000332758137125,
+          "50": 0.803225852455042
+        },
+        "share_longer_than": {
+          "128": 0.038039008761046385,
+          "256": 0.007660567685381935,
+          "512": 0.0010172891620674738,
+          "1024": 6.892847126158117e-05
+        }
+      }
+    }
+  },
+  "duplicates": {
+    "rule": "texts identical after lowercasing and joining whitespace",
+    "distinct_repeated_texts": 12813,
+    "reviews_in_repeated_texts": 73503,
+    "extra_copies": 60690,
+    "extra_copies_share_of_reviews": 0.08651115849973201,
+    "texts_spanning_2plus_products": 7044,
+    "texts_with_both_low_and_high_ratings": 359,
+    "by_length": [
+      {
+        "tokens": "0-4",
+        "distinct_texts": 5290,
+        "reviews": 55213,
+        "extra_copies": 49923,
+        "texts_spanning_2plus_products": 5050,
+        "reviews_in_texts_spanning_2plus_products": 54662
+      },
+      {
+        "tokens": "5-19",
+        "distinct_texts": 3938,
+        "reviews": 10456,
+        "extra_copies": 6518,
+        "texts_spanning_2plus_products": 1816,
+        "reviews_in_texts_spanning_2plus_products": 5855
+      },
+      {
+        "tokens": "20+",
+        "distinct_texts": 3585,
+        "reviews": 7834,
+        "extra_copies": 4249,
+        "texts_spanning_2plus_products": 178,
+        "reviews_in_texts_spanning_2plus_products": 388
+      }
+    ]
+  },
+  "noise": {
+    "html_tag": {
+      "reviews": 48063,
+      "share": 0.0685118769314981
+    },
+    "html_entity": {
+      "reviews": 6790,
+      "share": 0.009678872404237607
+    },
+    "url": {
+      "reviews": 184,
+      "share": 0.000262284613016159
+    },
+    "curly_quote": {
+      "reviews": 86166,
+      "share": 0.12282617372364325
+    },
+    "emoji": {
+      "reviews": 13964,
+      "share": 0.01990512139216111
+    },
+    "digit": {
+      "reviews": 111666,
+      "share": 0.15917539998403485
+    }
+  },
+  "language": {
+    "mostly_non_latin_letters": 10,
+    "no_common_english_word": 13017,
+    "rule": "non-Latin: at least 30% of letters outside ASCII; no common word: 6+ tokens and none of 29 very common English words"
+  }
+}

@@ -1,0 +1,222 @@
+{
+  "seed": 4213,
+  "stages": [
+    {
+      "stage": "raw",
+      "reviews": 701528,
+      "tokens": 25662056,
+      "products": 112565,
+      "by_stars": {
+        "1": 102080,
+        "2": 43034,
+        "3": 56307,
+        "4": 79381,
+        "5": 420726
+      },
+      "positive_share": 0.7750941150396531
+    },
+    {
+      "stage": "after lengths",
+      "reviews": 698945,
+      "tokens": 25147365,
+      "products": 112376,
+      "by_stars": {
+        "1": 101805,
+        "2": 42943,
+        "3": 56187,
+        "4": 79051,
+        "5": 418959
+      },
+      "positive_share": 0.774801713864316
+    },
+    {
+      "stage": "after English only",
+      "reviews": 687311,
+      "tokens": 24997926,
+      "products": 111478,
+      "by_stars": {
+        "1": 99998,
+        "2": 42486,
+        "3": 55550,
+        "4": 78136,
+        "5": 411141
+      },
+      "positive_share": 0.7744653436980123
+    },
+    {
+      "stage": "after duplicates",
+      "reviews": 678989,
+      "tokens": 24709461,
+      "products": 111342,
+      "by_stars": {
+        "1": 98755,
+        "2": 42031,
+        "3": 54895,
+        "4": 77260,
+        "5": 406048
+      },
+      "positive_share": 0.7744153925530449
+    },
+    {
+      "stage": "after cap",
+      "reviews": 587047,
+      "tokens": 21212626,
+      "products": 111342,
+      "by_stars": {
+        "1": 87854,
+        "2": 36908,
+        "3": 48196,
+        "4": 66948,
+        "5": 347141
+      },
+      "positive_share": 0.7684666076522081
+    }
+  ],
+  "lengths": {
+    "removed_no_words": 1860,
+    "removed_over_512_tokens": 723
+  },
+  "english_only": {
+    "removed": 11634,
+    "share_removed": 0.016645086523260057,
+    "by_rule": {
+      "1-6 words, foreign by word score": 5552,
+      "7+ words, foreign by fastText and confirmed": 6054,
+      "7+ words, contains a foreign sentence": 28
+    },
+    "by_length_group": [
+      {
+        "group": "1-2 words",
+        "reviews": 48903,
+        "removed": 2607,
+        "by_rule": {
+          "1-6 words, foreign by word score": 2607,
+          "7+ words, foreign by fastText and confirmed": 0,
+          "7+ words, contains a foreign sentence": 0
+        }
+      },
+      {
+        "group": "3-6 words",
+        "reviews": 89885,
+        "removed": 2945,
+        "by_rule": {
+          "1-6 words, foreign by word score": 2945,
+          "7+ words, foreign by fastText and confirmed": 0,
+          "7+ words, contains a foreign sentence": 0
+        }
+      },
+      {
+        "group": "7-20 words",
+        "reviews": 226265,
+        "removed": 4244,
+        "by_rule": {
+          "1-6 words, foreign by word score": 0,
+          "7+ words, foreign by fastText and confirmed": 4241,
+          "7+ words, contains a foreign sentence": 3
+        }
+      },
+      {
+        "group": "21+ words",
+        "reviews": 333892,
+        "removed": 1838,
+        "by_rule": {
+          "1-6 words, foreign by word score": 0,
+          "7+ words, foreign by fastText and confirmed": 1813,
+          "7+ words, contains a foreign sentence": 25
+        }
+      }
+    ],
+    "fasttext_top_guess_of_removed": {
+      "es": 10420,
+      "it": 426,
+      "en": 233,
+      "fr": 143,
+      "pt": 139,
+      "ca": 51,
+      "tl": 40,
+      "de": 25
+    },
+    "word_score_learnt_from": {
+      "english_reviews": 516880,
+      "other_reviews": 5090
+    }
+  },
+  "duplicates": {
+    "removed": 8322,
+    "by_rule": {
+      "exact copy by the same person": 8021,
+      "exact copy of 7+ words by another person": 232,
+      "near copy by the same person (90%+ word overlap)": 69
+    },
+    "by_length_group": [
+      {
+        "group": "1-2 words",
+        "reviews": 46296,
+        "removed": 914,
+        "by_rule": {
+          "exact copy by the same person": 914,
+          "exact copy of 7+ words by another person": 0,
+          "near copy by the same person (90%+ word overlap)": 0
+        }
+      },
+      {
+        "group": "3-6 words",
+        "reviews": 86940,
+        "removed": 1067,
+        "by_rule": {
+          "exact copy by the same person": 1067,
+          "exact copy of 7+ words by another person": 0,
+          "near copy by the same person (90%+ word overlap)": 0
+        }
+      },
+      {
+        "group": "7-20 words",
+        "reviews": 222021,
+        "removed": 2555,
+        "by_rule": {
+          "exact copy by the same person": 2425,
+          "exact copy of 7+ words by another person": 119,
+          "near copy by the same person (90%+ word overlap)": 11
+        }
+      },
+      {
+        "group": "21+ words",
+        "reviews": 332054,
+        "removed": 3786,
+        "by_rule": {
+          "exact copy by the same person": 3615,
+          "exact copy of 7+ words by another person": 113,
+          "near copy by the same person (90%+ word overlap)": 58
+        }
+      }
+    ]
+  },
+  "cap": {
+    "icc_stars": 0.17447482322072091,
+    "information_limit": 5.731485961931259,
+    "information_share": 0.95,
+    "cap": 90,
+    "information_at_cap": 5.445219520583747,
+    "products_above_cap": 809,
+    "removed": 91942,
+    "share_kept": 0.8645898534438702
+  },
+  "final": {
+    "reviews": 587047,
+    "tokens": 21212626,
+    "products": 111342,
+    "by_stars": {
+      "1": 87854,
+      "2": 36908,
+      "3": 48196,
+      "4": 66948,
+      "5": 347141
+    },
+    "positive_share": 0.7684666076522081,
+    "users": 536255
+  },
+  "markup_reviews": {
+    "VIDEOID": 5951,
+    "ASIN": 474
+  }
+}

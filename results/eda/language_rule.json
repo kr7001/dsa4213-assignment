@@ -1,0 +1,80 @@
+{
+  "rule": "src/a1/data/language_filter.py",
+  "kept_by_step_3": 698942,
+  "removed": 11672,
+  "by_length_group": [
+    {
+      "group": "1-2 words",
+      "reviews": 48903,
+      "removed": 2608,
+      "by_rule": {
+        "1-6 words, foreign by word evidence": 2608,
+        "7+ words, another language by fastText": 0,
+        "7+ words, contains a foreign sentence": 0
+      },
+      "fasttext_alone_would_remove": 4953,
+      "fasttext_flags_now_kept": 2546,
+      "removed_but_not_flagged_by_fasttext": 201
+    },
+    {
+      "group": "3-6 words",
+      "reviews": 89885,
+      "removed": 2945,
+      "by_rule": {
+        "1-6 words, foreign by word evidence": 2945,
+        "7+ words, another language by fastText": 0,
+        "7+ words, contains a foreign sentence": 0
+      },
+      "fasttext_alone_would_remove": 4192,
+      "fasttext_flags_now_kept": 1271,
+      "removed_but_not_flagged_by_fasttext": 24
+    },
+    {
+      "group": "7-20 words",
+      "reviews": 226260,
+      "removed": 4270,
+      "by_rule": {
+        "1-6 words, foreign by word evidence": 0,
+        "7+ words, another language by fastText": 4269,
+        "7+ words, contains a foreign sentence": 1
+      },
+      "fasttext_alone_would_remove": 4446,
+      "fasttext_flags_now_kept": 177,
+      "removed_but_not_flagged_by_fasttext": 1
+    },
+    {
+      "group": "21+ words",
+      "reviews": 333894,
+      "removed": 1849,
+      "by_rule": {
+        "1-6 words, foreign by word evidence": 0,
+        "7+ words, another language by fastText": 1835,
+        "7+ words, contains a foreign sentence": 14
+      },
+      "fasttext_alone_would_remove": 1843,
+      "fasttext_flags_now_kept": 3,
+      "removed_but_not_flagged_by_fasttext": 9
+    },
+    {
+      "group": "all",
+      "reviews": 698942,
+      "removed": 11672,
+      "by_rule": {
+        "1-6 words, foreign by word evidence": 5553,
+        "7+ words, another language by fastText": 6104,
+        "7+ words, contains a foreign sentence": 15
+      },
+      "fasttext_alone_would_remove": 15434,
+      "fasttext_flags_now_kept": 3997,
+      "removed_but_not_flagged_by_fasttext": 235
+    }
+  ],
+  "word_evidence_taught_by": {
+    "english_reviews": 516880,
+    "other_reviews": 5090
+  },
+  "markup_reviews": {
+    "VIDEOID": 5951,
+    "ASIN": 474
+  }
+}

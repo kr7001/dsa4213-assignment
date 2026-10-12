@@ -1,0 +1,416 @@
+{
+  "step_3": {
+    "reviews": 701528,
+    "removed_no_words": 1690,
+    "removed_over_512_tokens": 729,
+    "kept": 699109
+  },
+  "language": {
+    "identifier": "fastText lid.176, compressed model bundled with fast-langdetect",
+    "reviews": 699109,
+    "not_english": 16317,
+    "top_languages": [
+      {
+        "language": "en",
+        "reviews": 682792,
+        "share": 0.9766602918858147
+      },
+      {
+        "language": "es",
+        "reviews": 10755,
+        "share": 0.01538386717950992
+      },
+      {
+        "language": "it",
+        "reviews": 825,
+        "share": 0.001180073493546786
+      },
+      {
+        "language": "de",
+        "reviews": 533,
+        "share": 0.0007623989964368932
+      },
+      {
+        "language": "fr",
+        "reviews": 464,
+        "share": 0.0006637019406129802
+      },
+      {
+        "language": "ca",
+        "reviews": 434,
+        "share": 0.0006207901772112789
+      },
+      {
+        "language": "ru",
+        "reviews": 406,
+        "share": 0.0005807391980363578
+      },
+      {
+        "language": "th",
+        "reviews": 327,
+        "share": 0.00046773822107854424
+      },
+      {
+        "language": "pt",
+        "reviews": 292,
+        "share": 0.00041767449710989273
+      },
+      {
+        "language": "pl",
+        "reviews": 271,
+        "share": 0.0003876362627287018
+      },
+      {
+        "language": "da",
+        "reviews": 251,
+        "share": 0.00035902842046090096
+      },
+      {
+        "language": "nl",
+        "reviews": 168,
+        "share": 0.00024030587504952731
+      },
+      {
+        "language": "other",
+        "reviews": 1591,
+        "share": 0.0022757538524035593
+      }
+    ],
+    "by_length_group": [
+      {
+        "group": "1-2 words",
+        "reviews": 48808,
+        "not_english": 5139,
+        "not_english_by_probability": {
+          "0.0 to 0.5": 2899,
+          "0.5 to 0.9": 1498,
+          "0.9 to 1.0": 742
+        }
+      },
+      {
+        "group": "3-6 words",
+        "reviews": 89613,
+        "not_english": 4606,
+        "not_english_by_probability": {
+          "0.0 to 0.5": 1456,
+          "0.5 to 0.9": 1416,
+          "0.9 to 1.0": 1734
+        }
+      },
+      {
+        "group": "7-20 words",
+        "reviews": 225916,
+        "not_english": 4676,
+        "not_english_by_probability": {
+          "0.0 to 0.5": 428,
+          "0.5 to 0.9": 916,
+          "0.9 to 1.0": 3332
+        }
+      },
+      {
+        "group": "21+ words",
+        "reviews": 334772,
+        "not_english": 1896,
+        "not_english_by_probability": {
+          "0.0 to 0.5": 12,
+          "0.5 to 0.9": 152,
+          "0.9 to 1.0": 1732
+        }
+      }
+    ],
+    "word_evidence": {
+      "taught_by": "reviews of 7+ words that fastText labels with probability 0.9 or more",
+      "english_reviews": 506419,
+      "other_reviews": 5064,
+      "min_reviews_per_word": 5,
+      "short_reviews": [
+        {
+          "group": "1-2 words",
+          "reviews": 48808,
+          "fasttext_not_english": 5139,
+          "words_foreign_at_threshold": {
+            "1": 2867,
+            "2": 2595,
+            "3": 2523
+          },
+          "agreement_at_2": {
+            "both": 2396,
+            "fasttext_only": 2743,
+            "words_only": 199,
+            "neither": 43470
+          }
+        },
+        {
+          "group": "3-6 words",
+          "reviews": 89613,
+          "fasttext_not_english": 4606,
+          "words_foreign_at_threshold": {
+            "1": 2932,
+            "2": 2925,
+            "3": 2920
+          },
+          "agreement_at_2": {
+            "both": 2895,
+            "fasttext_only": 1711,
+            "words_only": 30,
+            "neither": 84977
+          }
+        }
+      ]
+    }
+  },
+  "products": {
+    "products": 112396,
+    "reviews": 699109,
+    "reviews_per_product": {
+      "mean": 6.220052315029005,
+      "median": 2.0,
+      "p90": 11.0,
+      "p99": 73.0,
+      "max": 1959
+    },
+    "share_products_with_one_review": 0.42324459945193776,
+    "share_reviews_in_top_1pct_products": 0.27857458565116455,
+    "share_reviews_in_top_10pct_products": 0.6293067318544032,
+    "largest_product_share": 0.0028021381501310955,
+    "cap_table": [
+      {
+        "cap": 10,
+        "products_above_cap": 11931,
+        "share_reviews_kept": 0.5304809407402852,
+        "share_tokens_kept": 0.5189053707617706
+      },
+      {
+        "cap": 20,
+        "products_above_cap": 5694,
+        "share_reviews_kept": 0.6514477713775677,
+        "share_tokens_kept": 0.6422689903703419
+      },
+      {
+        "cap": 30,
+        "products_above_cap": 3543,
+        "share_reviews_kept": 0.7168967929178426,
+        "share_tokens_kept": 0.7084098602573122
+      },
+      {
+        "cap": 50,
+        "products_above_cap": 1851,
+        "share_reviews_kept": 0.7913644367330416,
+        "share_tokens_kept": 0.7836059132374097
+      },
+      {
+        "cap": 100,
+        "products_above_cap": 727,
+        "share_reviews_kept": 0.873842276383225,
+        "share_tokens_kept": 0.8681768914076994
+      },
+      {
+        "cap": 200,
+        "products_above_cap": 245,
+        "share_reviews_kept": 0.9346482451234357,
+        "share_tokens_kept": 0.9328922589218239
+      },
+      {
+        "cap": 500,
+        "products_above_cap": 38,
+        "share_reviews_kept": 0.9794366829779048,
+        "share_tokens_kept": 0.9801247206280129
+      }
+    ],
+    "icc": {
+      "stars": 0.17637632026733957,
+      "positive_vs_negative": 0.17486811196379204,
+      "meaning": "about the correlation between the ratings of two reviews of one product"
+    },
+    "split_simulation": {
+      "splits": 200,
+      "test_share_of_products": 0.1,
+      "by_cap": [
+        {
+          "cap": "none",
+          "reviews": {
+            "p2.5": 64928.425,
+            "median": 69467.5,
+            "p97.5": 74852.6
+          },
+          "largest_share": {
+            "p2.5": 0.00745358874844475,
+            "median": 0.018382159586498338,
+            "p97.5": 0.02866307391829449
+          },
+          "positive_share": {
+            "p2.5": 0.7647860868859663,
+            "median": 0.7739032718004969,
+            "p97.5": 0.786578562326704
+          },
+          "equal_products": {
+            "p2.5": 394.55883803308456,
+            "median": 685.6552450076779,
+            "p97.5": 1076.9425917869326
+          }
+        },
+        {
+          "cap": 30,
+          "reviews": {
+            "p2.5": 48828.025,
+            "median": 50067.5,
+            "p97.5": 51277.575
+          },
+          "largest_share": {
+            "p2.5": 0.0005850510705129016,
+            "median": 0.000599191118378892,
+            "p97.5": 0.0006144013474515197
+          },
+          "positive_share": {
+            "p2.5": 0.758310159057592,
+            "median": 0.7636791494268984,
+            "p97.5": 0.7693032412900283
+          },
+          "equal_products": {
+            "p2.5": 3563.0828043619044,
+            "median": 3610.0366935025404,
+            "p97.5": 3658.7089479745478
+          }
+        },
+        {
+          "cap": 100,
+          "reviews": {
+            "p2.5": 58420.925,
+            "median": 60857.5,
+            "p97.5": 63170.85
+          },
+          "largest_share": {
+            "p2.5": 0.001583008671580584,
+            "median": 0.0016431828461693485,
+            "p97.5": 0.001711715535600243
+          },
+          "positive_share": {
+            "p2.5": 0.7629100187317032,
+            "median": 0.7685911583663678,
+            "p97.5": 0.7761513046724645
+          },
+          "equal_products": {
+            "p2.5": 1859.3236955953842,
+            "median": 1943.8850397084022,
+            "p97.5": 2046.9091075541908
+          }
+        },
+        {
+          "cap": 200,
+          "reviews": {
+            "p2.5": 61774.2,
+            "median": 65022.5,
+            "p97.5": 68012.25
+          },
+          "largest_share": {
+            "p2.5": 0.002940647168497249,
+            "median": 0.003075858452935882,
+            "p97.5": 0.0032375976804214844
+          },
+          "positive_share": {
+            "p2.5": 0.7640962482493975,
+            "median": 0.7713105560205463,
+            "p97.5": 0.7794751049819537
+          },
+          "equal_products": {
+            "p2.5": 1274.9244052821712,
+            "median": 1372.9853930492145,
+            "p97.5": 1514.7095357658632
+          }
+        }
+      ]
+    }
+  },
+  "duplicates": {
+    "exact_copies": {
+      "rule": "identical token sequence after the step 1 cleaning",
+      "reviews": 699109,
+      "by_length_group": [
+        {
+          "group": "1-2 words",
+          "texts": 2633,
+          "reviews": 41912,
+          "extra_copies": {
+            "same user, same product": 497,
+            "same user, other product": 483,
+            "other user, same product": 1877,
+            "other user, other product": 36422
+          },
+          "texts_under_2plus_products": 2584,
+          "texts_by_2plus_users": 2565,
+          "texts_with_positive_and_negative": 235
+        },
+        {
+          "group": "3-6 words",
+          "texts": 4802,
+          "reviews": 20595,
+          "extra_copies": {
+            "same user, same product": 947,
+            "same user, other product": 164,
+            "other user, same product": 216,
+            "other user, other product": 14466
+          },
+          "texts_under_2plus_products": 4146,
+          "texts_by_2plus_users": 4065,
+          "texts_with_positive_and_negative": 126
+        },
+        {
+          "group": "7-20 words",
+          "texts": 2212,
+          "reviews": 4819,
+          "extra_copies": {
+            "same user, same product": 2349,
+            "same user, other product": 138,
+            "other user, same product": 8,
+            "other user, other product": 112
+          },
+          "texts_under_2plus_products": 222,
+          "texts_by_2plus_users": 105,
+          "texts_with_positive_and_negative": 2
+        },
+        {
+          "group": "21+ words",
+          "texts": 3196,
+          "reviews": 6966,
+          "extra_copies": {
+            "same user, same product": 3502,
+            "same user, other product": 156,
+            "other user, same product": 97,
+            "other user, other product": 15
+          },
+          "texts_under_2plus_products": 152,
+          "texts_by_2plus_users": 109,
+          "texts_with_positive_and_negative": 0
+        }
+      ],
+      "extra_copies_total": {
+        "same user, same product": 7295,
+        "same user, other product": 941,
+        "other user, same product": 2198,
+        "other user, other product": 51015
+      },
+      "split_risk_7plus_words": {
+        "split_shares": [
+          0.8,
+          0.1,
+          0.1
+        ],
+        "expected_texts_split_across_splits": 133.5401000000009,
+        "expected_reviews_in_those_texts": 298.2347000000018
+      }
+    },
+    "near_copies_same_user": {
+      "rule": "same user, 7+ words each, word overlap (Jaccard) 0.8+, not identical",
+      "users_with_2plus_long_reviews": 35815,
+      "users_sampled_down": 0,
+      "pairs_compared": 186701,
+      "near_copy_pairs": 147,
+      "pairs_with_overlap_0.9plus": 92,
+      "pairs_both_21plus_words": 119,
+      "pairs_same_product": 11,
+      "pairs_other_products": 136,
+      "reviews_involved": 238,
+      "reviews_removed_if_one_kept_per_cluster": 127
+    }
+  }
+}
