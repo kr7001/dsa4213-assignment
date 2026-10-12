@@ -131,3 +131,19 @@ def test_speed_is_timed_on_a_second_pass() -> None:
     row = training_speed(model, make_optimizer(model, TrainConfig()), reviews, 256, CPU, 3, 0)
     assert row["steps_timed"] == 3 and row["targets_per_second"] > 0
     assert 0.0 <= row["padding_share"] < 1.0
+
+
+def test_tuning_tries_three_rates_then_one_step_past_an_edge() -> None:
+    from a1.training.tuning import best_learning_rate, next_learning_rate
+
+    tries: dict[float, float] = {}
+    order = []
+    j = {3e-4: 5.0, 1e-3: 4.8, 3e-3: 4.7, 1e-2: math.inf}  # best at the top edge
+    while (rate := next_learning_rate(tries)) is not None:
+        order.append(rate)
+        tries[rate] = j[rate]
+    assert order == [3e-4, 1e-3, 3e-3, 1e-2] and best_learning_rate(tries) == 3e-3
+    middle = {3e-4: 5.0, 1e-3: 4.6, 3e-3: 4.7}
+    assert next_learning_rate(middle) is None and best_learning_rate(middle) == 1e-3
+    low = {3e-4: 4.5, 1e-3: 4.6, 3e-3: 4.7, 1e-4: 4.4}
+    assert next_learning_rate(low) is None and best_learning_rate(low) == 1e-4

@@ -15,3 +15,6 @@ __pycache__/
 results/**/examples*.txt
 
 .DS_Store
+
+# Model weights saved by training runs
+checkpoints/

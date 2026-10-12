@@ -67,6 +67,34 @@ class Pile:
 # Test-run piles: both inside the future training pile (see the module docstring).
 PILOT_TRAIN = Pile("pilot_train", 0.0, 0.45)
 PILOT_VALID = Pile("pilot_valid", 0.45, 0.5)
+PILE_NAMES = ("lm_train", "lm_valid", "lm_test", "part3_train", "part3_valid", "part3_test")
+
+
+def load_piles(path: Path) -> dict[str, Pile]:
+    """Read the pile layout, a YAML map of name -> [low, high) split-key range.
+
+    Checks the layout: known names, ranges inside [0, 1) that do not overlap,
+    and a language-model training pile that starts at 0 and covers the test
+    run's products (keys below 0.5), so the test run never saw other piles.
+    """
+    import yaml
+
+    raw = yaml.safe_load(path.read_text(encoding="utf-8"))["piles"]
+    piles = {name: Pile(name, float(low), float(high)) for name, (low, high) in raw.items()}
+    unknown = set(piles) - set(PILE_NAMES)
+    if unknown:
+        raise ValueError(f"Unknown piles: {sorted(unknown)}")
+    ordered = sorted(piles.values(), key=lambda pile: pile.low)
+    for pile in ordered:
+        if not 0.0 <= pile.low < pile.high <= 1.0:
+            raise ValueError(f"Bad range for {pile.name}: [{pile.low}, {pile.high})")
+    for before, after in zip(ordered, ordered[1:], strict=False):
+        if before.high > after.low:
+            raise ValueError(f"{before.name} and {after.name} overlap")
+    train = piles.get("lm_train")
+    if train is None or train.low != 0.0 or train.high < PILOT_VALID.high:
+        raise ValueError("lm_train must start at 0 and cover every key below 0.5")
+    return piles
 
 
 def iter_pile(path: Path, pile: Pile) -> Iterator[tuple[int, list[str]]]:
@@ -134,6 +162,33 @@ class EncodedReviews:
         ids = np.concatenate(pieces) if pieces else np.zeros(0, dtype=self.ids.dtype)
         offsets = np.concatenate([[0], np.cumsum(lengths)]).astype(np.int64)
         return EncodedReviews(ids, offsets, self.review_ids[np.asarray(indices, dtype=np.int64)])
+
+
+def encode_piles(
+    path: Path, piles: dict[str, Pile], vocab: Vocabulary
+) -> dict[str, EncodedReviews]:
+    """Read the corpus once and encode every pile."""
+    parts: dict[str, tuple[list[int], list[int], list[int]]] = {
+        name: ([], [0], []) for name in piles
+    }
+    with gzip.open(path, "rt", encoding="utf-8") as handle:
+        for line in handle:
+            row = json.loads(line)
+            for name, pile in piles.items():
+                if pile.contains(row["split_key"]):
+                    ids, offsets, review_ids = parts[name]
+                    ids.extend(vocab.encode(row["text"].split(" ")))
+                    offsets.append(len(ids))
+                    review_ids.append(row["id"])
+                    break
+    return {
+        name: EncodedReviews(
+            ids=np.asarray(ids, dtype=np.int32),
+            offsets=np.asarray(offsets, dtype=np.int64),
+            review_ids=np.asarray(review_ids, dtype=np.int64),
+        )
+        for name, (ids, offsets, review_ids) in parts.items()
+    }
 
 
 def encode_pile(path: Path, pile: Pile, vocab: Vocabulary) -> EncodedReviews:
