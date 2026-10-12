@@ -1,0 +1,22 @@
+# Training-budget check, rule 2 of the training rules (fixed before any result).
+# Triggered on 13 Oct: in their last epoch the LSTM's validation J fell 0.024 and
+# the Transformer's 0.014, more than the 0.010 gap between them, so all three S
+# models get one longer run of 10 epochs at the peak learning rate each chose
+# with 6 epochs (0.01 for the LSTM, 0.003 for the Transformer and the RNN).
+# Everything else matches configs/part1.yaml; the learning-rate plan now ends at
+# 10 epochs. Both budgets are reported; the 6-epoch runs stay the main results.
+
+corpus: data/processed/reviews.jsonl.gz
+piles: configs/piles.yaml
+vocabulary: data/processed/vocab.json
+seed: 4213
+device: mps
+batch_tokens: 8192
+epochs: 10           # the planned run length: the learning-rate plan ends exactly here
+full_length_tries: true
+train_sample: true
+
+models:
+  lstm-S-e10: {family: lstm, hidden: 248}
+  transformer-S-e10: {family: transformer, width: 100, layers: 3, heads: 4, feedforward: 400}
+  rnn-S-e10: {family: rnn, hidden: 512}

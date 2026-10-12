@@ -221,6 +221,22 @@ git commit of the code. Finished runs are skipped, so an interrupted command can
 simply be run again. `caffeinate -i` keeps the Mac awake; keep it plugged in
 with the lid open.
 
+## Step 6b: training-budget check and size check
+
+    uv run python scripts/train_lm.py --config configs/part1-e10.yaml --models lstm-S-e10 --lr 0.01
+    uv run python scripts/train_lm.py --config configs/part1-e10.yaml --models transformer-S-e10 --lr 0.003
+    uv run python scripts/train_lm.py --config configs/part1-e10.yaml --models rnn-S-e10 --lr 0.003
+    caffeinate -i uv run python scripts/train_lm.py --config configs/part1.yaml \
+        --models lstm-M,transformer-M,rnn-M --tune
+
+Rule 2 of the training rules, fixed before any run: if a model's validation J
+still falls in its last epoch by more than the gap to its neighbour in the
+ranking, all three S models get one run of 10 epochs at the peak learning rate
+each chose with 6 epochs (`configs/part1-e10.yaml`), and both budgets are
+reported. The 6-epoch runs triggered it: the LSTM and the Transformer ended
+0.010 apart in validation J and were still improving. The M models, about four
+times the core of S, are tuned under the same rules as a size check.
+
 ## Checks
 
     uv run pytest
