@@ -1,0 +1,52 @@
+|V| = 17,068; training 10,958,154 targets, validation 1,065,424 (<unk> 0.61%); training sample 1,065,456 targets
+
+lstm-S: lstm H=248 x1 on mps
+  lstm-S-try-lr0.0003: already done (best validation J 4.626648934100268); skipping
+  lstm-S-try-lr0.001: already done (best validation J 4.1296457498229575); skipping
+  lstm-S-try-lr0.003: already done (best validation J 3.8447216005120084); skipping
+  lstm-S-try-lr0.01: already done (best validation J 3.7115805217643985); skipping
+  lstm-S-try-lr0.03: lstm H=248 x1, peak learning rate 0.03, 6 epochs on mps
+step 393/9444  valid J 4.6231  PPL 101.8  training-sample J 4.6225  (best)
+step 786/9444  valid J 4.4326  PPL 84.2  training-sample J 4.4141  (best)
+step 1179/9444  valid J 4.2448  PPL 69.7  training-sample J 4.2290  (best)
+step 1572/9444  valid J 4.2064  PPL 67.1  training-sample J 4.1807  (best)
+step 1965/9444  valid J 4.2136  PPL 67.6  training-sample J 4.1854
+step 2358/9444  valid J 4.1282  PPL 62.1  training-sample J 4.0925  (best)
+step 2751/9444  valid J 4.1308  PPL 62.2  training-sample J 4.0935
+step 3144/9444  valid J 4.0730  PPL 58.7  training-sample J 4.0324  (best)
+step 3537/9444  valid J 4.1160  PPL 61.3  training-sample J 4.0693
+step 3930/9444  valid J 4.0646  PPL 58.2  training-sample J 4.0175  (best)
+step 4323/9444  valid J 4.0087  PPL 55.1  training-sample J 3.9594  (best)
+step 4716/9444  valid J 3.9838  PPL 53.7  training-sample J 3.9262  (best)
+step 5109/9444  valid J 3.9573  PPL 52.3  training-sample J 3.8968  (best)
+step 5502/9444  valid J 3.9254  PPL 50.7  training-sample J 3.8594  (best)
+step 5895/9444  valid J 3.8955  PPL 49.2  training-sample J 3.8196  (best)
+step 6288/9444  valid J 3.8641  PPL 47.7  training-sample J 3.7870  (best)
+step 6681/9444  valid J 3.8392  PPL 46.5  training-sample J 3.7514  (best)
+step 7074/9444  valid J 3.8149  PPL 45.4  training-sample J 3.7240  (best)
+step 7467/9444  valid J 3.7953  PPL 44.5  training-sample J 3.7012  (best)
+step 7860/9444  valid J 3.7807  PPL 43.8  training-sample J 3.6802  (best)
+step 8253/9444  valid J 3.7623  PPL 43.0  training-sample J 3.6543  (best)
+step 8646/9444  valid J 3.7444  PPL 42.3  training-sample J 3.6319  (best)
+step 9039/9444  valid J 3.7320  PPL 41.8  training-sample J 3.6168  (best)
+step 9432/9444  valid J 3.7259  PPL 41.5  training-sample J 3.6079  (best)
+step 9444/9444  valid J 3.7284  PPL 41.6  training-sample J 3.6110
+  lstm-S-try-lr0.03: best validation J 3.7258708952539816 after 30.0 min
+  lstm-S: chose peak learning rate 0.01 from [0.0003, 0.001, 0.003, 0.01, 0.03]
+  lstm-S-full: already done; skipping
+
+transformer-S: transformer d=100 x3 h4 ff400 on mps
+  transformer-S-try-lr0.0003: already done (best validation J 4.090708885919845); skipping
+  transformer-S-try-lr0.001: already done (best validation J 3.8134924661137695); skipping
+  transformer-S-try-lr0.003: already done (best validation J 3.721436804443583); skipping
+  transformer-S-try-lr0.01: already done (best validation J 3.727527617892618); skipping
+  transformer-S: chose peak learning rate 0.003 from [0.0003, 0.001, 0.003, 0.01]
+  transformer-S-full: already done; skipping
+
+rnn-S: rnn H=512 x1 on mps
+  rnn-S-try-lr0.0003: already done (best validation J 4.408511583796026); skipping
+  rnn-S-try-lr0.001: already done (best validation J 4.0692652643454625); skipping
+  rnn-S-try-lr0.003: already done (best validation J 3.915106187285458); skipping
+  rnn-S-try-lr0.01: already done (best validation J 4.53690303750989); skipping
+  rnn-S: chose peak learning rate 0.003 from [0.0003, 0.001, 0.003, 0.01]
+  rnn-S-full: already done; skipping
