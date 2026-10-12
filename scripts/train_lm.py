@@ -4,10 +4,11 @@ Usage:
     uv run python scripts/train_lm.py --config configs/part1.yaml --models lstm-S --tune
     uv run python scripts/train_lm.py --config configs/part1.yaml --models lstm-S --lr 0.001
 
-With --tune, each model tries the same three peak learning rates, plus one
-more step if the best is at an edge (src/a1/training/tuning.py), and keeps the
-best by validation J. With full_length_tries: true in the config (locked
-12 Oct), every try is a complete run of `epochs` epochs and the winning try
+With --tune, each model tries the same three peak learning rates and keeps
+stepping half a decade further while its best rate is the smallest or largest
+tried (src/a1/training/tuning.py), then keeps the best by validation J. With
+full_length_tries: true in the config (locked 12 Oct), every try is a complete
+run of `epochs` epochs and the winning try
 becomes the model's final run, <model>-full, without being trained again.
 Otherwise the tries are shorter runs of `tuning_epochs` and the winner gets a
 fresh full run. With --lr only the full run is trained, at that rate. Learning
@@ -208,10 +209,18 @@ def run_once(
 
 
 def promote(winner: str, name: str, force: bool) -> None:
-    """Make the winning full-length try the model's final run, without training it again."""
-    if not force and (RUNS / name / "run.json").exists():
-        log(f"  {name}: already done; skipping")
-        return
+    """Make the winning full-length try the model's final run, without training it again.
+
+    If the final run already comes from this winner, nothing happens. If a later
+    try has beaten it (the search was extended), the new winner replaces it.
+    """
+    path = RUNS / name / "run.json"
+    if not force and path.exists():
+        current = json.loads(path.read_text()).get("promoted_from")
+        if current == winner:
+            log(f"  {name}: already done; skipping")
+            return
+        log(f"  {name}: the best try is now {winner} (was {current}); replacing it")
     record = json.loads((RUNS / winner / "run.json").read_text())
     shutil.copyfile(CHECKPOINTS / f"{winner}.pt", CHECKPOINTS / f"{name}.pt")
     record.update(run=name, stage="full", promoted_from=winner)

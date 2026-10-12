@@ -133,20 +133,33 @@ def test_speed_is_timed_on_a_second_pass() -> None:
     assert 0.0 <= row["padding_share"] < 1.0
 
 
-def test_tuning_tries_three_rates_then_one_step_past_an_edge() -> None:
+def test_tuning_keeps_stepping_past_an_edge_until_the_best_rate_is_inside() -> None:
     from a1.training.tuning import best_learning_rate, next_learning_rate
 
-    tries: dict[float, float] = {}
-    order = []
-    j = {3e-4: 5.0, 1e-3: 4.8, 3e-3: 4.7, 1e-2: math.inf}  # best at the top edge
-    while (rate := next_learning_rate(tries)) is not None:
-        order.append(rate)
-        tries[rate] = j[rate]
-    assert order == [3e-4, 1e-3, 3e-3, 1e-2] and best_learning_rate(tries) == 3e-3
-    middle = {3e-4: 5.0, 1e-3: 4.6, 3e-3: 4.7}
-    assert next_learning_rate(middle) is None and best_learning_rate(middle) == 1e-3
-    low = {3e-4: 4.5, 1e-3: 4.6, 3e-3: 4.7, 1e-4: 4.4}
-    assert next_learning_rate(low) is None and best_learning_rate(low) == 1e-4
+    def search(j: dict[float, float]) -> tuple[list[float], float]:
+        tries: dict[float, float] = {}
+        order = []
+        while (rate := next_learning_rate(tries)) is not None:
+            order.append(rate)
+            tries[rate] = j[rate]
+        return order, best_learning_rate(tries)
+
+    # Best at the top edge twice, then a worse rate: the best ends up inside.
+    order, best = search({3e-4: 5.0, 1e-3: 4.8, 3e-3: 4.7, 1e-2: 4.6, 3e-2: 4.65})
+    assert order == [3e-4, 1e-3, 3e-3, 1e-2, 3e-2] and best == 1e-2
+    # A diverged try ends the search on its side.
+    order, best = search({3e-4: 5.0, 1e-3: 4.8, 3e-3: 4.7, 1e-2: math.inf})
+    assert order == [3e-4, 1e-3, 3e-3, 1e-2] and best == 3e-3
+    # Best inside the starting grid: no extra tries.
+    order, best = search({3e-4: 5.0, 1e-3: 4.6, 3e-3: 4.7})
+    assert order == [3e-4, 1e-3, 3e-3] and best == 1e-3
+    # Best at the low edge: step down until a smaller rate is worse.
+    order, best = search({3e-4: 4.5, 1e-3: 4.6, 3e-3: 4.7, 1e-4: 4.4, 3e-5: 4.45})
+    assert order == [3e-4, 1e-3, 3e-3, 1e-4, 3e-5] and best == 1e-4
+    # The ladder ends at 0.1, so a model that keeps improving stops there.
+    j = {3e-4: 5.0, 1e-3: 4.9, 3e-3: 4.8, 1e-2: 4.7, 3e-2: 4.6, 1e-1: 4.5}
+    order, best = search(j)
+    assert order == [3e-4, 1e-3, 3e-3, 1e-2, 3e-2, 1e-1] and best == 1e-1
 
 
 def test_training_sample_is_fixed_and_just_large_enough() -> None:

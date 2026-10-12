@@ -1,22 +1,31 @@
-"""The tuning rule (D0.6, locked 12 Oct).
+"""The tuning rule (D0.6, locked 12 Oct, amended 13 Oct).
 
-Every neural model tries the same three peak learning rates, 3x apart on a log
-scale and centred on Adam's suggested 0.001 (Kingma and Ba, 2015), and keeps
-the one with the lowest validation J. The learning rate is the one setting
-worth tuning when only one can be (Goodfellow, Bengio and Courville, 2016,
-section 11.4.1), and which model looks best depends on the tuning budget
-(Dodge et al., 2019), so the budget is the same for every model. If the best
-value is the smallest or the largest, the model tries one more step that way,
-once; the same rule applies to every model, and the report states each model's
-tries.
+Every neural model starts with the same three peak learning rates, 3x apart on
+a log scale and centred on Adam's suggested 0.001 (Kingma and Ba, 2015), and
+keeps the one with the lowest validation J. The learning rate is the one
+setting worth tuning when only one can be (Goodfellow, Bengio and Courville,
+2016, section 11.4.1), and which model looks best depends on the tuning budget
+(Dodge et al., 2019), so every model follows the same rule.
+
+If the best rate is the smallest or the largest tried, the model tries the
+next rate half a decade further that way, and keeps going while the best rate
+stays at that edge: when the best value is on the border, "it is recommended in
+that case to explore further, beyond that border" (Bengio, 2012, section
+3.3.1). The search stops when the best rate is inside the rates tried, when a
+try diverges (its J is inf, so the best rate is inside), or at the end of the
+ladder (1e-5 to 0.1). The rule as locked on 12 Oct allowed one extra step only;
+it was extended on 13 Oct, after the LSTM's best rate was again the largest
+tried, and the extension applies to every model. The report states each
+model's tries.
 """
 
 from __future__ import annotations
 
 import math
 
-LEARNING_RATES = (3e-4, 1e-3, 3e-3)
-EXTRA_STEP = {3e-4: 1e-4, 3e-3: 1e-2}  # one more step beyond each edge of the grid
+LEARNING_RATES = (3e-4, 1e-3, 3e-3)  # every model starts with these three
+# Steps half a decade apart, like the starting grid; the search never leaves this ladder.
+LADDER = (1e-5, 3e-5, 1e-4, 3e-4, 1e-3, 3e-3, 1e-2, 3e-2, 1e-1)
 
 
 def next_learning_rate(results: dict[float, float]) -> float | None:
@@ -27,10 +36,13 @@ def next_learning_rate(results: dict[float, float]) -> float | None:
     for rate in LEARNING_RATES:
         if rate not in results:
             return rate
-    best = best_learning_rate({rate: results[rate] for rate in LEARNING_RATES})
-    extra = EXTRA_STEP.get(best)
-    if extra is not None and extra not in results:
-        return extra
+    best = best_learning_rate(results)
+    tried = sorted(results)
+    step = LADDER.index(best)
+    if best == tried[0] and step > 0:
+        return LADDER[step - 1]
+    if best == tried[-1] and step < len(LADDER) - 1:
+        return LADDER[step + 1]
     return None
 
 

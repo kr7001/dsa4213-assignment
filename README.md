@@ -207,7 +207,10 @@ validation on `lm_test`, once, for the final numbers only.
 
 `train_lm.py` trains the neural models under the locked rules
 (`src/a1/training/`). With `--tune`, each model tries peak learning rates
-0.0003, 0.001 and 0.003 (plus one more step if the best is at an edge). Every
+0.0003, 0.001 and 0.003, then keeps stepping half a decade further (0.01, 0.03,
+0.1 above; 0.0001, 0.00003, 0.00001 below) while its best rate is the largest
+or smallest tried, so the chosen rate always has a worse rate on each side
+unless the search reaches the end of that range (rule amended on 13 Oct). Every
 try is a full run (`full_length_tries: true`), and the best try by validation J
 becomes `<model>-full`, without being trained again. At every validation check
 a fixed sample of training reviews, as large as `lm_valid`, is scored the same

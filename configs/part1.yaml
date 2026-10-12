@@ -2,8 +2,9 @@
 #
 # - One batch size for all: 8,192 tokens, the largest that still raised speed on
 #   the Mac and stays below every model's measured gradient noise scale.
-# - Learning rate tuned per model over 0.0003, 0.001, 0.003 (+1 step past an
-#   edge); every try is a full run and the best try is the final model.
+# - Learning rate tuned per model over 0.0003, 0.001, 0.003, then half-decade
+#   steps past an edge while the best rate stays at that edge (amended 13 Oct);
+#   every try is a full run and the best try is the final model.
 # - Dropout 0 for all; a fixed training sample is scored at every check so the
 #   train-validation gap shows overfitting (dropout rule, Training rules tab).
 # - S is the main size (core parameters within 2%); M, 4x the core, is a size
