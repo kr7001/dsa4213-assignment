@@ -153,6 +153,34 @@ contractions kept whole or split the way GloVe's tokenizer splits them
 https://nlp.stanford.edu/projects/glove/) or a gensim-data `.gz`; only its
 words are read. Output: `results/eda/vocabulary.json`.
 
+## Step 5: the test run (pilot)
+
+    uv run python scripts/pilot.py --quick    # a tiny version, to check everything works
+    uv run python scripts/pilot.py
+
+Before the model sizes, batch size and run length are fixed, this measures on
+your machine (Apple's GPU when available), for each candidate model in
+`configs/pilot.yaml`:
+
+- parameters: total, word tables (the input table E and the output layer, the
+  same size in every model) and core (everything else);
+- training speed and memory at batch sizes from 2k to 32k tokens, and at 4k
+  and 8k tokens on the CPU too, so every model can be compared on the same
+  hardware (each size runs its batches twice and times the second pass, after
+  the GPU has prepared its programs for every batch shape);
+- a 300-step run under the locked training rules (`src/a1/training/`), keeping
+  every unclipped gradient norm, to check that a clipping threshold of 1.0 lies
+  between half and ten times the average norm (Pascanu et al., 2013), and
+  measuring the gradient noise scale after 50, 150 and 300 steps (McCandlish et
+  al., 2018), which bounds the useful batch size;
+- the time for one pass over the pilot validation reviews.
+
+It only reads products with a split key below 0.5, all inside the future
+training pile, so no validation or test review is touched. It writes
+`results/pilot/pilot.json` (numbers only) and the vocabulary it used to
+`data/processed/pilot_vocab.json`. `--models rnn-S,lstm-S` runs a subset. It
+prints progress and its own run time.
+
 ## Checks
 
     uv run pytest
@@ -184,3 +212,24 @@ words are read. Output: `results/eda/vocabulary.json`.
   and Kaushik, R. (2006). A Primitive Operator for Similarity Joins in Data
   Cleaning. ICDE 2006; Bayardo, R. J., Ma, Y. and Srikant, R. (2007). Scaling
   Up All Pairs Similarity Search. WWW 2007, pp. 131-140.
+- Models: the RNN and LSTM follow DSA4213 Lecture 3 and Lecture3_Demo; the
+  Transformer follows Vaswani, A. et al. (2017). Attention Is All You Need.
+  NeurIPS 2017, with pre-LN blocks (Xiong, R. et al. (2020). On Layer
+  Normalization in the Transformer Architecture. ICML 2020). The projection
+  before the output layer follows Sak, H., Senior, A. and Beaufays, F. (2014).
+  Long Short-Term Memory Recurrent Neural Network Architectures for Large Scale
+  Acoustic Modeling. Interspeech 2014, and Jozefowicz, R. et al. (2016).
+  Exploring the Limits of Language Modeling. arXiv:1602.02410. Core parameter
+  counts follow Kaplan, J. et al. (2020). Scaling Laws for Neural Language
+  Models. arXiv:2001.08361.
+- Training rules (sources for each value are in the plan's Training rules tab):
+  Kingma, D. P. and Ba, J. (2015). Adam. ICLR 2015; Loshchilov, I. and Hutter,
+  F. (2019). Decoupled Weight Decay Regularization. ICLR 2019; Liu, L. et al.
+  (2020). On the Variance of the Adaptive Learning Rate and Beyond. ICLR 2020;
+  Loshchilov, I. and Hutter, F. (2017). SGDR. ICLR 2017; Hoffmann, J. et al.
+  (2022). Training Compute-Optimal Large Language Models. arXiv:2203.15556;
+  Pascanu, R., Mikolov, T. and Bengio, Y. (2013). On the Difficulty of Training
+  Recurrent Neural Networks. ICML 2013; Goodfellow, I., Bengio, Y. and
+  Courville, A. (2016). Deep Learning. MIT Press, section 7.8; McCandlish, S.,
+  Kaplan, J., Amodei, D. et al. (2018). An Empirical Model of Large-Batch
+  Training. arXiv:1812.06162.

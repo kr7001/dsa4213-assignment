@@ -9,6 +9,8 @@ dependencies = [
     "fast-langdetect>=1.0.1",
     "matplotlib>=3.9",
     "numpy>=1.26",
+    "pyyaml>=6",
+    "torch>=2.5",
 ]
 
 [dependency-groups]

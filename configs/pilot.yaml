@@ -1,0 +1,31 @@
+# The test run (pilot): speed, memory and gradients for candidate model sizes.
+# Two core-parameter budgets, each matched within 10% across the three models
+# (D0.6 part 2): S ~ 0.37M and M ~ 1.5M core parameters, with the shared word
+# tables (E: |V| x 100 in, output layer: 100 x |V| out) on top.
+
+corpus: data/processed/reviews.jsonl.gz
+vocabulary: data/processed/pilot_vocab.json   # built from the pilot training reviews
+seed: 4213
+
+speed:                      # each size runs its batches twice and times the second pass
+  batch_tokens: [2048, 4096, 8192, 16384, 32768]
+  timed_steps: 10
+  cpu_batch_tokens: [4096, 8192]   # every model on the CPU too: same-hardware comparison
+
+short_run:                  # the locked training rules, cut to a fixed number of steps
+  batch_tokens: 8192
+  steps: 300
+  peak_lr: 0.001
+
+noise:                      # McCandlish et al. (2018), appendix A.1
+  micro_tokens: 2048
+  micro_batches: 8
+  after_steps: [50, 150, 300]
+
+models:
+  - {name: rnn-S, family: rnn, hidden: 512}
+  - {name: lstm-S, family: lstm, hidden: 248}
+  - {name: transformer-S, family: transformer, width: 100, layers: 3, heads: 4, feedforward: 400}
+  - {name: rnn-M, family: rnn, hidden: 1120}
+  - {name: lstm-M, family: lstm, hidden: 550}
+  - {name: transformer-M, family: transformer, width: 160, layers: 5, heads: 5, feedforward: 640}
