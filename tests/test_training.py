@@ -147,3 +147,34 @@ def test_tuning_tries_three_rates_then_one_step_past_an_edge() -> None:
     assert next_learning_rate(middle) is None and best_learning_rate(middle) == 1e-3
     low = {3e-4: 4.5, 1e-3: 4.6, 3e-3: 4.7, 1e-4: 4.4}
     assert next_learning_rate(low) is None and best_learning_rate(low) == 1e-4
+
+
+def test_training_sample_is_fixed_and_just_large_enough() -> None:
+    from a1.data.sequences import training_sample
+
+    reviews = EncodedReviews.from_lists(_toy_reviews(300, 4))
+    sample = training_sample(reviews, 500, seed=4213)
+    again = training_sample(reviews, 500, seed=4213)
+    assert np.array_equal(sample.review_ids, again.review_ids)
+    assert np.all(np.diff(sample.review_ids) > 0)  # kept in corpus order
+    assert sample.n_targets >= 500
+    smallest = int(sample.lengths.min()) + 1
+    assert sample.n_targets - smallest < 500 + (int(reviews.lengths.max()) + 1)
+
+
+def test_checks_score_the_training_sample_and_split_the_time() -> None:
+    from a1.data.sequences import training_sample
+
+    train_data = EncodedReviews.from_lists(_toy_reviews(300, 5))
+    valid_data = EncodedReviews.from_lists(_toy_reviews(40, 6))
+    sample = training_sample(train_data, valid_data.n_targets, seed=4213)
+    model = build_model({"family": "rnn", "hidden": 16}, 30)
+    config = TrainConfig(peak_lr=1e-2, batch_tokens=512, epochs=2, checks_per_epoch=2)
+    summary = train(
+        model, train_data, valid_data, config, CPU, log=lambda _: None, train_sample=sample
+    )
+    checks = [row for row in summary["history"] if "valid_J" in row]
+    assert checks and all(math.isfinite(row["train_sample_J"]) for row in checks)
+    assert summary["eval_seconds"] > 0
+    assert summary["train_seconds"] == pytest.approx(summary["seconds"] - summary["eval_seconds"])
+    assert 0 < summary["train_seconds_to_best"] <= summary["train_seconds"]

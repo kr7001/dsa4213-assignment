@@ -164,6 +164,22 @@ class EncodedReviews:
         return EncodedReviews(ids, offsets, self.review_ids[np.asarray(indices, dtype=np.int64)])
 
 
+def training_sample(reviews: EncodedReviews, n_targets: int, seed: int) -> EncodedReviews:
+    """A fixed random sample of whole training reviews holding at least n_targets targets.
+
+    Scored at every validation check, in the same way as the validation pile,
+    so training J and validation J are measured alike and their gap shows
+    overfitting (dropout rule, 12 Oct). The sample is drawn once from the seed
+    and kept in corpus order.
+    """
+    if len(reviews) == 0:
+        return reviews
+    order = np.random.default_rng(seed).permutation(len(reviews))
+    reached = np.cumsum(reviews.lengths[order] + 1)
+    count = min(len(reviews), int(np.searchsorted(reached, n_targets)) + 1)
+    return reviews.subset(np.sort(order[:count]))
+
+
 def encode_piles(
     path: Path, piles: dict[str, Pile], vocab: Vocabulary
 ) -> dict[str, EncodedReviews]:

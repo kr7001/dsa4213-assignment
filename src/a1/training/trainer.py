@@ -119,6 +119,7 @@ def train(
     checkpoint: Path | None = None,
     after_step: Callable[[int, nn.Module], None] | None = None,
     log: Callable[[str], None] = print,
+    train_sample: EncodedReviews | None = None,
 ) -> dict[str, Any]:
     """Train with the locked rules; return the history and a summary.
 
@@ -131,6 +132,12 @@ def train(
         checkpoint: If given, the best weights are also saved there.
         after_step: Called as after_step(step, model) after every update.
         log: Where progress lines go.
+        train_sample: If given, these training reviews are scored at every
+            validation check exactly like the validation pile, so the two J
+            values are comparable and their gap measures overfitting.
+
+    Time: "seconds" is wall-clock for the whole run; "eval_seconds" is the part
+    spent scoring at checks; "train_seconds" is the rest, the training cost.
     """
     torch.manual_seed(config.seed)
     model.to(device)
@@ -150,7 +157,7 @@ def train(
     running_loss = torch.zeros((), device=device)
     running_targets = 0
     best_state: dict[str, torch.Tensor] | None = None
-    seconds_to_best = 0.0
+    seconds_to_best = train_seconds_to_best = eval_seconds = 0.0
     step = targets_seen = epoch = 0
     diverged = False
     start = time.perf_counter()
@@ -200,7 +207,14 @@ def train(
                 running_loss.zero_()
                 running_targets = 0
             if valid_data is not None and (step % check_every == 0 or step == total_steps):
+                check_started = time.perf_counter()
                 result = evaluate(model, valid_data, config.batch_tokens, device)
+                sample_j = (
+                    None
+                    if train_sample is None
+                    else evaluate(model, train_sample, config.batch_tokens, device)["J"]
+                )
+                eval_seconds += time.perf_counter() - check_started
                 improved = stopper.update(result["J"], step)
                 elapsed = time.perf_counter() - start
                 history.append(
@@ -210,15 +224,18 @@ def train(
                         "seconds": elapsed,
                         "valid_J": result["J"],
                         "valid_PPL": result["PPL"],
+                        "train_sample_J": sample_j,
                         "new_best": improved,
                     }
                 )
+                gap = "" if sample_j is None else f"  training-sample J {sample_j:.4f}"
                 log(
                     f"step {step}/{total_steps}  valid J {result['J']:.4f}  "
-                    f"PPL {result['PPL']:.1f}{'  (best)' if improved else ''}"
+                    f"PPL {result['PPL']:.1f}{gap}{'  (best)' if improved else ''}"
                 )
                 if improved:
                     seconds_to_best = elapsed
+                    train_seconds_to_best = elapsed - eval_seconds
                     best_state = {
                         k: v.detach().cpu().clone() for k, v in model.state_dict().items()
                     }
@@ -239,7 +256,10 @@ def train(
         "epochs_done": step / steps_per_epoch,
         "targets_seen": targets_seen,
         "seconds": seconds,
+        "eval_seconds": eval_seconds,
+        "train_seconds": seconds - eval_seconds,
         "seconds_to_best": seconds_to_best,
+        "train_seconds_to_best": train_seconds_to_best,
         "stopped_early": stopper.should_stop,
         "diverged": diverged,
         "best_valid_J": None if best_state is None else stopper.best,

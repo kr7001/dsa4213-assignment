@@ -181,6 +181,43 @@ training pile, so no validation or test review is touched. It writes
 `data/processed/pilot_vocab.json`. `--models rnn-S,lstm-S` runs a subset. It
 prints progress and its own run time.
 
+## Step 6: Part I training (vocabulary, n-gram models, neural models)
+
+    uv run python scripts/build_vocab.py
+    uv run python scripts/train_ngram.py
+    mkdir -p results/logs
+    caffeinate -i uv run python scripts/train_lm.py --config configs/part1.yaml \
+        --models lstm-S,transformer-S,rnn-S --tune 2>&1 | tee results/logs/part1-S.log
+
+`configs/piles.yaml` fixes the five piles as ranges of product split keys
+(measured with `scripts/explore_piles.py`, which writes
+`results/data/pile_sizes.json`). `build_vocab.py` keeps every token seen at
+least 5 times in `lm_train`, saves `data/processed/vocab.json` (git-ignored)
+and writes the size and `<unk>` share of every pile to
+`results/data/piles.json`.
+
+`train_ngram.py` counts n-grams of 1 to 5 tokens in `lm_train` on the CPU and
+scores interpolated modified Kneser-Ney and the course's interpolated add-k on
+`lm_valid` for every order. For add-k, k is searched on a grid that is extended
+10x at a time while the best k is at its edge, and the weights lambda are
+fitted by EM. It records each model's fitting time, the size of its count
+tables, its scoring speed and the peak memory of the process in
+`results/ngram/ngram.json`. `--test` scores the two models chosen on
+validation on `lm_test`, once, for the final numbers only.
+
+`train_lm.py` trains the neural models under the locked rules
+(`src/a1/training/`). With `--tune`, each model tries peak learning rates
+0.0003, 0.001 and 0.003 (plus one more step if the best is at an edge). Every
+try is a full run (`full_length_tries: true`), and the best try by validation J
+becomes `<model>-full`, without being trained again. At every validation check
+a fixed sample of training reviews, as large as `lm_valid`, is scored the same
+way, so training and validation J can be compared. Each run writes
+`results/runs/<run>/run.json`, adds a row to `results/runs.csv` and saves its
+best weights to `checkpoints/<run>.pt` (git-ignored); every record includes the
+git commit of the code. Finished runs are skipped, so an interrupted command can
+simply be run again. `caffeinate -i` keeps the Mac awake; keep it plugged in
+with the lid open.
+
 ## Checks
 
     uv run pytest

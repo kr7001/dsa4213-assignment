@@ -1,0 +1,176 @@
+{
+  "vocabulary_size": 17068,
+  "train_targets": 10958154,
+  "valid_targets": 1065424,
+  "valid_unk_share": 0.006130892489750559,
+  "counting_seconds": 14.501165999972727,
+  "unseen_share_valid": {
+    "1": 0.0,
+    "2": 0.04757073240324983,
+    "3": 0.2574511606017442,
+    "4": 0.5587427385974411,
+    "5": 0.7906679994695989
+  },
+  "validation": [
+    {
+      "method": "kneser_ney",
+      "order": 1,
+      "valid": {
+        "J": 6.055039351146237,
+        "PPL": 426.2556787741305,
+        "targets": 1065424,
+        "seconds": 0.02450858399970457,
+        "targets_per_second": 43471462.896952465
+      },
+      "stored_ngrams": 17067
+    },
+    {
+      "method": "add_k",
+      "order": 1,
+      "k": 0.0001,
+      "weights": [
+        1.0
+      ],
+      "valid": {
+        "J": 6.055039097506913,
+        "PPL": 426.2555706589417,
+        "targets": 1065424,
+        "seconds": 0.020096791035030037,
+        "targets_per_second": 53014632.94029855
+      },
+      "stored_ngrams": 17067
+    },
+    {
+      "method": "kneser_ney",
+      "order": 2,
+      "valid": {
+        "J": 4.567879110915461,
+        "PPL": 96.33956740675889,
+        "targets": 1065424,
+        "seconds": 0.0699831250240095,
+        "targets_per_second": 15224012.926465902
+      },
+      "stored_ngrams": 914532
+    },
+    {
+      "method": "add_k",
+      "order": 2,
+      "k": 0.001,
+      "weights": [
+        0.0768,
+        0.9232
+      ],
+      "valid": {
+        "J": 4.619853588000426,
+        "PPL": 101.47917327314069,
+        "targets": 1065424,
+        "seconds": 0.05460224999114871,
+        "targets_per_second": 19512455.991698336
+      },
+      "stored_ngrams": 914532
+    },
+    {
+      "method": "kneser_ney",
+      "order": 3,
+      "valid": {
+        "J": 4.182443873568018,
+        "PPL": 65.52579445340997,
+        "targets": 1065424,
+        "seconds": 0.14832495898008347,
+        "targets_per_second": 7183039.235784055
+      },
+      "stored_ngrams": 4537253
+    },
+    {
+      "method": "add_k",
+      "order": 3,
+      "k": 0.0001,
+      "weights": [
+        0.0697,
+        0.4252,
+        0.5051
+      ],
+      "valid": {
+        "J": 4.326999670688193,
+        "PPL": 75.71677018284566,
+        "targets": 1065424,
+        "seconds": 0.12546616699546576,
+        "targets_per_second": 8491723.510119693
+      },
+      "stored_ngrams": 4537253
+    },
+    {
+      "method": "kneser_ney",
+      "order": 4,
+      "valid": {
+        "J": 4.116422592586411,
+        "PPL": 61.33941321825136,
+        "targets": 1065424,
+        "seconds": 0.2573554160189815,
+        "targets_per_second": 4139893.4457296156
+      },
+      "stored_ngrams": 11208259
+    },
+    {
+      "method": "add_k",
+      "order": 4,
+      "k": 0.0001,
+      "weights": [
+        0.0559,
+        0.4277,
+        0.3845,
+        0.1319
+      ],
+      "valid": {
+        "J": 4.293113116541308,
+        "PPL": 73.19397556394217,
+        "targets": 1065424,
+        "seconds": 0.22796404198743403,
+        "targets_per_second": 4673649.364660453
+      },
+      "stored_ngrams": 11208259
+    },
+    {
+      "method": "kneser_ney",
+      "order": 5,
+      "valid": {
+        "J": 4.1134569459487125,
+        "PPL": 61.157771669135954,
+        "targets": 1065424,
+        "seconds": 0.3877929999725893,
+        "targets_per_second": 2747403.8986658044
+      },
+      "stored_ngrams": 19723369
+    },
+    {
+      "method": "add_k",
+      "order": 5,
+      "k": 0.0001,
+      "weights": [
+        0.054,
+        0.4284,
+        0.3857,
+        0.1218,
+        0.0101
+      ],
+      "valid": {
+        "J": 4.292332684187734,
+        "PPL": 73.13687490182564,
+        "targets": 1065424,
+        "seconds": 0.32755449996329844,
+        "targets_per_second": 3252661.77115374
+      },
+      "stored_ngrams": 19723369
+    }
+  ],
+  "chosen": {
+    "kneser_ney": {
+      "order": 5,
+      "k": null
+    },
+    "add_k": {
+      "order": 5,
+      "k": 0.0001
+    }
+  }
+}

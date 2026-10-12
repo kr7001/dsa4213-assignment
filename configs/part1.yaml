@@ -1,0 +1,28 @@
+# Part I neural language models under the locked rules (D0.5, D0.6), 12 Oct.
+#
+# - One batch size for all: 8,192 tokens, the largest that still raised speed on
+#   the Mac and stays below every model's measured gradient noise scale.
+# - Learning rate tuned per model over 0.0003, 0.001, 0.003 (+1 step past an
+#   edge); every try is a full run and the best try is the final model.
+# - Dropout 0 for all; a fixed training sample is scored at every check so the
+#   train-validation gap shows overfitting (dropout rule, Training rules tab).
+# - S is the main size (core parameters within 2%); M, 4x the core, is a size
+#   check trained later under the same rules.
+
+corpus: data/processed/reviews.jsonl.gz
+piles: configs/piles.yaml
+vocabulary: data/processed/vocab.json
+seed: 4213
+device: mps
+batch_tokens: 8192
+epochs: 6            # E, the planned run length: the learning-rate plan ends exactly here
+full_length_tries: true
+train_sample: true
+
+models:
+  lstm-S: {family: lstm, hidden: 248}
+  transformer-S: {family: transformer, width: 100, layers: 3, heads: 4, feedforward: 400}
+  rnn-S: {family: rnn, hidden: 512}
+  lstm-M: {family: lstm, hidden: 550}
+  transformer-M: {family: transformer, width: 160, layers: 5, heads: 5, feedforward: 640}
+  rnn-M: {family: rnn, hidden: 1120}

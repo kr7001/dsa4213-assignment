@@ -159,3 +159,27 @@ def test_counts_and_unseen_shares() -> None:
     shares = unseen_shares(table, test, 2)
     # Targets 4, 7, <eos>: the word 7 never occurred; bigrams (bos,4) seen, (4,7) and (7,eos) not.
     assert shares[1] == pytest.approx(1 / 3) and shares[2] == pytest.approx(2 / 3)
+
+
+def test_k_grid_is_extended_until_the_best_k_is_inside() -> None:
+    from a1.models.ngram import ADD_K_GRID, K_FLOOR, next_k
+
+    tried: dict[float, float] = {}
+    best_at = 1e-6  # validation J falls as k shrinks, down to 1e-6
+    while (k := next_k(tried)) is not None:
+        tried[k] = abs(np.log10(k) - np.log10(best_at))
+    assert set(ADD_K_GRID) <= set(tried)
+    assert min(tried, key=tried.get) == pytest.approx(1e-6)
+    assert min(tried) == pytest.approx(1e-7)  # one step past the best, then it stops
+    assert min(tried) >= K_FLOOR
+
+    tried = {}
+    while (k := next_k(tried)) is not None:
+        tried[k] = float(np.log10(k))  # always smaller is better: stops at the floor
+    assert min(tried) == pytest.approx(K_FLOOR)
+
+
+def test_table_size_grows_with_the_order() -> None:
+    table = NgramCounts.build(toy_reviews(200, 0), VOCAB, 3)
+    sizes = [table.nbytes(order) for order in (1, 2, 3)]
+    assert 0 < sizes[0] < sizes[1] < sizes[2]

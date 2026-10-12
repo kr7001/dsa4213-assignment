@@ -36,7 +36,28 @@ from a1.data.sequences import EncodedReviews
 from a1.data.vocab import BOS_ID, EOS_ID
 
 ADD_K_GRID = (0.0001, 0.001, 0.01, 0.1, 1.0)
+K_FLOOR, K_CEILING = 1e-8, 100.0  # how far the grid may be extended past its edges
 EM_ITERATIONS = 200
+
+
+def next_k(results: dict[float, float]) -> float | None:
+    """The next k to try for add-k, given validation J per k tried so far.
+
+    First the base grid. Then, while the best k is the smallest (or largest)
+    value tried, one more step 10x further that way, so the chosen k is never
+    left at the edge of the values tried: the same idea as the learning-rate
+    rule (src/a1/training/tuning.py), extended until the best is inside.
+    """
+    for k in ADD_K_GRID:
+        if k not in results:
+            return k
+    best = min(sorted(results), key=lambda k: results[k])
+    smallest, largest = min(results), max(results)
+    if best == smallest and smallest / 10 >= K_FLOOR * 0.999:
+        return float(f"{smallest / 10:.0e}")
+    if best == largest and largest * 10 <= K_CEILING * 1.001:
+        return float(f"{largest * 10:.0e}")
+    return None
 
 
 def flat_sequences(reviews: EncodedReviews) -> tuple[np.ndarray, np.ndarray]:
@@ -116,6 +137,15 @@ class NgramCounts:
     def stored_entries(self, order: int) -> int:
         """Distinct n-grams kept for a model of this order: the size of the count model."""
         return int(sum(self.keys[m].size for m in range(1, order + 1)))
+
+    def nbytes(self, order: int) -> int:
+        """Bytes of the count arrays a model of this order reads (keys, counts, flags)."""
+        total = 0
+        for m in range(1, order + 1):
+            total += self.keys[m].nbytes + self.counts[m].nbytes + self.from_bos[m].nbytes
+            if m < order and self.continuation[m] is not None:
+                total += self.continuation[m].nbytes
+        return int(total)
 
     def history_ranks(self, tokens: np.ndarray, offsets: np.ndarray, order: int) -> list:
         """For windows of 1 to order-1 tokens ending at each position, their rank (or -1).

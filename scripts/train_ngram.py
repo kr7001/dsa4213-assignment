@@ -14,11 +14,14 @@ pile:
   section 7).
 
 It reports validation J and PPL for every model and order, the share of
-validation n-grams never seen in training, and the cost: stored n-grams,
-counting time and scoring speed. The best order of each model is picked on
-validation. --test then scores those two models on the test pile, once: use it
-only for the final numbers. Everything runs on the CPU and is written to
-results/ngram/ngram.json.
+validation n-grams never seen in training, and the cost: stored n-grams, the
+bytes of the count arrays, counting time, each model's own fitting time (and,
+for add-k, the time of the whole search over k), scoring speed and the peak
+memory of the process. The k grid is extended 10x at a time while the best k
+is at its edge (models/ngram.py, next_k). The best order of each model is
+picked on validation. --test then scores those two models on the test pile,
+once: use it only for the final numbers. Everything runs on the CPU and is
+written to results/ngram/ngram.json, with the git commit of the code.
 """
 
 from __future__ import annotations
@@ -35,7 +38,8 @@ import numpy as np
 
 from a1.data.sequences import encode_piles, load_piles
 from a1.data.vocab import UNK_ID, Vocabulary
-from a1.models.ngram import ADD_K_GRID, AddK, KneserNey, NgramCounts, unseen_shares
+from a1.models.ngram import AddK, KneserNey, NgramCounts, next_k, unseen_shares
+from a1.provenance import code_version, peak_process_memory
 
 DEFAULT_CORPUS = Path("data/processed/reviews.jsonl.gz")
 DEFAULT_PILES = Path("configs/piles.yaml")
@@ -92,33 +96,49 @@ def main() -> int:
 
     rows: list[dict[str, Any]] = []
     for order in range(1, args.max_order + 1):
-        kn = score(KneserNey(table, order), valid)
+        started = time.perf_counter()
+        kn_model = KneserNey(table, order)
+        kn_fit = time.perf_counter() - started
+        kn = score(kn_model, valid)
         rows.append(
             {
                 "method": "kneser_ney",
                 "order": order,
                 "valid": kn,
+                "fit_seconds": kn_fit,
                 "stored_ngrams": table.stored_entries(order),
+                "table_bytes": table.nbytes(order),
             }
         )
-        best: dict[str, Any] | None = None
-        for k in ADD_K_GRID:
+        tried: dict[float, dict[str, Any]] = {}
+        search_started = time.perf_counter()
+        while (k := next_k({key: row["valid"]["J"] for key, row in tried.items()})) is not None:
+            started = time.perf_counter()
             model = AddK(table, order, k)
             model.fit_weights(valid)
-            result = score(model, valid)
-            if best is None or result["J"] < best["valid"]["J"]:
-                best = {
-                    "method": "add_k",
-                    "order": order,
-                    "k": k,
-                    "weights": model.weights.round(4).tolist(),
-                    "valid": result,
-                    "stored_ngrams": table.stored_entries(order),
-                }
+            fit_seconds = time.perf_counter() - started
+            tried[k] = {
+                "method": "add_k",
+                "order": order,
+                "k": k,
+                "weights": model.weights.round(4).tolist(),
+                "valid": score(model, valid),
+                "fit_seconds": fit_seconds,
+            }
+        search_seconds = time.perf_counter() - search_started
+        best = min((tried[k] for k in sorted(tried)), key=lambda row: row["valid"]["J"])
+        best = {
+            **best,
+            "k_tried": {str(k): round(row["valid"]["J"], 6) for k, row in sorted(tried.items())},
+            "search_seconds": search_seconds,
+            "stored_ngrams": table.stored_entries(order),
+            "table_bytes": table.nbytes(order),
+        }
         rows.append(best)
         print(
             f"  n={order}: Kneser-Ney J {kn['J']:.4f} (PPL {kn['PPL']:.1f});  "
-            f"add-k J {best['valid']['J']:.4f} (PPL {best['valid']['PPL']:.1f}, k={best['k']})"
+            f"add-k J {best['valid']['J']:.4f} (PPL {best['valid']['PPL']:.1f}, k={best['k']:g}, "
+            f"tried {', '.join(f'{k:g}' for k in sorted(tried))})"
         )
 
     chosen = {
@@ -131,6 +151,7 @@ def main() -> int:
         "valid_targets": valid.n_targets,
         "valid_unk_share": float((valid.ids == UNK_ID).sum()) / valid.n_targets,
         "counting_seconds": counting_seconds,
+        "code": code_version(),
         "unseen_share_valid": unseen_shares(table, valid, args.max_order),
         "validation": rows,
         "chosen": {m: {"order": r["order"], "k": r.get("k")} for m, r in chosen.items()},
@@ -149,10 +170,12 @@ def main() -> int:
                 f"  test, {method} n={row['order']}: J {output['test'][method]['J']:.4f} "
                 f"(PPL {output['test'][method]['PPL']:.1f})"
             )
+    output["peak_memory_bytes"] = peak_process_memory()
     args.results.mkdir(parents=True, exist_ok=True)
     (args.results / "ngram.json").write_text(json.dumps(output, indent=2) + "\n")
     shares = ", ".join(f"{n}: {s:.1%}" for n, s in output["unseen_share_valid"].items())
     print(f"Validation n-grams never seen in training: {shares}")
+    print(f"Peak memory of this process: {output['peak_memory_bytes'] / 1e9:.2f} GB")
     print(f"Chosen on validation: {output['chosen']}. Wrote {args.results / 'ngram.json'}")
     return 0
 

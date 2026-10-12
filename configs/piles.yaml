@@ -1,0 +1,19 @@
+# Pile layout (D0.4, locked 12 Oct): each pile is a range of product split keys
+# [low, high). Every product has one random key in [0, 1) (prepare.py), so all
+# reviews of a product land in one pile and no evaluation product is ever
+# trained on. Sizes measured per 5% slice in results/data/pile_sizes.json.
+#
+# lm_train starts at 0 and stops at 0.5, the minimum allowed: the test run
+# trained and validated on keys below 0.5. Validation and test get one 5% slice
+# each (standard error of J about 0.003 per slice). Part III gets the other 40%:
+# 10% for its test set (24,362 reviews after balancing, enough for accuracy by
+# length group, D0.8) and 30% for training (74,344 after balancing). There is
+# no part3_valid: the classifier's C is chosen by 5-fold cross-validation inside
+# part3_train (D3.3).
+
+piles:
+  lm_train: [0.0, 0.5]
+  lm_valid: [0.5, 0.55]
+  lm_test: [0.55, 0.6]
+  part3_test: [0.6, 0.7]
+  part3_train: [0.7, 1.0]

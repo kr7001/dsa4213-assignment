@@ -1,0 +1,51 @@
+{
+  "vocabulary_size": 17068,
+  "min_count": 5,
+  "piles": {
+    "lm_train": {
+      "split_keys": [
+        0.0,
+        0.5
+      ],
+      "reviews": 295645,
+      "targets": 10958154,
+      "unk_share": 0.004936050360307037
+    },
+    "lm_valid": {
+      "split_keys": [
+        0.5,
+        0.55
+      ],
+      "reviews": 28505,
+      "targets": 1065424,
+      "unk_share": 0.006130892489750559
+    },
+    "lm_test": {
+      "split_keys": [
+        0.55,
+        0.6
+      ],
+      "reviews": 29827,
+      "targets": 1115210,
+      "unk_share": 0.005977349557482447
+    },
+    "part3_test": {
+      "split_keys": [
+        0.6,
+        0.7
+      ],
+      "reviews": 57288,
+      "targets": 2144093,
+      "unk_share": 0.006183500435848631
+    },
+    "part3_train": {
+      "split_keys": [
+        0.7,
+        1.0
+      ],
+      "reviews": 175868,
+      "targets": 6506793,
+      "unk_share": 0.005974064335533649
+    }
+  }
+}
