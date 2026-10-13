@@ -57,3 +57,62 @@ step 9039/9444  valid J 3.9807  PPL 53.6  training-sample J 3.9233  (best)
 step 9432/9444  valid J 3.9776  PPL 53.4  training-sample J 3.9182  (best)
 step 9444/9444  valid J 3.9759  PPL 53.3  training-sample J 3.9175  (best)
   lstm-glove-frozen-s4213-full: best validation J 3.9759153661604882 after 29.4 min
+|V| = 17,068; training 10,958,154 targets, validation 1,065,424 (<unk> 0.61%); training sample 1,065,456 targets
+
+lstm-glove-trainable-s4213: lstm H=248 x1, E glove.npy trainable, seed 4213 on mps
+  lstm-glove-trainable-s4213-full: lstm H=248 x1, E glove.npy trainable, seed 4213, peak learning rate 0.01, 6 epochs on mps
+step 393/9444  valid J 4.6420  PPL 103.8  training-sample J 4.6476  (best)
+step 786/9444  valid J 4.3859  PPL 80.3  training-sample J 4.3704  (best)
+step 1179/9444  valid J 4.1825  PPL 65.5  training-sample J 4.1620  (best)
+step 1572/9444  valid J 4.1105  PPL 61.0  training-sample J 4.0788  (best)
+step 1965/9444  valid J 4.1004  PPL 60.4  training-sample J 4.0588  (best)
+step 2358/9444  valid J 4.0294  PPL 56.2  training-sample J 3.9788  (best)
+step 2751/9444  valid J 4.0038  PPL 54.8  training-sample J 3.9474  (best)
+step 3144/9444  valid J 3.9627  PPL 52.6  training-sample J 3.9011  (best)
+step 3537/9444  valid J 3.9941  PPL 54.3  training-sample J 3.9243
+step 3930/9444  valid J 3.9276  PPL 50.8  training-sample J 3.8546  (best)
+step 4323/9444  valid J 3.8996  PPL 49.4  training-sample J 3.8232  (best)
+step 4716/9444  valid J 3.8786  PPL 48.4  training-sample J 3.7965  (best)
+step 5109/9444  valid J 3.8589  PPL 47.4  training-sample J 3.7705  (best)
+step 5502/9444  valid J 3.8410  PPL 46.6  training-sample J 3.7476  (best)
+step 5895/9444  valid J 3.8216  PPL 45.7  training-sample J 3.7227  (best)
+step 6288/9444  valid J 3.8011  PPL 44.8  training-sample J 3.7010  (best)
+step 6681/9444  valid J 3.7908  PPL 44.3  training-sample J 3.6819  (best)
+step 7074/9444  valid J 3.7790  PPL 43.8  training-sample J 3.6667  (best)
+step 7467/9444  valid J 3.7644  PPL 43.1  training-sample J 3.6502  (best)
+step 7860/9444  valid J 3.7566  PPL 42.8  training-sample J 3.6391  (best)
+step 8253/9444  valid J 3.7487  PPL 42.5  training-sample J 3.6261  (best)
+step 8646/9444  valid J 3.7438  PPL 42.3  training-sample J 3.6196  (best)
+step 9039/9444  valid J 3.7355  PPL 41.9  training-sample J 3.6098  (best)
+step 9432/9444  valid J 3.7317  PPL 41.8  training-sample J 3.6038  (best)
+step 9444/9444  valid J 3.7316  PPL 41.7  training-sample J 3.6041  (best)
+  lstm-glove-trainable-s4213-full: best validation J 3.7316465550958173 after 30.3 min
+
+lstm-random-frozen-s4213: lstm H=248 x1, E random.npy frozen, seed 4213 on mps
+  lstm-random-frozen-s4213-full: lstm H=248 x1, E random.npy frozen, seed 4213, peak learning rate 0.01, 6 epochs on mps
+step 393/9444  valid J 4.9555  PPL 141.9  training-sample J 4.9667  (best)
+step 786/9444  valid J 4.6956  PPL 109.5  training-sample J 4.6922  (best)
+step 1179/9444  valid J 4.5145  PPL 91.3  training-sample J 4.5085  (best)
+step 1572/9444  valid J 4.4453  PPL 85.2  training-sample J 4.4327  (best)
+step 1965/9444  valid J 4.4262  PPL 83.6  training-sample J 4.4078  (best)
+step 2358/9444  valid J 4.3368  PPL 76.5  training-sample J 4.3131  (best)
+step 2751/9444  valid J 4.3106  PPL 74.5  training-sample J 4.2827  (best)
+step 3144/9444  valid J 4.2697  PPL 71.5  training-sample J 4.2378  (best)
+step 3537/9444  valid J 4.3060  PPL 74.1  training-sample J 4.2720
+step 3930/9444  valid J 4.2348  PPL 69.0  training-sample J 4.2008  (best)
+step 4323/9444  valid J 4.2028  PPL 66.9  training-sample J 4.1655  (best)
+step 4716/9444  valid J 4.1819  PPL 65.5  training-sample J 4.1412  (best)
+step 5109/9444  valid J 4.1535  PPL 63.7  training-sample J 4.1118  (best)
+step 5502/9444  valid J 4.1385  PPL 62.7  training-sample J 4.0933  (best)
+step 5895/9444  valid J 4.1205  PPL 61.6  training-sample J 4.0717  (best)
+step 6288/9444  valid J 4.1062  PPL 60.7  training-sample J 4.0572  (best)
+step 6681/9444  valid J 4.0859  PPL 59.5  training-sample J 4.0316  (best)
+step 7074/9444  valid J 4.0741  PPL 58.8  training-sample J 4.0185  (best)
+step 7467/9444  valid J 4.0623  PPL 58.1  training-sample J 4.0066  (best)
+step 7860/9444  valid J 4.0659  PPL 58.3  training-sample J 4.0084
+step 8253/9444  valid J 4.0519  PPL 57.5  training-sample J 3.9910  (best)
+step 8646/9444  valid J 4.0423  PPL 57.0  training-sample J 3.9807  (best)
+step 9039/9444  valid J 4.0347  PPL 56.5  training-sample J 3.9723  (best)
+step 9432/9444  valid J 4.0309  PPL 56.3  training-sample J 3.9670  (best)
+step 9444/9444  valid J 4.0293  PPL 56.2  training-sample J 3.9659  (best)
+  lstm-random-frozen-s4213-full: best validation J 4.029299432300544 after 29.2 min
