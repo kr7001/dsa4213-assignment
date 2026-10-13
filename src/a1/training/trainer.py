@@ -138,10 +138,19 @@ def train(
 
     Time: "seconds" is wall-clock for the whole run; "eval_seconds" is the part
     spent scoring at checks; "train_seconds" is the rest, the training cost.
+
+    Gradient norms: clipping uses the norm over every trainable parameter, so
+    when the input table E trains (Part II's trainable settings) its gradient
+    is part of that norm, and when E is frozen it is not. To compare runs on
+    the same footing, the norm of E's gradient is also kept for every step and
+    the summary gives the norm without E as well. Measuring it changes nothing
+    in training.
     """
     torch.manual_seed(config.seed)
     model.to(device)
     optimizer = make_optimizer(model, config)
+    embedding = getattr(model, "embedding", None)
+    embedding_norms: list[torch.Tensor] = []
     first_epoch = make_batches(train_data.lengths, config.batch_tokens, seed=config.seed)
     steps_per_epoch = len(first_epoch)
     total_steps = max(1, round(steps_per_epoch * config.epochs))
@@ -179,6 +188,8 @@ def train(
             )
             optimizer.zero_grad(set_to_none=True)
             loss.backward()
+            if embedding is not None and embedding.weight.grad is not None:
+                embedding_norms.append(embedding.weight.grad.detach().norm())
             norms.append(torch.nn.utils.clip_grad_norm_(model.parameters(), config.clip_norm))
             optimizer.step()
             scheduler.step()
@@ -248,6 +259,16 @@ def train(
     if best_state is not None:
         model.load_state_dict(best_state)
     norm_values = [float(v) for v in torch.stack(norms).cpu()] if norms else []
+    extra_norms: dict[str, Any] = {}
+    if embedding_norms:
+        e_values = [float(v) for v in torch.stack(embedding_norms).cpu()]
+        without = [
+            math.sqrt(max(t * t - e * e, 0.0)) for t, e in zip(norm_values, e_values, strict=True)
+        ]
+        extra_norms = {
+            "embedding_gradient_norms": gradient_norm_summary(e_values, config.clip_norm),
+            "gradient_norms_without_embedding": gradient_norm_summary(without, config.clip_norm),
+        }
     return {
         "config": asdict(config),
         "steps": step,
@@ -265,5 +286,6 @@ def train(
         "best_valid_J": None if best_state is None else stopper.best,
         "best_step": stopper.best_step,
         "gradient_norms": gradient_norm_summary(norm_values, config.clip_norm),
+        **extra_norms,
         "history": history,
     }

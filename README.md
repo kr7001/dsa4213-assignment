@@ -237,6 +237,66 @@ reported. The 6-epoch runs triggered it: the LSTM and the Transformer ended
 0.010 apart in validation J and were still improving. The M models, about four
 times the core of S, are tuned under the same rules as a size check.
 
+## Step 7: Part II, embedding variants in the LSTM
+
+Download `glove.2024.wikigiga.100d.zip` (560 MB) from
+https://nlp.stanford.edu/projects/glove/ into `data/glove/` (the vectors are
+released under the Open Data Commons Public Domain Dedication and License
+v1.0), then:
+
+    uv run python scripts/build_embeddings.py
+    caffeinate -i uv run python scripts/train_lm.py --config configs/part2.yaml \
+        --models lstm-own-frozen-s4213,lstm-glove-frozen-s4213 2>&1 | tee -a results/logs/part2.log
+    caffeinate -i uv run python scripts/train_lm.py --config configs/part2.yaml \
+        --models lstm-glove-trainable-s4213,lstm-random-frozen-s4213 2>&1 | tee -a results/logs/part2.log
+    caffeinate -i uv run python scripts/train_lm.py --config configs/part2.yaml \
+        --models lstm-random-s4214,lstm-own-frozen-s4214,lstm-glove-frozen-s4214 2>&1 | tee -a results/logs/part2.log
+    caffeinate -i uv run python scripts/train_lm.py --config configs/part2.yaml \
+        --models lstm-random-s4215,lstm-own-frozen-s4215,lstm-glove-frozen-s4215 2>&1 | tee -a results/logs/part2.log
+    caffeinate -i uv run python scripts/train_lm.py --config configs/part2.yaml \
+        --models lstm-own-frozen-s4213-lr0.003,lstm-own-frozen-s4213-lr0.03,lstm-glove-frozen-s4213-lr0.003,lstm-glove-frozen-s4213-lr0.03 \
+        2>&1 | tee -a results/logs/part2.log
+
+`build_embeddings.py` reads only `lm_train` and the GloVe file (GloVe first, so
+a damaged download fails at once) and writes four
+input tables to `data/embeddings/` (git-ignored), each with one 100-number row
+per vocabulary token:
+
+- `skipgram.npy`: skip-gram with negative sampling trained with gensim on the
+  training reviews, each as `<bos> w1 ... wn <eos>` with rare words already
+  `<unk>`, using the Lecture 2 demo's settings (window 5, 5 negative samples,
+  no subsampling, fixed window, 15 epochs) with 100 dimensions, one thread
+  and seed 4213, so two runs give identical vectors (a test checks this across
+  Python processes);
+- `skipgram-scaled.npy`: the same vectors times one number, so their root mean
+  square equals GloVe's (this changes no cosine similarity);
+- `glove.npy`: GloVe 2024 for each vocabulary token; a contraction or a word
+  that GloVe's tokenizer (Stanford CoreNLP) splits, such as "don't" or
+  "cannot", gets the average of its pieces; `<num>` gets the average of
+  GloVe's frequent number tokens; other missing tokens, `<unk>`, `<bos>` and
+  `<eos>` get random rows with the same mean square as the GloVe rows (Kim,
+  2014; GloVe's own `<unk>` vector is not used); `<pad>` is zero;
+- `random.npy`: random rows at GloVe's scale, a fixed table with no
+  information.
+
+It also writes `results/part2/embeddings.json`: the skip-gram training time on
+one CPU thread (the cost of our own embeddings, reported apart from language
+model training), GloVe coverage of the vocabulary and of training inputs, a
+norm check of every table, WordSim353 and analogy scores on the words every
+table has (as in the Lecture 2 demo), nearest neighbours of six fixed words,
+and fingerprints of every file.
+
+In `configs/part2.yaml`, each model is the Part I LSTM-S with one input table
+(`embedding`), fixed or trainable (`freeze`), and its own `seed`, which sets the
+starting weights and the batch order; every other setting is Part I's,
+including the peak learning rate 0.01 that Part I chose for this model. The
+random, trainable setting with seed 4213 is Part I's `lstm-S-full`, reused. A
+fixed table has no gradient and is left out of the optimizer, and each run
+compares a fingerprint of the table before and after training and stops if a
+fixed table changed. Each `run.json` records the table, its fingerprints, how
+far a trainable table moved, the gradient norm with and without the table's
+share, the seed and the machine.
+
 ## Checks
 
     uv run pytest
@@ -289,3 +349,22 @@ times the core of S, are tuned under the same rules as a size check.
   Courville, A. (2016). Deep Learning. MIT Press, section 7.8; McCandlish, S.,
   Kaplan, J., Amodei, D. et al. (2018). An Empirical Model of Large-Batch
   Training. arXiv:1812.06162.
+- Part II: skip-gram with negative sampling (Mikolov, T., Sutskever, I., Chen,
+  K., Corrado, G. and Dean, J. (2013). Distributed Representations of Words and
+  Phrases and their Compositionality. NIPS 2013), trained with gensim
+  (Rehurek, R. and Sojka, P. (2010). Software Framework for Topic Modelling
+  with Large Corpora. LREC 2010 Workshop on New Challenges for NLP Frameworks)
+  using the settings of DSA4213 lecture2_word_embeddings.py (D. Zhou, 2026).
+  Random rows for missing words follow Kim, Y. (2014). Convolutional Neural
+  Networks for Sentence Classification. EMNLP 2014, which also compares fixed
+  and trainable pretrained vectors; a fixed random table follows Kocmi, T. and
+  Bojar, O. (2017). An Exploration of Word Embedding Initialization in
+  Deep-Learning Tasks. arXiv:1711.09160. The word splits copy the
+  splitAssimilations rule of Stanford CoreNLP's tokenizer (PTBLexer.flex,
+  v4.4.0; Manning, C. D. et al. (2014). The Stanford CoreNLP Natural Language
+  Processing Toolkit. ACL 2014 System Demonstrations), which produced GloVe
+  2024's text. WordSim353 (Finkelstein, L. et al. (2002). Placing Search in
+  Context: The Concept Revisited. ACM TOIS 20(1)) and the analogy questions
+  (Mikolov, T., Chen, K., Corrado, G. and Dean, J. (2013). Efficient
+  Estimation of Word Representations in Vector Space. arXiv:1301.3781) are the
+  copies bundled with gensim.

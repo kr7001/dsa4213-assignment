@@ -28,12 +28,19 @@ LEARNING_RATES = (3e-4, 1e-3, 3e-3)  # every model starts with these three
 LADDER = (1e-5, 3e-5, 1e-4, 3e-4, 1e-3, 3e-3, 1e-2, 3e-2, 1e-1)
 
 
-def next_learning_rate(results: dict[float, float]) -> float | None:
+def next_learning_rate(
+    results: dict[float, float], start: tuple[float, ...] = LEARNING_RATES
+) -> float | None:
     """The next learning rate to try, given validation J per rate tried so far.
 
-    A diverged or failed try should be recorded as math.inf.
+    A diverged or failed try should be recorded as math.inf. ``start`` is the
+    first grid; Part I uses LEARNING_RATES for every model, and a config can
+    give another grid of ladder steps (``tuning_start``), which then holds for
+    every model in that config.
     """
-    for rate in LEARNING_RATES:
+    if any(rate not in LADDER for rate in start):
+        raise ValueError(f"Every starting rate must be a ladder step: {LADDER}")
+    for rate in start:
         if rate not in results:
             return rate
     best = best_learning_rate(results)

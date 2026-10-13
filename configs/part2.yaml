@@ -1,0 +1,88 @@
+# Part II: three input-embedding settings in one architecture, the LSTM-S
+# (D2.1, locked 13 Oct), with everything else exactly as in Part I
+# (configs/part1.yaml): same piles, vocabulary, batch size, 6 epochs, schedule,
+# clipping, checks and stopping, and d = 100 (D2.2).
+#
+# - random, trainable: E starts uniform in [-0.1, 0.1] and trains (Part I).
+#   Seed 4213 is the Part I run lstm-S-full itself, which matches this setting
+#   exactly, so it is reused (assignment, Part II); seeds 4214 and 4215 are new.
+# - own, frozen: our skip-gram vectors (scripts/build_embeddings.py), fixed.
+# - glove, frozen: GloVe 2024 Wikipedia + Gigaword 100d, fixed.
+# Extra settings that separate trainability from the extra data:
+# - glove, trainable: GloVe as the start, then trained (Kim, 2014, "non-static").
+# - random, frozen: a fixed random table at GloVe's scale (no information).
+#
+# Every model trains at the peak learning rate Part I chose for the LSTM-S
+# (0.01), unless its entry says otherwise. A seed sets the starting weights and
+# the batch order; for one seed, all settings start the LSTM and the output
+# head from the same numbers and read the batches in the same order.
+
+corpus: data/processed/reviews.jsonl.gz
+piles: configs/piles.yaml
+vocabulary: data/processed/vocab.json
+seed: 4213           # the training sample scored at each check; default model seed
+device: mps
+batch_tokens: 8192
+epochs: 6
+full_length_tries: true
+train_sample: true
+# Only for --tune (learning-rate option C): start at Part I's best rate and its
+# neighbours, then step half a decade while the best rate is at an edge.
+tuning_start: [0.003, 0.01, 0.03]
+
+embeddings:
+  glove: data/glove/glove.2024.wikigiga.100d.zip
+  out: data/embeddings
+  # The Lecture 2 demo's Word2Vec call (lecture2_word_embeddings.py, section 10)
+  # with vector_size 100 (D2.2) and min_count 1 (the text is already mapped to
+  # the vocabulary, so every vocabulary token gets a vector).
+  skipgram:
+    vector_size: 100
+    window: 5
+    min_count: 1
+    sg: 1
+    negative: 5
+    ns_exponent: 0.75
+    sample: 0.0
+    shrink_windows: false
+    epochs: 15
+    workers: 1
+    seed: 4213
+
+models:
+  # Random, trainable (seed 4213 = Part I's lstm-S-full).
+  lstm-random-s4214: {family: lstm, hidden: 248, freeze: false, seed: 4214, peak_lr: 0.01}
+  lstm-random-s4215: {family: lstm, hidden: 248, freeze: false, seed: 4215, peak_lr: 0.01}
+
+  # Own skip-gram vectors, frozen, scaled to GloVe's RMS (D2.6, option b).
+  lstm-own-frozen-s4213: {family: lstm, hidden: 248, embedding: data/embeddings/skipgram-scaled.npy, freeze: true, seed: 4213, peak_lr: 0.01}
+  lstm-own-frozen-s4214: {family: lstm, hidden: 248, embedding: data/embeddings/skipgram-scaled.npy, freeze: true, seed: 4214, peak_lr: 0.01}
+  lstm-own-frozen-s4215: {family: lstm, hidden: 248, embedding: data/embeddings/skipgram-scaled.npy, freeze: true, seed: 4215, peak_lr: 0.01}
+
+  # Own skip-gram vectors, frozen, at their trained scale (D2.6, option a).
+  lstm-ownraw-frozen-s4213: {family: lstm, hidden: 248, embedding: data/embeddings/skipgram.npy, freeze: true, seed: 4213, peak_lr: 0.01}
+  lstm-ownraw-frozen-s4214: {family: lstm, hidden: 248, embedding: data/embeddings/skipgram.npy, freeze: true, seed: 4214, peak_lr: 0.01}
+  lstm-ownraw-frozen-s4215: {family: lstm, hidden: 248, embedding: data/embeddings/skipgram.npy, freeze: true, seed: 4215, peak_lr: 0.01}
+
+  # GloVe 2024, frozen.
+  lstm-glove-frozen-s4213: {family: lstm, hidden: 248, embedding: data/embeddings/glove.npy, freeze: true, seed: 4213, peak_lr: 0.01}
+  lstm-glove-frozen-s4214: {family: lstm, hidden: 248, embedding: data/embeddings/glove.npy, freeze: true, seed: 4214, peak_lr: 0.01}
+  lstm-glove-frozen-s4215: {family: lstm, hidden: 248, embedding: data/embeddings/glove.npy, freeze: true, seed: 4215, peak_lr: 0.01}
+
+  # GloVe 2024 as the start, trainable (D2.8).
+  lstm-glove-trainable-s4213: {family: lstm, hidden: 248, embedding: data/embeddings/glove.npy, freeze: false, seed: 4213, peak_lr: 0.01}
+  lstm-glove-trainable-s4214: {family: lstm, hidden: 248, embedding: data/embeddings/glove.npy, freeze: false, seed: 4214, peak_lr: 0.01}
+  lstm-glove-trainable-s4215: {family: lstm, hidden: 248, embedding: data/embeddings/glove.npy, freeze: false, seed: 4215, peak_lr: 0.01}
+
+  # A fixed random table at GloVe's scale (D2.8).
+  lstm-random-frozen-s4213: {family: lstm, hidden: 248, embedding: data/embeddings/random.npy, freeze: true, seed: 4213, peak_lr: 0.01}
+  lstm-random-frozen-s4214: {family: lstm, hidden: 248, embedding: data/embeddings/random.npy, freeze: true, seed: 4214, peak_lr: 0.01}
+  lstm-random-frozen-s4215: {family: lstm, hidden: 248, embedding: data/embeddings/random.npy, freeze: true, seed: 4215, peak_lr: 0.01}
+
+  # Learning-rate check for the frozen settings (option B): Part I's neighbouring rates.
+  lstm-own-frozen-s4213-lr0.003: {family: lstm, hidden: 248, embedding: data/embeddings/skipgram-scaled.npy, freeze: true, seed: 4213, peak_lr: 0.003}
+  lstm-own-frozen-s4213-lr0.03: {family: lstm, hidden: 248, embedding: data/embeddings/skipgram-scaled.npy, freeze: true, seed: 4213, peak_lr: 0.03}
+  lstm-ownraw-frozen-s4213-lr0.003: {family: lstm, hidden: 248, embedding: data/embeddings/skipgram.npy, freeze: true, seed: 4213, peak_lr: 0.003}
+  lstm-ownraw-frozen-s4213-lr0.03: {family: lstm, hidden: 248, embedding: data/embeddings/skipgram.npy, freeze: true, seed: 4213, peak_lr: 0.03}
+  lstm-glove-frozen-s4213-lr0.003: {family: lstm, hidden: 248, embedding: data/embeddings/glove.npy, freeze: true, seed: 4213, peak_lr: 0.003}
+  lstm-glove-frozen-s4213-lr0.03: {family: lstm, hidden: 248, embedding: data/embeddings/glove.npy, freeze: true, seed: 4213, peak_lr: 0.03}

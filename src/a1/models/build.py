@@ -15,6 +15,7 @@ layers". The three models' core counts are kept within 10% of each other.
 
 from __future__ import annotations
 
+from pathlib import Path
 from typing import Any
 
 from torch import nn
@@ -61,11 +62,22 @@ def count_parameters(model: nn.Module) -> dict[str, int]:
 
 
 def describe(config: dict[str, Any]) -> str:
-    """A short label such as 'lstm H=210 x1' for tables and logs."""
+    """A short label such as 'lstm H=210 x1' for tables and logs.
+
+    Part II settings add the input table and the seed, for example
+    'lstm H=248 x1, E glove.npy frozen, seed 4214'.
+    """
     family = config["family"]
     if family == "transformer":
-        return (
+        label = (
             f"transformer d={config['width']} x{config['layers']} "
             f"h{config['heads']} ff{config['feedforward']}"
         )
-    return f"{family} H={config['hidden']} x{config.get('layers', 1)}"
+    else:
+        label = f"{family} H={config['hidden']} x{config.get('layers', 1)}"
+    if "embedding" in config or "freeze" in config:
+        table = Path(config["embedding"]).name if config.get("embedding") else "random"
+        label += f", E {table} {'frozen' if config.get('freeze') else 'trainable'}"
+    if "seed" in config:
+        label += f", seed {config['seed']}"
+    return label
