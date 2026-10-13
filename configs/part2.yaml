@@ -86,3 +86,7 @@ models:
   lstm-ownraw-frozen-s4213-lr0.03: {family: lstm, hidden: 248, embedding: data/embeddings/skipgram.npy, freeze: true, seed: 4213, peak_lr: 0.03}
   lstm-glove-frozen-s4213-lr0.003: {family: lstm, hidden: 248, embedding: data/embeddings/glove.npy, freeze: true, seed: 4213, peak_lr: 0.003}
   lstm-glove-frozen-s4213-lr0.03: {family: lstm, hidden: 248, embedding: data/embeddings/glove.npy, freeze: true, seed: 4213, peak_lr: 0.03}
+  # Added 14 Oct: 0.03 beat 0.01 for both frozen settings, so the check goes one
+  # half-decade step further, as the tuning rule does when the best rate is at an edge.
+  lstm-own-frozen-s4213-lr0.1: {family: lstm, hidden: 248, embedding: data/embeddings/skipgram-scaled.npy, freeze: true, seed: 4213, peak_lr: 0.1}
+  lstm-glove-frozen-s4213-lr0.1: {family: lstm, hidden: 248, embedding: data/embeddings/glove.npy, freeze: true, seed: 4213, peak_lr: 0.1}
