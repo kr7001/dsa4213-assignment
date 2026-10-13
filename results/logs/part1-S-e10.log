@@ -1,0 +1,136 @@
+|V| = 17,068; training 10,958,154 targets, validation 1,065,424 (<unk> 0.61%); training sample 1,065,456 targets
+
+lstm-S-e10: lstm H=248 x1 on mps
+  lstm-S-e10-full: lstm H=248 x1, peak learning rate 0.01, 10 epochs on mps
+step 393/15740  valid J 4.8943  PPL 133.5  training-sample J 4.9034  (best)
+step 786/15740  valid J 4.5329  PPL 93.0  training-sample J 4.5241  (best)
+step 1179/15740  valid J 4.2559  PPL 70.5  training-sample J 4.2405  (best)
+step 1572/15740  valid J 4.1523  PPL 63.6  training-sample J 4.1240  (best)
+step 1965/15740  valid J 4.1283  PPL 62.1  training-sample J 4.0902  (best)
+step 2358/15740  valid J 4.0359  PPL 56.6  training-sample J 3.9858  (best)
+step 2751/15740  valid J 4.0004  PPL 54.6  training-sample J 3.9442  (best)
+step 3144/15740  valid J 3.9557  PPL 52.2  training-sample J 3.8937  (best)
+step 3537/15740  valid J 3.9957  PPL 54.4  training-sample J 3.9234
+step 3930/15740  valid J 3.9405  PPL 51.4  training-sample J 3.8685  (best)
+step 4323/15740  valid J 3.9082  PPL 49.8  training-sample J 3.8314  (best)
+step 4716/15740  valid J 3.8914  PPL 49.0  training-sample J 3.8092  (best)
+step 5109/15740  valid J 3.8810  PPL 48.5  training-sample J 3.7949  (best)
+step 5502/15740  valid J 3.8684  PPL 47.9  training-sample J 3.7784  (best)
+step 5895/15740  valid J 3.8561  PPL 47.3  training-sample J 3.7586  (best)
+step 6288/15740  valid J 3.8409  PPL 46.6  training-sample J 3.7455  (best)
+step 6681/15740  valid J 3.8328  PPL 46.2  training-sample J 3.7276  (best)
+step 7074/15740  valid J 3.8307  PPL 46.1  training-sample J 3.7243  (best)
+step 7467/15740  valid J 3.8253  PPL 45.8  training-sample J 3.7186  (best)
+step 7860/15740  valid J 3.8198  PPL 45.6  training-sample J 3.7092  (best)
+step 8253/15740  valid J 3.8048  PPL 44.9  training-sample J 3.6878  (best)
+step 8646/15740  valid J 3.7971  PPL 44.6  training-sample J 3.6777  (best)
+step 9039/15740  valid J 3.7895  PPL 44.2  training-sample J 3.6671  (best)
+step 9432/15740  valid J 3.7822  PPL 43.9  training-sample J 3.6570  (best)
+step 9825/15740  valid J 3.7733  PPL 43.5  training-sample J 3.6435  (best)
+step 10218/15740  valid J 3.7606  PPL 43.0  training-sample J 3.6284  (best)
+step 10611/15740  valid J 3.7476  PPL 42.4  training-sample J 3.6103  (best)
+step 11004/15740  valid J 3.7490  PPL 42.5  training-sample J 3.6091
+step 11397/15740  valid J 3.7357  PPL 41.9  training-sample J 3.5899  (best)
+step 11790/15740  valid J 3.7352  PPL 41.9  training-sample J 3.5873  (best)
+step 12183/15740  valid J 3.7225  PPL 41.4  training-sample J 3.5718  (best)
+step 12576/15740  valid J 3.7144  PPL 41.0  training-sample J 3.5630  (best)
+step 12969/15740  valid J 3.7127  PPL 41.0  training-sample J 3.5505  (best)
+step 13362/15740  valid J 3.7048  PPL 40.6  training-sample J 3.5438  (best)
+step 13755/15740  valid J 3.7012  PPL 40.5  training-sample J 3.5399  (best)
+step 14148/15740  valid J 3.6941  PPL 40.2  training-sample J 3.5314  (best)
+step 14541/15740  valid J 3.7004  PPL 40.5  training-sample J 3.5323
+step 14934/15740  valid J 3.6972  PPL 40.3  training-sample J 3.5288
+step 15327/15740  valid J 3.6899  PPL 40.0  training-sample J 3.5221  (best)
+step 15720/15740  valid J 3.6870  PPL 39.9  training-sample J 3.5183  (best)
+step 15740/15740  valid J 3.6899  PPL 40.0  training-sample J 3.5203
+  lstm-S-e10-full: best validation J 3.6870225421350002 after 57.1 min
+|V| = 17,068; training 10,958,154 targets, validation 1,065,424 (<unk> 0.61%); training sample 1,065,456 targets
+
+transformer-S-e10: transformer d=100 x3 h4 ff400 on mps
+  transformer-S-e10-full: transformer d=100 x3 h4 ff400, peak learning rate 0.003, 10 epochs on mps
+step 393/15740  valid J 4.7944  PPL 120.8  training-sample J 4.7987  (best)
+step 786/15740  valid J 4.4584  PPL 86.4  training-sample J 4.4382  (best)
+step 1179/15740  valid J 4.2077  PPL 67.2  training-sample J 4.1790  (best)
+step 1572/15740  valid J 4.1047  PPL 60.6  training-sample J 4.0614  (best)
+step 1965/15740  valid J 4.0664  PPL 58.3  training-sample J 4.0084  (best)
+step 2358/15740  valid J 4.0040  PPL 54.8  training-sample J 3.9347  (best)
+step 2751/15740  valid J 3.9768  PPL 53.3  training-sample J 3.9001  (best)
+step 3144/15740  valid J 3.9400  PPL 51.4  training-sample J 3.8564  (best)
+step 3537/15740  valid J 3.9497  PPL 51.9  training-sample J 3.8558
+step 3930/15740  valid J 3.9223  PPL 50.5  training-sample J 3.8260  (best)
+step 4323/15740  valid J 3.8814  PPL 48.5  training-sample J 3.7804  (best)
+step 4716/15740  valid J 3.8783  PPL 48.3  training-sample J 3.7721  (best)
+step 5109/15740  valid J 3.8638  PPL 47.6  training-sample J 3.7459  (best)
+step 5502/15740  valid J 3.8575  PPL 47.3  training-sample J 3.7366  (best)
+step 5895/15740  valid J 3.8393  PPL 46.5  training-sample J 3.7118  (best)
+step 6288/15740  valid J 3.8204  PPL 45.6  training-sample J 3.6923  (best)
+step 6681/15740  valid J 3.8190  PPL 45.6  training-sample J 3.6774  (best)
+step 7074/15740  valid J 3.8100  PPL 45.1  training-sample J 3.6676  (best)
+step 7467/15740  valid J 3.7993  PPL 44.7  training-sample J 3.6540  (best)
+step 7860/15740  valid J 3.7878  PPL 44.2  training-sample J 3.6389  (best)
+step 8253/15740  valid J 3.7903  PPL 44.3  training-sample J 3.6300
+step 8646/15740  valid J 3.7820  PPL 43.9  training-sample J 3.6197  (best)
+step 9039/15740  valid J 3.7659  PPL 43.2  training-sample J 3.6013  (best)
+step 9432/15740  valid J 3.7563  PPL 42.8  training-sample J 3.5876  (best)
+step 9825/15740  valid J 3.7657  PPL 43.2  training-sample J 3.5883
+step 10218/15740  valid J 3.7572  PPL 42.8  training-sample J 3.5754
+step 10611/15740  valid J 3.7430  PPL 42.2  training-sample J 3.5561  (best)
+step 11004/15740  valid J 3.7396  PPL 42.1  training-sample J 3.5509  (best)
+step 11397/15740  valid J 3.7357  PPL 41.9  training-sample J 3.5338  (best)
+step 11790/15740  valid J 3.7309  PPL 41.7  training-sample J 3.5266  (best)
+step 12183/15740  valid J 3.7213  PPL 41.3  training-sample J 3.5153  (best)
+step 12576/15740  valid J 3.7180  PPL 41.2  training-sample J 3.5087  (best)
+step 12969/15740  valid J 3.7175  PPL 41.2  training-sample J 3.4946  (best)
+step 13362/15740  valid J 3.7132  PPL 41.0  training-sample J 3.4899  (best)
+step 13755/15740  valid J 3.7111  PPL 40.9  training-sample J 3.4860  (best)
+step 14148/15740  valid J 3.7026  PPL 40.6  training-sample J 3.4762  (best)
+step 14541/15740  valid J 3.7101  PPL 40.9  training-sample J 3.4745
+step 14934/15740  valid J 3.7071  PPL 40.7  training-sample J 3.4716
+step 15327/15740  valid J 3.7043  PPL 40.6  training-sample J 3.4669
+  transformer-S-e10-full: best validation J 3.7025719024094954 after 55.5 min
+|V| = 17,068; training 10,958,154 targets, validation 1,065,424 (<unk> 0.61%); training sample 1,065,456 targets
+
+rnn-S-e10: rnn H=512 x1 on mps
+  rnn-S-e10-full: rnn H=512 x1, peak learning rate 0.003, 10 epochs on mps
+step 393/15740  valid J 5.2278  PPL 186.4  training-sample J 5.2430  (best)
+step 786/15740  valid J 4.7647  PPL 117.3  training-sample J 4.7653  (best)
+step 1179/15740  valid J 4.4487  PPL 85.5  training-sample J 4.4429  (best)
+step 1572/15740  valid J 4.3537  PPL 77.8  training-sample J 4.3399  (best)
+step 1965/15740  valid J 4.3104  PPL 74.5  training-sample J 4.2847  (best)
+step 2358/15740  valid J 4.2532  PPL 70.3  training-sample J 4.2189  (best)
+step 2751/15740  valid J 4.1866  PPL 65.8  training-sample J 4.1434  (best)
+step 3144/15740  valid J 4.1725  PPL 64.9  training-sample J 4.1251  (best)
+step 3537/15740  valid J 4.2007  PPL 66.7  training-sample J 4.1459
+step 3930/15740  valid J 4.1621  PPL 64.2  training-sample J 4.1024  (best)
+step 4323/15740  valid J 4.1440  PPL 63.1  training-sample J 4.0809  (best)
+step 4716/15740  valid J 4.0990  PPL 60.3  training-sample J 4.0332  (best)
+step 5109/15740  valid J 4.0844  PPL 59.4  training-sample J 4.0162  (best)
+step 5502/15740  valid J 4.0802  PPL 59.2  training-sample J 4.0085  (best)
+step 5895/15740  valid J 4.0537  PPL 57.6  training-sample J 3.9766  (best)
+step 6288/15740  valid J 4.0461  PPL 57.2  training-sample J 3.9684  (best)
+step 6681/15740  valid J 4.0240  PPL 55.9  training-sample J 3.9392  (best)
+step 7074/15740  valid J 4.0430  PPL 57.0  training-sample J 3.9589
+step 7467/15740  valid J 4.0115  PPL 55.2  training-sample J 3.9235  (best)
+step 7860/15740  valid J 4.0075  PPL 55.0  training-sample J 3.9174  (best)
+step 8253/15740  valid J 3.9914  PPL 54.1  training-sample J 3.8967  (best)
+step 8646/15740  valid J 3.9782  PPL 53.4  training-sample J 3.8809  (best)
+step 9039/15740  valid J 3.9693  PPL 52.9  training-sample J 3.8716  (best)
+step 9432/15740  valid J 3.9715  PPL 53.1  training-sample J 3.8722
+step 9825/15740  valid J 3.9585  PPL 52.4  training-sample J 3.8548  (best)
+step 10218/15740  valid J 3.9503  PPL 51.9  training-sample J 3.8466  (best)
+step 10611/15740  valid J 3.9360  PPL 51.2  training-sample J 3.8279  (best)
+step 11004/15740  valid J 3.9334  PPL 51.1  training-sample J 3.8226  (best)
+step 11397/15740  valid J 3.9118  PPL 50.0  training-sample J 3.7968  (best)
+step 11790/15740  valid J 3.9051  PPL 49.7  training-sample J 3.7893  (best)
+step 12183/15740  valid J 3.9061  PPL 49.7  training-sample J 3.7896
+step 12576/15740  valid J 3.8966  PPL 49.2  training-sample J 3.7784  (best)
+step 12969/15740  valid J 3.8837  PPL 48.6  training-sample J 3.7610  (best)
+step 13362/15740  valid J 3.8831  PPL 48.6  training-sample J 3.7583  (best)
+step 13755/15740  valid J 3.8739  PPL 48.1  training-sample J 3.7498  (best)
+step 14148/15740  valid J 3.8657  PPL 47.7  training-sample J 3.7403  (best)
+step 14541/15740  valid J 3.8652  PPL 47.7  training-sample J 3.7371  (best)
+step 14934/15740  valid J 3.8654  PPL 47.7  training-sample J 3.7360
+step 15327/15740  valid J 3.8620  PPL 47.6  training-sample J 3.7332  (best)
+step 15720/15740  valid J 3.8568  PPL 47.3  training-sample J 3.7267  (best)
+step 15740/15740  valid J 3.8620  PPL 47.6  training-sample J 3.7315
+  rnn-S-e10-full: best validation J 3.8568485401337282 after 52.1 min
