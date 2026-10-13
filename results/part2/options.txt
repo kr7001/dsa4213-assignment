@@ -1,0 +1,1 @@
+LR=check OWN=scaled EXTRAS="glove-trainable random-frozen" EXTRA_SEEDS=1
