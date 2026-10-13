@@ -1,0 +1,435 @@
+{
+  "vocabulary_size": 17068,
+  "lm_train": {
+    "reviews": 295645,
+    "tokens": 10662509
+  },
+  "skipgram": {
+    "settings": {
+      "vector_size": 100,
+      "window": 5,
+      "min_count": 1,
+      "sg": 1,
+      "negative": 5,
+      "ns_exponent": 0.75,
+      "sample": 0.0,
+      "shrink_windows": false,
+      "epochs": 15,
+      "workers": 1,
+      "seed": 4213
+    },
+    "gensim": "4.4.0",
+    "seconds": 582.3193663749844,
+    "cpu_seconds": 578.373367,
+    "threads": 1,
+    "reviews": 295645,
+    "tokens_per_epoch": 11253799,
+    "tokens_processed": 168806985,
+    "words_with_vectors": 17067,
+    "vocabulary_tokens_without_vector": []
+  },
+  "glove": {
+    "file": "data/glove/glove.2024.wikigiga.100d.zip",
+    "file_sha256": "74adc1abefd41fe686fae7d92f37be7bdb93e3cf9e46ce0c93bdd5d982cc76e2",
+    "words": 1291147,
+    "first_words": [
+      "the",
+      ",",
+      ".",
+      "of",
+      "to",
+      "and",
+      "in",
+      "a",
+      "\"",
+      "-"
+    ],
+    "coverage": {
+      "word_types": 17064,
+      "word_types_with_glove_vector": 16544,
+      "word_type_share_with_glove_vector": 0.9695264885138303,
+      "input_share_with_glove_vector": 0.9604483565388842,
+      "by_source": {
+        "exact": {
+          "types": 16256,
+          "type_share": 0.9524813968477178,
+          "input_share": 0.942585950151823
+        },
+        "contraction": {
+          "types": 279,
+          "type_share": 0.01634733696607488,
+          "input_share": 0.017340603170935543
+        },
+        "assimilation": {
+          "types": 9,
+          "type_share": 0.0005273334505185445,
+          "input_share": 0.0005218032161256358
+        },
+        "number": {
+          "types": 1,
+          "type_share": 5.8592605613171615e-05,
+          "input_share": 0.007074275466469992
+        },
+        "pad": {
+          "types": 1,
+          "type_share": 5.8592605613171615e-05,
+          "input_share": 0.0
+        },
+        "random": {
+          "types": 522,
+          "type_share": 0.030585340130075585,
+          "input_share": 0.03247736799464581
+        }
+      },
+      "most_frequent_random": {
+        "<bos>": 295645,
+        "<unk>": 54090,
+        "polygel": 211,
+        "detangles": 157,
+        "y'all": 146,
+        "epilator": 145,
+        "reccomend": 135,
+        "arcitec": 71,
+        "spoolie": 70,
+        "excelent": 64,
+        "detangled": 58,
+        "epilady": 50,
+        "microblading": 49,
+        "deoderant": 46,
+        "salux": 44,
+        "pravana": 40,
+        "cerave": 39,
+        "loveee": 39,
+        "dosent": 38,
+        "wunderbrow": 38,
+        "plasticy": 37,
+        "beardsmen": 35,
+        "norelcos": 34,
+        "perspirant": 33,
+        "wayyy": 33
+      },
+      "assimilations": {
+        "cannot": [
+          "can",
+          "not"
+        ],
+        "dont": [
+          "do",
+          "nt"
+        ],
+        "didnt": [
+          "did",
+          "nt"
+        ],
+        "doesnt": [
+          "does",
+          "nt"
+        ],
+        "gonna": [
+          "gon",
+          "na"
+        ],
+        "theyre": [
+          "they",
+          "re"
+        ],
+        "aint": [
+          "ai",
+          "nt"
+        ],
+        "dunno": [
+          "du",
+          "n",
+          "no"
+        ],
+        "lemme": [
+          "lem",
+          "me"
+        ]
+      }
+    },
+    "number_tokens": {
+      "count": 367,
+      "most_frequent": [
+        "1",
+        "2",
+        "10",
+        "3",
+        "6",
+        "4",
+        "20",
+        "5",
+        "15",
+        "12",
+        "30",
+        "11",
+        "7",
+        "0",
+        "18",
+        "8",
+        "25",
+        "14",
+        "16",
+        "13"
+      ]
+    },
+    "file_has_unk_vector": true,
+    "random_rows_seed": 4213
+  },
+  "scale": {
+    "target_rms": 0.5406836739616317,
+    "skipgram_rms": 0.32073890258953935,
+    "skipgram_factor": 1.6857439792813762,
+    "random_rms": 0.5407734152514946
+  },
+  "tables": {
+    "skipgram": {
+      "path": "data/embeddings/skipgram.npy",
+      "file_sha256": "8228d9e23883c384bef2ed10d799fa072769f031555f54baa416a9825b135dd3",
+      "table_sha256": "7ff629470f1e374d94aaac26892dba15f1989579cc820e6a825aaf6aeeaa8089"
+    },
+    "skipgram-scaled": {
+      "path": "data/embeddings/skipgram-scaled.npy",
+      "file_sha256": "ee2fb6bd6745c911caa04854a607f6e7316afa63e62d941c3b2fc1cca1145fab",
+      "table_sha256": "a29d4271c68943de20f6be26a7bce07088381c816dba16f133c45a9717a0c119"
+    },
+    "glove": {
+      "path": "data/embeddings/glove.npy",
+      "file_sha256": "db787757c8d1fac2b8a38ff0067e9d74627585937b2e58979e3fa7857512c303",
+      "table_sha256": "90f12d8433ea29fef6ff9deedb09bd5222be2a62918333804a4dc2c690611ed2"
+    },
+    "random": {
+      "path": "data/embeddings/random.npy",
+      "file_sha256": "440fdb552906f93219b59bd26cb6610a7c5ab15fa22473d9b48cc226712d3dec",
+      "table_sha256": "3fee74b3c0595312c9188d394a247426a72cf524e0fe639a045360966e270acc"
+    }
+  },
+  "norm_check": {
+    "skipgram": {
+      "rms": 0.32073890258953935,
+      "row_norm_mean": 3.1600136891714152,
+      "row_norm_median": 3.1818571249730456,
+      "row_norm_p10": 2.4235284224810854,
+      "row_norm_p90": 3.856285728412717,
+      "row_norm_input_weighted": 2.49722870382898
+    },
+    "skipgram-scaled": {
+      "rms": 0.540683657506272,
+      "row_norm_mean": 5.326973888850789,
+      "row_norm_median": 5.363796344691498,
+      "row_norm_p10": 4.085448332827609,
+      "row_norm_p90": 6.500710302585681,
+      "row_norm_input_weighted": 4.209688125438736
+    },
+    "glove": {
+      "rms": 0.5406836739616317,
+      "row_norm_mean": 5.346517958806197,
+      "row_norm_median": 5.365264642093803,
+      "row_norm_p10": 4.3814785626503285,
+      "row_norm_p90": 6.320581160615901,
+      "row_norm_input_weighted": 6.3508751925391564
+    },
+    "random": {
+      "rms": 0.5407734152514946,
+      "row_norm_mean": 5.402314242396433,
+      "row_norm_median": 5.403118923081192,
+      "row_norm_p10": 5.093491351094713,
+      "row_norm_p90": 5.711775678659203,
+      "row_norm_input_weighted": 5.400681992356634
+    },
+    "part1-random-start": {
+      "rms": 0.057747888532847166,
+      "row_norm_mean": 0.5769044932233114,
+      "row_norm_median": 0.5771649229674809,
+      "row_norm_p10": 0.5435620742812626,
+      "row_norm_p90": 0.6094589720717908,
+      "row_norm_input_weighted": 0.5768041089095685
+    },
+    "part1-trained": {
+      "rms": 0.6567268955119977,
+      "row_norm_mean": 6.4947388574662686,
+      "row_norm_median": 6.334748417943918,
+      "row_norm_p10": 5.474412005970741,
+      "row_norm_p90": 7.69336735667583,
+      "row_norm_input_weighted": 7.403189424157604
+    }
+  },
+  "intrinsic": {
+    "words": 16544,
+    "skipgram": {
+      "wordsim353_spearman": 0.39308038311643123,
+      "wordsim353_pairs": 204,
+      "wordsim353_pairs_total": 353,
+      "analogy_accuracy": 0.2210403613580067,
+      "analogy_questions": 6863,
+      "analogy_questions_total": 19544
+    },
+    "glove": {
+      "wordsim353_spearman": 0.5216881197990375,
+      "wordsim353_pairs": 204,
+      "wordsim353_pairs_total": 353,
+      "analogy_accuracy": 0.5748215066297537,
+      "analogy_questions": 6863,
+      "analogy_questions_total": 19544
+    },
+    "random": {
+      "wordsim353_spearman": 0.0364434763280936,
+      "wordsim353_pairs": 204,
+      "wordsim353_pairs_total": 353,
+      "analogy_accuracy": 0.00014570887367040654,
+      "analogy_questions": 6863,
+      "analogy_questions_total": 19544
+    }
+  },
+  "neighbours": {
+    "skipgram": {
+      "great": [
+        "fantastic",
+        "good",
+        "awesome",
+        "wonderful",
+        "excellent"
+      ],
+      "smell": [
+        "scent",
+        "smells",
+        "odor",
+        "fragrance",
+        "aroma"
+      ],
+      "cheap": [
+        "cheaply",
+        "flimsy",
+        "cheep",
+        "crappy",
+        "cheapy"
+      ],
+      "broke": [
+        "snapped",
+        "fell",
+        "popped",
+        "tore",
+        "ripped"
+      ],
+      "moisturizer": [
+        "cream",
+        "lotion",
+        "sunscreen",
+        "cleanser",
+        "toner"
+      ],
+      "gift": [
+        "present",
+        "christmas",
+        "stuffer",
+        "stocking",
+        "birthday"
+      ]
+    },
+    "glove": {
+      "great": [
+        "greatest",
+        "lot's",
+        "good",
+        "well",
+        "there's"
+      ],
+      "smell": [
+        "odor",
+        "smells",
+        "smelling",
+        "smelled",
+        "scent"
+      ],
+      "cheap": [
+        "inexpensive",
+        "cheaper",
+        "expensive",
+        "easy",
+        "affordable"
+      ],
+      "broke": [
+        "breaking",
+        "break",
+        "pulled",
+        "came",
+        "broken"
+      ],
+      "moisturizer": [
+        "lotion",
+        "sunblock",
+        "sunscreen",
+        "moisturizers",
+        "lotions"
+      ],
+      "gift": [
+        "gifts",
+        "items",
+        "offering",
+        "item",
+        "item's"
+      ]
+    },
+    "random": {
+      "great": [
+        "wrapping",
+        "stare",
+        "stretchier",
+        "decorated",
+        "skirts"
+      ],
+      "smell": [
+        "barber's",
+        "loathe",
+        "microscopic",
+        "noticing",
+        "unclog"
+      ],
+      "cheap": [
+        "convenience",
+        "anytime",
+        "bah",
+        "mister",
+        "sano"
+      ],
+      "broke": [
+        "transport",
+        "toes",
+        "unlock",
+        "lawn",
+        "shirts"
+      ],
+      "moisturizer": [
+        "cutters",
+        "rick",
+        "sometimes",
+        "voluptuous",
+        "florida"
+      ],
+      "gift": [
+        "vase",
+        "package",
+        "branch",
+        "lists",
+        "snoods"
+      ]
+    }
+  },
+  "seconds": 593.9048542919918,
+  "peak_memory_bytes": 452362240,
+  "code": {
+    "commit": "6a145e579e64911ed6efd88a68d12f982370f6f5",
+    "code_changed": false
+  },
+  "machine": {
+    "device": "cpu",
+    "python": "3.12.1",
+    "platform": "macOS-15.6-arm64-arm-64bit",
+    "torch": "2.14.1",
+    "numpy": "2.5.4",
+    "gensim": "4.4.0",
+    "chip": "Apple M4",
+    "memory_bytes": 17179869184
+  },
+  "finished": "2026-10-13T20:23:01"
+}
