@@ -256,6 +256,8 @@ v1.0), then:
     caffeinate -i uv run python scripts/train_lm.py --config configs/part2.yaml \
         --models lstm-own-frozen-s4213-lr0.003,lstm-own-frozen-s4213-lr0.03,lstm-glove-frozen-s4213-lr0.003,lstm-glove-frozen-s4213-lr0.03 \
         2>&1 | tee -a results/logs/part2.log
+    caffeinate -i uv run python scripts/train_lm.py --config configs/part2.yaml \
+        --models lstm-own-frozen-s4213-lr0.1,lstm-glove-frozen-s4213-lr0.1 2>&1 | tee -a results/logs/part2.log
 
 `build_embeddings.py` reads only `lm_train` and the GloVe file (GloVe first, so
 a damaged download fails at once) and writes four
@@ -289,13 +291,28 @@ and fingerprints of every file.
 In `configs/part2.yaml`, each model is the Part I LSTM-S with one input table
 (`embedding`), fixed or trainable (`freeze`), and its own `seed`, which sets the
 starting weights and the batch order; every other setting is Part I's,
-including the peak learning rate 0.01 that Part I chose for this model. The
+including the peak learning rate 0.01 that Part I chose for this model. The two
+frozen settings were also trained at 0.003, 0.03 and 0.1 (seed 4213) to check
+that rate. The
 random, trainable setting with seed 4213 is Part I's `lstm-S-full`, reused. A
 fixed table has no gradient and is left out of the optimizer, and each run
 compares a fingerprint of the table before and after training and stops if a
 fixed table changed. Each `run.json` records the table, its fingerprints, how
 far a trainable table moved, the gradient norm with and without the table's
 share, the seed and the machine.
+
+## Report
+
+    uv run python scripts/make_report_figures.py
+    cd report && pdflatex main && bibtex main && pdflatex main && pdflatex main
+
+`make_report_figures.py` reads only the counts-only result files in `results/`
+and writes the report's figures (`report/figures/`) and data tables
+(`report/tables/`), so no number in them is typed by hand; it also checks that
+the filter counts add up and that every neural model has the same word tables.
+The report uses the ACL style files (`report/acl.sty`, `report/acl_natbib.bst`,
+from https://github.com/acl-org/acl-style-files). On Overleaf, upload the
+contents of `report/` and compile `main.tex` with pdfLaTeX.
 
 ## Checks
 

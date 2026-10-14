@@ -18,3 +18,10 @@ results/**/examples*.txt
 
 # Model weights saved by training runs
 checkpoints/
+
+# LaTeX build files (the report source and its generated tables and figures are kept)
+report/*.aux
+report/*.bbl
+report/*.blg
+report/*.log
+report/*.out

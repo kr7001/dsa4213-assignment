@@ -62,6 +62,63 @@ def apply_style() -> None:
     )
 
 
+PAPER = "#ffffff"
+# One fixed colour per model in every report figure (validated: all-pairs CVD
+# separation 9.2+ for the first three slots; aqua needs direct labels or a legend).
+MODEL_COLOURS = {
+    "transformer": SERIES[0],
+    "lstm": SERIES[1],
+    "rnn": SERIES[2],
+    "ngram": INK_SECONDARY,
+}
+COLUMN_WIDTH = 3.03  # inches, ACL two-column layout
+PAGE_WIDTH = 6.3
+
+
+def apply_paper_style() -> None:
+    """Defaults for figures printed in the report: white page, small type, hairlines.
+
+    Fonts are embedded as TrueType (pdf.fonttype 42), as conference PDFs require.
+    """
+    apply_style()
+    plt.rcParams.update(
+        {
+            "figure.facecolor": PAPER,
+            "axes.facecolor": PAPER,
+            "savefig.facecolor": PAPER,
+            "font.family": "sans-serif",
+            "font.sans-serif": [
+                "Helvetica",
+                "Arial",
+                "Liberation Sans",
+                "TeX Gyre Heros",
+                "DejaVu Sans",
+            ],
+            "font.size": 7.5,
+            "axes.labelsize": 7.5,
+            "axes.titlesize": 8,
+            "axes.titleweight": "bold",
+            "axes.titlelocation": "left",
+            "axes.titlecolor": INK,
+            "axes.linewidth": 0.6,
+            "grid.linewidth": 0.5,
+            "xtick.labelsize": 7,
+            "ytick.labelsize": 7,
+            "xtick.major.width": 0.6,
+            "ytick.major.width": 0.6,
+            "xtick.major.size": 2.5,
+            "ytick.major.size": 2.5,
+            "legend.fontsize": 7,
+            "lines.linewidth": 1.4,
+            "lines.markersize": 4,
+            "pdf.fonttype": 42,
+            "ps.fonttype": 42,
+            "savefig.bbox": "tight",
+            "savefig.pad_inches": 0.02,
+        }
+    )
+
+
 def add_titles(fig: Figure, title: str, subtitle: str) -> None:
     """Write a left-aligned title and a quieter subtitle above the plot area."""
     fig.text(0.01, 0.985, title, ha="left", va="top", fontsize=12, color=INK, weight="bold")

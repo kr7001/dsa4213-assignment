@@ -409,3 +409,24 @@ step 9039/9444  valid J 3.9204  PPL 50.4  training-sample J 3.8587  (best)
 step 9432/9444  valid J 3.9240  PPL 50.6  training-sample J 3.8599
 step 9444/9444  valid J 3.9187  PPL 50.3  training-sample J 3.8559  (best)
   lstm-glove-frozen-s4213-lr0.03-full: best validation J 3.9186760003382455 after 29.5 min
+|V| = 17,068; training 10,958,154 targets, validation 1,065,424 (<unk> 0.61%); training sample 1,065,456 targets
+
+lstm-own-frozen-s4213-lr0.1: lstm H=248 x1, E skipgram-scaled.npy frozen, seed 4213 on mps
+  lstm-own-frozen-s4213-lr0.1-full: lstm H=248 x1, E skipgram-scaled.npy frozen, seed 4213, peak learning rate 0.1, 6 epochs on mps
+step 393/9444  valid J 4.7242  PPL 112.6  training-sample J 4.7274  (best)
+step 786/9444  valid J 4.6877  PPL 108.6  training-sample J 4.6915  (best)
+step 1179/9444  valid J 4.5324  PPL 93.0  training-sample J 4.5364  (best)
+step 1572/9444  valid J 4.6258  PPL 102.1  training-sample J 4.6277
+step 1965/9444  valid J 4.7632  PPL 117.1  training-sample J 4.7685
+step 2358/9444  valid J 4.7720  PPL 118.2  training-sample J 4.7794
+  lstm-own-frozen-s4213-lr0.1-full: best validation J 4.532397034079126 after 8.0 min
+
+lstm-glove-frozen-s4213-lr0.1: lstm H=248 x1, E glove.npy frozen, seed 4213 on mps
+  lstm-glove-frozen-s4213-lr0.1-full: lstm H=248 x1, E glove.npy frozen, seed 4213, peak learning rate 0.1, 6 epochs on mps
+step 393/9444  valid J 4.9036  PPL 134.8  training-sample J 4.9107  (best)
+step 786/9444  valid J 4.8709  PPL 130.4  training-sample J 4.8786  (best)
+step 1179/9444  valid J 4.8050  PPL 122.1  training-sample J 4.8144  (best)
+step 1572/9444  valid J 4.8097  PPL 122.7  training-sample J 4.8184
+step 1965/9444  valid J 5.0511  PPL 156.2  training-sample J 5.0620
+step 2358/9444  valid J 5.0324  PPL 153.3  training-sample J 5.0455
+  lstm-glove-frozen-s4213-lr0.1-full: best validation J 4.8049851654295175 after 7.8 min

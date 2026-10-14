@@ -1,0 +1,20 @@
+\begin{tabular}{@{}lrr@{}}
+\toprule
+Corpus step & Reviews & Share \\
+\midrule
+Raw All\_Beauty reviews & 701,528 & \\
+\quad $-$ no word, or over 512 tokens & 2,583 & 0.4\% \\
+\quad $-$ not English & 11,634 & 1.7\% \\
+\quad $-$ duplicates & 8,209 & 1.2\% \\
+\quad $-$ over 90 per product & 91,969 & 13.5\% \\
+Clean corpus & 587,133 & 83.7\% \\
+\midrule
+Pile (split keys) & Reviews & Size \\
+\midrule
+LM training $[0, 0.5)$ & 295,645 & 10.96M targets \\
+LM validation $[0.5, 0.55)$ & 28,505 & 1.07M targets \\
+LM test $[0.55, 0.6)$ & 29,827 & 1.12M targets \\
+Part III test $[0.6, 0.7)$ & 57,288 & 24,362 bal. \\
+Part III training $[0.7, 1)$ & 175,868 & 74,344 bal. \\
+\bottomrule
+\end{tabular}

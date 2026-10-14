@@ -1,0 +1,11 @@
+\begin{tabular}{@{}llll@{}}
+\toprule
+Model & Size & Context & Tuned \\
+\midrule
+Kneser-Ney 5-gram & 19.7M $n$-grams & last 4 & $n$ \\
+Add-$k$ 5-gram & 19.7M $n$-grams & last 4 & $n$, $k$, $\lambda$ \\
+RNN, $H{=}512$ & 365,668 & all so far & peak LR \\
+LSTM, $H{=}248$ & 372,100 & all so far & peak LR \\
+Transformer & 374,200 & all so far & peak LR \\
+\bottomrule
+\end{tabular}

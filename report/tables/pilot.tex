@@ -1,0 +1,14 @@
+\begin{tabular}{@{}lrrrrrrrr@{}}
+\toprule
+ & & \multicolumn{2}{c}{K targets/s} & Memory & Noise & Mean & Clipped & $J$ after \\
+\cmidrule(lr){3-4}
+Model & Core & 8K & 16K & 8K (GiB) & scale & norm & steps & 300 steps \\
+\midrule
+RNN-S & 365,668 & 44.0 & 43.2 & 3.9 & 13,095 & 0.96 & 23\% & 5.726 \\
+LSTM-S & 372,100 & 44.2 & 43.4 & 3.9 & 8,060 & 0.71 & 11\% & 5.812 \\
+Transformer-S & 374,200 & 40.6 & 40.2 & 4.0 & 23,909 & 0.67 & 11\% & 5.028 \\
+RNN-M & 1,480,740 & 34.8 & 37.9 & 3.8 & 15,407 & 1.21 & 41\% & 5.718 \\
+LSTM-M & 1,489,500 & 37.6 & 37.1 & 4.1 & 10,480 & 0.87 & 17\% & 5.699 \\
+Transformer-M & 1,578,980 & 32.5 & 32.0 & 4.8 & 11,722 & 0.76 & 11\% & 4.963 \\
+\bottomrule
+\end{tabular}
