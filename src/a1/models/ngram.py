@@ -272,6 +272,33 @@ class KneserNey:
             p = self._raise(m, p, np.full(vocab, ranks[m - 1]), words)
         return p
 
+    def next_distribution(self, history: list[int]) -> np.ndarray:
+        """The same numbers as distribution(), computed from the seen words only (for sampling).
+
+        At order m every word gets gamma(h) * P_{m-1}(w); the few words seen after
+        the history h also get their discounted count over c(h). A key is
+        rank(h) * |V| + w, so the words seen after h are one contiguous run of
+        keys, found with two binary searches instead of |V| lookups.
+        """
+        vocab = self.table.vocab_size
+        p = self.levels[0]["p"].copy()
+        ranks = _history_ranks_of(self.table, history, self.order)
+        for m in range(2, self.order + 1):
+            rank = ranks[m - 1]
+            if rank < 0:  # history never seen in training: keep the shorter history's estimate
+                continue
+            level = self.levels[m - 1]
+            total = level["total"][rank]
+            if total <= 0:
+                continue
+            low, high = np.searchsorted(level["keys"], (rank * vocab, (rank + 1) * vocab))
+            words = level["keys"][low:high] - rank * vocab
+            counts = level["c"][low:high]
+            kept = np.maximum(counts - _discount_of(counts, level["d"]), 0.0)
+            p = level["gamma"][rank] * p
+            p[words] += kept / total
+        return p
+
 
 def _history_ranks_of(table: NgramCounts, history: list[int], order: int) -> list[int]:
     """Ranks of the last 1 to order-1 tokens of one history (-1 when unseen or too long)."""

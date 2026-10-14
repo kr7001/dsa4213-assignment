@@ -1,0 +1,39 @@
+# Final evaluation of Parts I and II (D1.5, D1.6, D1.7, all locked 14 Oct 2026).
+# scripts/evaluate.py is the only script that reads the test pile (lm_test);
+# every setting it uses was fixed on training or validation data first.
+
+corpus: data/processed/reviews.jsonl.gz
+piles: configs/piles.yaml
+vocabulary: data/processed/vocab.json
+ngram_results: results/ngram/ngram.json   # the n-gram orders, k and lambda chosen on validation (D1.1)
+embeddings_results: results/part2/embeddings.json
+runs: results/runs
+checkpoints: checkpoints
+results: results/eval
+device: mps
+batch_tokens: 8192    # the test score's batches, as in training (D0.6)
+
+# Final models. Learning-rate tries and the Part II rate checks stay validation-only.
+models:
+  part1_main: [rnn-S-full, lstm-S-full, transformer-S-full]
+  part1_budget: [rnn-S-e10-full, lstm-S-e10-full, transformer-S-e10-full]
+  part1_size: [rnn-M-full, lstm-M-full, transformer-M-full]
+  part2:
+    - lstm-S-full                       # random, trainable, seed 4213: the Part I run (P2.10)
+    - lstm-random-s4214-full
+    - lstm-random-s4215-full
+    - lstm-own-frozen-s4213-full
+    - lstm-own-frozen-s4214-full
+    - lstm-own-frozen-s4215-full
+    - lstm-glove-frozen-s4213-full
+    - lstm-glove-frozen-s4214-full
+    - lstm-glove-frozen-s4215-full
+    - lstm-glove-trainable-s4213-full   # extra setting (D2.8)
+    - lstm-random-frozen-s4213-full     # extra setting (D2.8)
+
+# D1.7: speed and memory on the common workload, scoring all of lm_test.
+costs:
+  repeats: 5          # timed passes after one untimed warm-up pass; the median is reported
+  gpu: [rnn-S-full, lstm-S-full, transformer-S-full, rnn-M-full, lstm-M-full, transformer-M-full]
+  cpu: [rnn-S-full, lstm-S-full, transformer-S-full]
+  tries: [rnn-S, lstm-S, transformer-S, rnn-M, lstm-M, transformer-M]

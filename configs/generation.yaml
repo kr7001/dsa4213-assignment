@@ -1,0 +1,49 @@
+# Generated text (D1.6, locked 14 Oct 2026).
+# Fixed before any text is generated: commit this file before running
+# scripts/evaluate.py, so the recorded commit shows the prompts came first.
+#
+# Every model writes with temperature sampling at one shared T; <pad>, <bos>
+# and <eos> are never written, so every sample has exactly `length` new tokens.
+
+seed: 4213
+length: median_train_review   # new tokens per sample: the median review length of lm_train
+
+# The temperature test (Holtzman et al., 2020, section 4.2): the T at which each
+# model's perplexity on its own continuations matches its perplexity on the real
+# ones, averaged over the four Part I models. Validation data only.
+temperature_test:
+  pile: lm_valid
+  reviews: 300
+  prompt_tokens: 5            # the median length of the six prompts below is 5.5 tokens
+  grid: {start: 0.5, stop: 1.2, step: 0.05}
+  limits: [0.05, 3.0]         # the grid is extended past an end while the best T sits there
+  models: [kneser-ney, rnn-S-full, lstm-S-full, transformer-S-full]
+
+# Scores of the written text at the chosen T, beside the real continuations.
+scores:
+  pile: lm_test
+  reviews: 300
+  prompt_tokens: 5
+  bootstrap: 1000             # resamples for the 95% intervals
+
+models:
+  - kneser-ney
+  - rnn-S-full
+  - lstm-S-full
+  - transformer-S-full
+  - lstm-own-frozen-s4213-full
+  - lstm-glove-frozen-s4213-full
+  - lstm-glove-trainable-s4213-full
+  - lstm-random-frozen-s4213-full
+
+# Nine samples per model and prompt; the one in the middle by the model's own
+# perplexity is the one shown. Prompts are written as the tokenizer splits text.
+samples_per_prompt: 9
+prompts:
+  - {name: whole review, text: ""}
+  - {name: one product, text: "this shampoo"}
+  - {name: staying negative, text: "i was really disappointed with this"}
+  - {name: contrast, text: "the color is beautiful but"}
+  - {name: one feature, text: "the scent of this perfume is"}
+  - {name: earlier words, text: "i bought this for my daughter , who has very curly hair . she said"}
+report_body_prompts: [3, 6]

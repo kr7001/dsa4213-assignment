@@ -301,6 +301,34 @@ fixed table changed. Each `run.json` records the table, its fingerprints, how
 far a trainable table moved, the gradient norm with and without the table's
 share, the seed and the machine.
 
+## Step 8: final evaluation (test scores, costs, generated text)
+
+    uv run python scripts/evaluate.py
+
+This is the only script that reads the test pile (`lm_test`), and it runs once
+every setting is locked (D1.5 to D1.7, 14 Oct). It reads `configs/eval.yaml`
+(the final models, the timing setup) and `configs/generation.yaml` (the prompts
+and the temperature test, committed before any text was generated), and writes
+three files to `results/eval/`:
+
+- `test.json`: test J and PPL of the 5-gram models and every final neural
+  model, with the same target count checked for all; each checkpoint first
+  re-scores the validation pile and must reproduce the best validation J of its
+  run; J by target position (groups 1-4, 5-8, ..., 129-513).
+- `costs.json`: training time (final run, time to the best checkpoint, all
+  learning-rate tries), parameters, checkpoint size, FLOPs per prediction, and
+  speed and memory scoring all of `lm_test`: the neural models on the GPU, the
+  S models also on the CPU, the 5-gram on the CPU; one untimed pass, then five
+  timed passes (median reported). Close other apps and keep the Mac plugged in.
+- `generation.json`: the temperature T (the value at which the Part I models'
+  perplexity on their own text matches their perplexity on real validation
+  text), text scores at that T on 300 test openings beside the real
+  continuations, and the perplexities of nine samples per prompt and model.
+  The text itself goes to `results/eval/examples_generation.txt` (git-ignored,
+  as it may repeat training reviews).
+
+`--stages test,costs,generation` runs a subset.
+
 ## Report
 
     uv run python scripts/make_report_figures.py

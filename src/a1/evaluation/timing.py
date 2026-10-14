@@ -112,3 +112,81 @@ def training_speed(
         "padding_share": 1.0 - targets / positions,
         "memory_bytes": memory_in_use(device),
     }
+
+
+@torch.no_grad()
+def scoring_speed(
+    model: nn.Module,
+    reviews: EncodedReviews,
+    batch_tokens: int,
+    device: torch.device,
+    repeats: int = 5,
+) -> dict[str, Any]:
+    """Speed and memory on the common workload: scoring every review once (D1.7).
+
+    One untimed pass first (the GPU prepares its programs for each batch shape),
+    then `repeats` timed passes over the same batches as the test score. Each
+    pass sums the loss on the device and reads it once at the end; the GPU is
+    synchronised before every clock reading, so the time covers the finished
+    work, not only the launch. Speed is targets per second at the median pass.
+    """
+    model.eval()
+    batches = make_batches(reviews.lengths, batch_tokens)
+    targets = reviews.n_targets
+
+    def one_pass() -> float:
+        total = torch.zeros((), device=device)
+        for index in batches:
+            inputs, labels = collate(reviews, index, device)
+            logits = model(inputs)
+            total = total + F.cross_entropy(
+                logits.reshape(-1, logits.size(-1)),
+                labels.reshape(-1),
+                ignore_index=PAD_ID,
+                reduction="sum",
+            )
+        return float(total) / targets
+
+    release_memory(device)
+    warm_j = one_pass()
+    seconds = []
+    for _ in range(repeats):
+        synchronize(device)
+        start = time.perf_counter()
+        one_pass()
+        synchronize(device)
+        seconds.append(time.perf_counter() - start)
+    median = float(np.median(seconds))
+    return {
+        "device": str(device),
+        "threads": torch.get_num_threads() if device.type == "cpu" else None,
+        "batch_tokens": batch_tokens,
+        "targets": targets,
+        "J": warm_j,
+        "seconds": seconds,
+        "median_seconds": median,
+        "targets_per_second": targets / median,
+        "range_targets_per_second": [targets / max(seconds), targets / min(seconds)],
+        "memory_bytes": memory_in_use(device),
+    }
+
+
+def ngram_scoring_speed(model: Any, reviews: EncodedReviews, repeats: int = 5) -> dict[str, Any]:
+    """The same workload for a count model on the CPU (one untimed pass, then timed passes)."""
+    log_probs = model.log_probs(reviews)
+    seconds = []
+    for _ in range(repeats):
+        start = time.perf_counter()
+        model.log_probs(reviews)
+        seconds.append(time.perf_counter() - start)
+    median = float(np.median(seconds))
+    targets = int(log_probs.size)
+    return {
+        "device": "cpu",
+        "targets": targets,
+        "J": float(-log_probs.mean()),
+        "seconds": seconds,
+        "median_seconds": median,
+        "targets_per_second": targets / median,
+        "range_targets_per_second": [targets / max(seconds), targets / min(seconds)],
+    }
