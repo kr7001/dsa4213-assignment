@@ -19,8 +19,10 @@ from a1.data.vocab import Vocabulary
 from a1.evaluation.perplexity import evaluate
 from a1.models.build import build_model, count_parameters
 from a1.models.pretrained import install_table, table_sha256
+from a1.part3.errors import star_group
 
 SCRIPT = Path(__file__).resolve().parents[1] / "scripts" / "part3.py"
+ERRORS_SCRIPT = SCRIPT.with_name("part3_errors.py")
 PILES = {
     "lm_train": [0.0, 0.5],
     "lm_valid": [0.5, 0.55],
@@ -53,7 +55,7 @@ def write_world(root: Path) -> Path:
     rng = np.random.default_rng(0)
     good = [f"g{i}" for i in range(15)]
     bad = [f"b{i}" for i in range(15)]
-    plain = [f"w{i}" for i in range(30)]
+    plain = [*(f"w{i}" for i in range(28)), "not", "but"]  # negation and contrast for D3.4
     rows = []
     for i in range(3000):
         product = int(rng.integers(0, 300))
@@ -194,8 +196,8 @@ def write_world(root: Path) -> Path:
     return path
 
 
-def load_script(monkeypatch: pytest.MonkeyPatch):
-    spec = importlib.util.spec_from_file_location("part3_script", SCRIPT)
+def load_script(monkeypatch: pytest.MonkeyPatch, path: Path = SCRIPT):
+    spec = importlib.util.spec_from_file_location(path.stem + "_script", path)
     module = importlib.util.module_from_spec(spec)
     monkeypatch.setitem(sys.modules, spec.name, module)  # dataclasses look their module up
     spec.loader.exec_module(module)
@@ -307,3 +309,75 @@ def test_a_wrong_checkpoint_stops_before_any_feature(
         module.main(["--config", str(config_path)])
     assert not (tmp_path / "results" / "part3").exists()
     assert not (tmp_path / "data" / "part3").exists()
+
+
+def test_error_analysis_runs_after_part3(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    config_path = write_world(tmp_path)
+    monkeypatch.chdir(tmp_path)
+    part3 = load_script(monkeypatch)
+    assert part3.main(["--config", str(config_path), "--without-hidden-check"]) == 0
+    settings = {
+        "part3": str(config_path),
+        "seed": 4213,
+        "main": "transformer-S-full/pre_output/last",
+        "reference": "word_counts",
+        "also": ["rnn-S-full/pre_output/last", "rnn-S-full/pre_output/mean"],
+        "heavy_unk_share": 0.05,
+        "ranking_groups": ["negation", "contrast"],
+        "samples": {"mistakes": 12, "disagreements": 3},
+    }
+    errors_config = tmp_path / "errors.yaml"
+    errors_config.write_text(yaml.safe_dump(settings))
+    errors = load_script(monkeypatch, ERRORS_SCRIPT)
+    assert errors.main(["--config", str(errors_config)]) == 0
+
+    results = tmp_path / "results" / "part3"
+    out = json.loads((results / "errors.json").read_text())
+    groups = out["group_accuracy"]["word_counts"]
+    total = groups["all"]["reviews"]
+    for pair in (
+        ("negation", "no negation"),
+        ("contrast", "no contrast"),
+        ("repeats a part3_train review", "new text"),
+    ):
+        assert groups[pair[0]]["reviews"] + groups[pair[1]]["reviews"] == total
+    assert groups["negation"]["reviews"] > 0 and groups["contrast"]["reviews"] > 0
+    assert sum(groups[star_group(s)]["reviews"] for s in (1, 2, 4, 5)) == total
+    assert sum(groups[f"{g} words"]["reviews"] for g in ("1-2", "3-6", "7-20", "21+")) == total
+    assert sum(out["main_against_reference"].values()) == total
+    part3_result = json.loads((results / "part3.json").read_text())
+    for pooling in ("last", "mean"):
+        overall = part3_result["ranking"][pooling]["overall"]
+        assert out["ranking_in_groups"][pooling]["all"]["same_order"] == overall["same_order"]
+        assert set(out["ranking_in_groups"][pooling]) == {"all", "negation", "contrast"}
+
+    with np.load(tmp_path / "data" / "part3" / "predictions.npz") as stored:
+        names = stored["names"].tolist()
+        right = stored["predicted"] == stored["labels"][None, :]
+        main_right = right[names.index(settings["main"])]
+        reference_right = right[names.index("word_counts")]
+        position = {int(r): i for i, r in enumerate(stored["review_ids"])}
+    mistakes = out["samples"]["mistakes"]
+    assert len(mistakes) == min(12, int((~main_right).sum()))
+    assert all(not main_right[position[row["review_id"]]] for row in mistakes)
+    for row in out["samples"]["main_right_reference_wrong"]:
+        assert (
+            main_right[position[row["review_id"]]]
+            and not reference_right[position[row["review_id"]]]
+        )
+
+    examples = (results / "examples_errors.txt").read_text()
+    assert examples.count("[mistakes ") == len(mistakes)
+    with gzip.open(tmp_path / "data" / "processed" / "reviews.jsonl.gz", "rt") as handle:
+        text = {json.loads(line)["id"]: json.loads(line)["text"] for line in handle}
+    assert text[mistakes[0]["review_id"]] in examples
+    rows = (results / "error_categories.csv").read_text().strip().splitlines()
+    assert len(rows) == len(mistakes) + 1 and rows[1].endswith(",,")
+
+    # predictions from other test reviews stop the analysis
+    with np.load(tmp_path / "data" / "part3" / "predictions.npz") as stored:
+        arrays = {name: stored[name] for name in stored.files}
+    arrays["review_ids"] = arrays["review_ids"][::-1].copy()
+    np.savez(tmp_path / "data" / "part3" / "predictions.npz", **arrays)
+    with pytest.raises(SystemExit, match="other test reviews"):
+        errors.main(["--config", str(errors_config)])

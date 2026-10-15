@@ -36,6 +36,14 @@ from a1.part3.data import (
     label_of,
     read_part3,
 )
+from a1.part3.errors import (
+    disagreement,
+    draw,
+    group_accuracy,
+    groups,
+    has_contrast,
+    has_negation,
+)
 from a1.part3.features import (
     average_vectors,
     length_feature,
@@ -413,3 +421,58 @@ def test_class_scores() -> None:
     assert scores["accuracy"] == 0.75
     assert scores["accuracy_negative"] == 0.5 and scores["accuracy_positive"] == 1.0
     assert scores["macro_f1"] == pytest.approx(np.mean([2 / 3, 0.8]))
+
+
+# --- error analysis (D3.4) -------------------------------------------------
+
+
+def test_negation_and_contrast_words() -> None:
+    assert has_negation(["this", "is", "not", "good"])
+    assert has_negation(["i", "don't", "like", "it"]) and has_negation(["dont"])
+    assert has_negation(["nothing", "special"])
+    assert not has_negation(["note", "nobel", "know"])
+    assert has_contrast(["good", "but", "pricey"]) and has_contrast(["however", "it"])
+    assert not has_contrast(["butter", "buttery"])
+
+
+def test_groups_split_every_review_and_count_repeats(tmp_path: Path) -> None:
+    vocab = Vocabulary(["<pad>", "<unk>", "<bos>", "<eos>", "not", "good", "but", "bad", "."])
+    path = tmp_path / "corpus.jsonl.gz"
+    texts = ["not good", "good but bad .", "great", "good", "bad bad zzz qqq"]
+    rows = [
+        {"id": i, "product": f"p{i}", "split_key": 0.9, "stars": [1, 4, 5, 2, 1][i], "text": t}
+        for i, t in enumerate(texts)
+    ]
+    write_corpus(path, rows)
+    reading = read_part3(path, {"part3_test": Pile("part3_test", 0.8, 1.0)}, {}, vocab)
+    test = reading.sets["part3_test"]
+    masks = groups(test, vocab, {hash("good")}, [(1, 2), (3, None)], heavy_unk_share=0.3)
+    assert masks["negation"].tolist() == [True, False, False, False, False]
+    assert masks["contrast"].tolist() == [False, True, False, False, False]
+    assert masks["any <unk>"].tolist() == [False, False, True, False, True]
+    assert masks["<unk> share at least 30%"].tolist() == [False, False, True, False, True]
+    assert masks["repeats a part3_train review"].tolist() == [False, False, False, True, False]
+    assert masks["1 star"].sum() == 2 and masks["all"].all()
+    accuracy = group_accuracy(np.array([True, False, True, True, False]), masks)
+    assert accuracy["negation"] == {
+        "reviews": 1,
+        "accuracy": 1.0,
+        "interval": accuracy["negation"]["interval"],
+    }
+    assert accuracy["2 stars"]["reviews"] == 1
+
+
+def test_disagreement_and_draw() -> None:
+    first = np.array([1, 1, 0, 0, 1], dtype=bool)
+    second = np.array([1, 0, 1, 0, 1], dtype=bool)
+    assert disagreement(first, second) == {
+        "both_right": 2,
+        "first_only": 1,
+        "second_only": 1,
+        "both_wrong": 1,
+    }
+    rng = np.random.default_rng(4213)
+    sample = draw(np.arange(100), 10, rng)
+    assert sample.size == 10 and np.all(np.diff(sample) > 0)
+    assert draw(np.arange(100), 10, np.random.default_rng(4213)).tolist() == sample.tolist()
+    assert draw(np.array([3, 7]), 10, rng).tolist() == [3, 7]

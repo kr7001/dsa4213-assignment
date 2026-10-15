@@ -1,0 +1,27 @@
+# Part III error analysis (D3.4, locked 15 Oct, before any mistake was read).
+# scripts/part3_errors.py reads this file and configs/part3.yaml.
+
+part3: configs/part3.yaml
+seed: 4213
+
+# The main representation: the best next-token predictor (lowest test J,
+# Transformer-M), with the pooling its cross-validation on part3_train
+# preferred (last word 0.934 against 0.927 for the average).
+main: transformer-M-full/pre_output/last
+reference: word_counts # the strongest simple reference
+
+# Measured groups are also reported for these.
+also:
+  - rnn-S-full/pre_output/last
+  - rnn-S-full/pre_output/mean
+  - lstm-S-full/pre_output/last
+  - lstm-S-full/pre_output/mean
+
+heavy_unk_share: 0.05 # a review counts as full of rare words from this share of <unk>
+
+# The ranking agreement (D3.3) is recomputed inside these groups.
+ranking_groups: [negation, contrast]
+
+samples:
+  mistakes: 40 # random mistakes of the main representation, to categorise
+  disagreements: 5 # random reviews from each side of main vs reference

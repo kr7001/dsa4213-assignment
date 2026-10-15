@@ -371,6 +371,28 @@ Per-review test predictions go to `data/part3/predictions.npz`. All of
 predictions file, which the error analysis (D3.4) reads. No review text is
 printed or written.
 
+## Step 10: Part III error analysis
+
+    uv run python scripts/part3_errors.py 2>&1 | tee results/logs/part3_errors.log
+
+Settings are in `configs/part3_errors.yaml` (D3.4, locked 15 Oct, before any
+mistake was read). It needs only the corpus and the predictions saved by Step 9
+(no model is loaded), checks that the predictions belong to the same balanced
+test reviews, and writes:
+
+- `results/part3/errors.json`: accuracy inside groups of test reviews defined in
+  advance (star level, negation, contrast, rare words, length, exact repeats of
+  a training review) for the main representation (Transformer-M, last word),
+  word counts and the RNN-S and LSTM-S; how often the main representation and
+  word counts are right or wrong together; and the ranking agreement inside
+  the negation and contrast groups;
+- `results/part3/examples_errors.txt` (git-ignored): 40 seeded random mistakes
+  of the main representation and 5 random reviews from each side of its
+  disagreement with word counts, with their text;
+- `results/part3/error_categories.csv`: one row per sampled mistake, with the
+  category column filled in by hand from the fixed list in
+  `src/a1/part3/errors.py` (no text).
+
 ## Report
 
     uv run python scripts/make_report_figures.py
