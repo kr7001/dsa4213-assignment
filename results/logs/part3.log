@@ -1,0 +1,104 @@
+== Data (D3.1) ==
+  part3_train 74,344 reviews, part3_test 24,362 (balanced); read in 3 s
+  test reviews whose exact text is in lm_train: 6.4%; in part3_train: 5.1%
+
+== Checks before any Part III feature ==
+  rnn-S-full: validation J 3.91511 (recorded 3.91511)
+  lstm-S-full: validation J 3.71158 (recorded 3.71158)
+  transformer-S-full: validation J 3.72144 (recorded 3.72144)
+  rnn-M-full: validation J 4.00299 (recorded 4.00299)
+  lstm-M-full: validation J 3.60586 (recorded 3.60586)
+  transformer-M-full: validation J 3.57256 (recorded 3.57256)
+  rnn-S-e10-full: validation J 3.85685 (recorded 3.85685)
+  lstm-S-e10-full: validation J 3.68702 (recorded 3.68702)
+  transformer-S-e10-full: validation J 3.70257 (recorded 3.70257)
+  lstm-own-frozen-s4213-full: validation J 3.81522 (recorded 3.81522)
+  lstm-glove-frozen-s4213-full: validation J 3.97592 (recorded 3.97592)
+  lstm-glove-trainable-s4213-full: validation J 3.73165 (recorded 3.73165)
+  lstm-random-frozen-s4213-full: validation J 4.02930 (recorded 4.02930)
+  lstm-random-s4214-full: validation J 3.70739 (recorded 3.70739)
+  lstm-random-s4215-full: validation J 3.70736 (recorded 3.70736)
+  lstm-own-frozen-s4214-full: validation J 3.79958 (recorded 3.79958)
+  lstm-own-frozen-s4215-full: validation J 3.81469 (recorded 3.81469)
+  lstm-glove-frozen-s4214-full: validation J 3.96083 (recorded 3.96083)
+  lstm-glove-frozen-s4215-full: validation J 3.95653 (recorded 3.95653)
+  untrained copies rebuild a run's start: checked on lstm-random-s4214-full
+
+== Features and classifier (D3.2, D3.3) ==
+  rnn-S-full/pre_output/last                           C = 1e-2  cross-validated 0.8491  test 0.8492  (2 s)
+  rnn-S-full/pre_output/mean                           C = 1e1   cross-validated 0.8917  test 0.8929  (4 s)
+  lstm-S-full/pre_output/last                          C = 1e1   cross-validated 0.9214  test 0.9226  (1 s)
+  lstm-S-full/pre_output/mean                          C = 1e-1  cross-validated 0.9208  test 0.9220  (2 s)
+  transformer-S-full/pre_output/last                   C = 1e2   cross-validated 0.9119  test 0.9149  (2 s)
+  transformer-S-full/pre_output/mean                   C = 1e1   cross-validated 0.9166  test 0.9178  (3 s)
+  rnn-M-full/pre_output/last                           C = 1e-2  cross-validated 0.8352  test 0.8382  (3 s)
+  rnn-M-full/pre_output/mean                           C = 1e2   cross-validated 0.8809  test 0.8790  (5 s)
+  lstm-M-full/pre_output/last                          C = 1e-1  cross-validated 0.9326  test 0.9343  (2 s)
+  lstm-M-full/pre_output/mean                          C = 1e-1  cross-validated 0.9288  test 0.9304  (2 s)
+  transformer-M-full/pre_output/last                   C = 1e-1  cross-validated 0.9336  test 0.9330  (2 s)
+  transformer-M-full/pre_output/mean                   C = 1e-1  cross-validated 0.9270  test 0.9288  (2 s)
+  rnn-S-e10-full/pre_output/last                       C = 1e-2  cross-validated 0.8731  test 0.8733  (2 s)
+  rnn-S-e10-full/pre_output/mean                       C = 1e1   cross-validated 0.9084  test 0.9087  (2 s)
+  lstm-S-e10-full/pre_output/last                      C = 1e-1  cross-validated 0.9284  test 0.9308  (1 s)
+  lstm-S-e10-full/pre_output/mean                      C = 1e-1  cross-validated 0.9223  test 0.9234  (2 s)
+  transformer-S-e10-full/pre_output/last               C = 1e-2  cross-validated 0.9145  test 0.9162  (1 s)
+  transformer-S-e10-full/pre_output/mean               C = 1e-1  cross-validated 0.9167  test 0.9173  (1 s)
+  lstm-own-frozen-s4213-full/pre_output/last           C = 1e-1  cross-validated 0.9188  test 0.9200  (1 s)
+  lstm-own-frozen-s4213-full/pre_output/mean           C = 1e-2  cross-validated 0.9150  test 0.9159  (2 s)
+  lstm-glove-frozen-s4213-full/pre_output/last         C = 1e-2  cross-validated 0.8907  test 0.8932  (2 s)
+  lstm-glove-frozen-s4213-full/pre_output/mean         C = 1e1   cross-validated 0.8888  test 0.8897  (2 s)
+  lstm-glove-trainable-s4213-full/pre_output/last      C = 1e2   cross-validated 0.9172  test 0.9173  (2 s)
+  lstm-glove-trainable-s4213-full/pre_output/mean      C = 1e0   cross-validated 0.9194  test 0.9215  (2 s)
+  lstm-random-frozen-s4213-full/pre_output/last        C = 1e-2  cross-validated 0.8830  test 0.8821  (2 s)
+  lstm-random-frozen-s4213-full/pre_output/mean        C = 1e0   cross-validated 0.8844  test 0.8834  (2 s)
+  lstm-random-s4214-full/pre_output/last               C = 1e-2  cross-validated 0.9264  test 0.9277  (1 s)
+  lstm-random-s4214-full/pre_output/mean               C = 1e1   cross-validated 0.9212  test 0.9227  (2 s)
+  lstm-random-s4215-full/pre_output/last               C = 1e-2  cross-validated 0.9250  test 0.9234  (1 s)
+  lstm-random-s4215-full/pre_output/mean               C = 1e-1  cross-validated 0.9232  test 0.9239  (1 s)
+  lstm-own-frozen-s4214-full/pre_output/last           C = 1e1   cross-validated 0.9180  test 0.9185  (2 s)
+  lstm-own-frozen-s4214-full/pre_output/mean           C = 1e-1  cross-validated 0.9179  test 0.9187  (2 s)
+  lstm-own-frozen-s4215-full/pre_output/last           C = 1e-1  cross-validated 0.9140  test 0.9139  (2 s)
+  lstm-own-frozen-s4215-full/pre_output/mean           C = 1e-1  cross-validated 0.9176  test 0.9179  (2 s)
+  lstm-glove-frozen-s4214-full/pre_output/last         C = 1e1   cross-validated 0.8996  test 0.8998  (2 s)
+  lstm-glove-frozen-s4214-full/pre_output/mean         C = 1e2   cross-validated 0.8968  test 0.8985  (3 s)
+  lstm-glove-frozen-s4215-full/pre_output/last         C = 1e-3  cross-validated 0.8963  test 0.8961  (2 s)
+  lstm-glove-frozen-s4215-full/pre_output/mean         C = 1e0   cross-validated 0.8964  test 0.8964  (2 s)
+  untrained/rnn-S-full/pre_output/last                 C = 1e-1  cross-validated 0.6027  test 0.6068  (2 s)
+  untrained/rnn-S-full/pre_output/mean                 C = 1e1   cross-validated 0.7264  test 0.7251  (3 s)
+  untrained/lstm-S-full/pre_output/last                C = 1e-1  cross-validated 0.6668  test 0.6683  (5 s)
+  untrained/lstm-S-full/pre_output/mean                C = 1e2   cross-validated 0.7298  test 0.7332  (9 s)
+  untrained/transformer-S-full/pre_output/last         C = 1e2   cross-validated 0.6247  test 0.6219  (12 s)
+  untrained/transformer-S-full/pre_output/mean         C = 1e0   cross-validated 0.7178  test 0.7181  (9 s)
+  table/learned                                        C = 1e-1  cross-validated 0.8760  test 0.8791  (1 s)
+  table/skipgram                                       C = 1e-1  cross-validated 0.8917  test 0.8941  (2 s)
+  table/glove                                          C = 1e2   cross-validated 0.8268  test 0.8282  (4 s)
+  word_counts                                          C = 1e1   cross-validated 0.9304  test 0.9361  (7 s)
+  length                                               C = 1e-4  cross-validated 0.5301  test 0.5234  (0 s)
+
+== Appendix check: the top hidden state (D3.2) ==
+  rnn-S-full/hidden/last                               C = 1e-3  cross-validated 0.8527  test 0.8512  (20 s)
+  rnn-S-full/hidden/mean                               C = 1e1   cross-validated 0.9047  test 0.9059  (15 s)
+  lstm-S-full/hidden/last                              C = 1e-1  cross-validated 0.9228  test 0.9227  (4 s)
+  lstm-S-full/hidden/mean                              C = 1e0   cross-validated 0.9238  test 0.9242  (4 s)
+  transformer-S-full/hidden/last                       C = 1e-2  cross-validated 0.9119  test 0.9145  (1 s)
+  transformer-S-full/hidden/mean                       C = 1e-2  cross-validated 0.9169  test 0.9175  (2 s)
+  rnn-M-full/hidden/last                               C = 1e-3  cross-validated 0.8421  test 0.8437  (75 s)
+  rnn-M-full/hidden/mean                               C = 1e-1  cross-validated 0.9021  test 0.8996  (93 s)
+  lstm-M-full/hidden/last                              C = 1e-1  cross-validated 0.9367  test 0.9372  (8 s)
+  lstm-M-full/hidden/mean                              C = 1e2   cross-validated 0.9353  test 0.9363  (12 s)
+  transformer-M-full/hidden/last                       C = 1e-1  cross-validated 0.9356  test 0.9364  (2 s)
+  transformer-M-full/hidden/mean                       C = 1e0   cross-validated 0.9310  test 0.9321  (2 s)
+
+== Analysis (D3.3) ==
+Wrote results/part3/part3.json
+Wrote data/part3/predictions.npz (per-review test predictions; git-ignored)
+
+Ranking: does the better next-token predictor also classify better?
+  last : 66 of 78 pairs in the same order; tau 0.69 (95% 0.67 to 0.74), p 0.000529
+  mean : 72 of 78 pairs in the same order; tau 0.85 (95% 0.77 to 0.87), p 5.2e-06
+
+Luck yardstick (sd of test accuracy across seeds, averaged over the settings):
+  last : 0.0031
+  mean : 0.0023
+
+36 of 51 fixed comparisons differ after the Holm correction; 36 of them also when whole products are resampled (details in part3.json).
