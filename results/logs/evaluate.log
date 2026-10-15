@@ -1,0 +1,138 @@
+|V| = 17,068; read the corpus in 3 s; lm_test 29,827 reviews, 1,115,210 targets; device mps
+Counted n-grams in 14 s; Kneser-Ney order 5, add-k {'order': 5, 'k': 1e-05}
+
+== Checks before any test data is used ==
+  kneser-ney: validation J 4.11346 (recorded 4.11346)
+  add-k: validation J 4.28278 (recorded 4.28278)
+  rnn-S-full: validation J 3.91511 (recorded 3.91511)
+  lstm-S-full: validation J 3.71158 (recorded 3.71158)
+  transformer-S-full: validation J 3.72144 (recorded 3.72144)
+  rnn-S-e10-full: validation J 3.85685 (recorded 3.85685)
+  lstm-S-e10-full: validation J 3.68702 (recorded 3.68702)
+  transformer-S-e10-full: validation J 3.70257 (recorded 3.70257)
+  rnn-M-full: validation J 4.00299 (recorded 4.00299)
+  lstm-M-full: validation J 3.60586 (recorded 3.60586)
+  transformer-M-full: validation J 3.57256 (recorded 3.57256)
+  lstm-random-s4214-full: validation J 3.70739 (recorded 3.70739)
+  lstm-random-s4215-full: validation J 3.70736 (recorded 3.70736)
+  lstm-own-frozen-s4213-full: validation J 3.81522 (recorded 3.81522)
+  lstm-own-frozen-s4214-full: validation J 3.79958 (recorded 3.79958)
+  lstm-own-frozen-s4215-full: validation J 3.81469 (recorded 3.81469)
+  lstm-glove-frozen-s4213-full: validation J 3.97592 (recorded 3.97592)
+  lstm-glove-frozen-s4214-full: validation J 3.96083 (recorded 3.96083)
+  lstm-glove-frozen-s4215-full: validation J 3.95653 (recorded 3.95653)
+  lstm-glove-trainable-s4213-full: validation J 3.73165 (recorded 3.73165)
+  lstm-random-frozen-s4213-full: validation J 4.02930 (recorded 4.02930)
+  all 21 models reproduce their validation J (within 0.0001)
+
+== Test scores and loss by position (D1.5) ==
+  kneser-ney: test J 4.1099
+  add-k: test J 4.2797
+  rnn-S-full: test J 3.9137
+  lstm-S-full: test J 3.7081
+  transformer-S-full: test J 3.7178
+  rnn-S-e10-full: test J 3.8545
+  lstm-S-e10-full: test J 3.6842
+  transformer-S-e10-full: test J 3.7001
+  rnn-M-full: test J 4.0011
+  lstm-M-full: test J 3.6019
+  transformer-M-full: test J 3.5695
+  lstm-random-s4214-full: test J 3.7035
+  lstm-random-s4215-full: test J 3.7035
+  lstm-own-frozen-s4213-full: test J 3.8114
+  lstm-own-frozen-s4214-full: test J 3.7948
+  lstm-own-frozen-s4215-full: test J 3.8102
+  lstm-glove-frozen-s4213-full: test J 3.9733
+  lstm-glove-frozen-s4214-full: test J 3.9590
+  lstm-glove-frozen-s4215-full: test J 3.9535
+  lstm-glove-trainable-s4213-full: test J 3.7292
+  lstm-random-frozen-s4213-full: test J 4.0267
+Wrote results/eval/test.json
+
+Test J (PPL) | validation J recomputed | J by position, groups 1-4 ... 129-513
+  kneser-ney                         4.1099 ( 60.94) | 4.1135 | 3.870 3.992 4.044 4.093 4.171 4.243 4.335
+  add-k                              4.2797 ( 72.22) | 4.2828 | 4.012 4.170 4.213 4.261 4.344 4.418 4.518
+  rnn-S-full                         3.9137 ( 50.08) | 3.9151 | 3.832 3.770 3.824 3.873 3.952 4.031 4.156
+  lstm-S-full                        3.7081 ( 40.77) | 3.7116 | 3.783 3.616 3.631 3.648 3.709 3.778 3.893
+  transformer-S-full                 3.7178 ( 41.17) | 3.7214 | 3.771 3.609 3.631 3.649 3.717 3.800 3.973
+  rnn-S-e10-full                     3.8545 ( 47.21) | 3.8568 | 3.819 3.718 3.768 3.804 3.884 3.964 4.084
+  lstm-S-e10-full                    3.6842 ( 39.81) | 3.6870 | 3.774 3.594 3.608 3.622 3.682 3.751 3.864
+  transformer-S-e10-full             3.7001 ( 40.45) | 3.7026 | 3.775 3.597 3.611 3.630 3.697 3.778 3.942
+  rnn-M-full                         4.0011 ( 54.66) | 4.0030 | 3.886 3.862 3.915 3.963 4.042 4.123 4.253
+  lstm-M-full                        3.6019 ( 36.67) | 3.6059 | 3.751 3.523 3.523 3.533 3.591 3.656 3.762
+  transformer-M-full                 3.5695 ( 35.50) | 3.5726 | 3.732 3.481 3.484 3.497 3.553 3.626 3.753
+  lstm-random-s4214-full             3.7035 ( 40.59) | 3.7074 | 3.784 3.610 3.628 3.640 3.705 3.775 3.886
+  lstm-random-s4215-full             3.7035 ( 40.59) | 3.7074 | 3.783 3.614 3.626 3.641 3.703 3.775 3.887
+  lstm-own-frozen-s4213-full         3.8114 ( 45.21) | 3.8152 | 3.824 3.712 3.732 3.756 3.823 3.901 4.016
+  lstm-own-frozen-s4214-full         3.7948 ( 44.47) | 3.7996 | 3.823 3.698 3.718 3.740 3.802 3.877 3.996
+  lstm-own-frozen-s4215-full         3.8102 ( 45.16) | 3.8147 | 3.831 3.719 3.736 3.756 3.817 3.890 4.011
+  lstm-glove-frozen-s4213-full       3.9733 ( 53.16) | 3.9759 | 3.903 3.873 3.907 3.934 3.994 4.069 4.186
+  lstm-glove-frozen-s4214-full       3.9590 ( 52.40) | 3.9608 | 3.900 3.860 3.889 3.915 3.980 4.055 4.172
+  lstm-glove-frozen-s4215-full       3.9535 ( 52.12) | 3.9565 | 3.902 3.861 3.890 3.909 3.969 4.044 4.164
+  lstm-glove-trainable-s4213-full    3.7292 ( 41.64) | 3.7316 | 3.787 3.632 3.652 3.669 3.733 3.808 3.919
+  lstm-random-frozen-s4213-full      4.0267 ( 56.08) | 4.0293 | 3.915 3.914 3.953 3.987 4.060 4.137 4.264
+
+== Costs (D1.7) ==
+  timing rnn-S-full on mps (5 passes after a warm-up pass)
+    144,274 targets/s (range 143,870 to 144,929)
+  timing lstm-S-full on mps (5 passes after a warm-up pass)
+    147,991 targets/s (range 145,205 to 151,304)
+  timing transformer-S-full on mps (5 passes after a warm-up pass)
+    139,235 targets/s (range 134,859 to 141,088)
+  timing rnn-M-full on mps (5 passes after a warm-up pass)
+    122,947 targets/s (range 119,702 to 124,784)
+  timing lstm-M-full on mps (5 passes after a warm-up pass)
+    123,202 targets/s (range 122,770 to 123,472)
+  timing transformer-M-full on mps (5 passes after a warm-up pass)
+    119,886 targets/s (range 117,433 to 120,271)
+  timing rnn-S-full on cpu (5 passes after a warm-up pass)
+    45,249 targets/s (range 41,984 to 45,459)
+  timing lstm-S-full on cpu (5 passes after a warm-up pass)
+    42,884 targets/s (range 42,033 to 43,918)
+  timing transformer-S-full on cpu (5 passes after a warm-up pass)
+    45,535 targets/s (range 44,079 to 46,102)
+  timing kneser-ney on cpu
+Wrote results/eval/costs.json
+
+Model | core params | GFLOPs/prediction | GPU targets/s | CPU targets/s | train min
+  rnn-S-full                 365668  0.00414        144,274         45,249     25.1
+  lstm-S-full                372100  0.00415        147,991         42,884     24.7
+  transformer-S-full         374200  0.00421        139,235         45,535     29.7
+  rnn-M-full                1480740  0.00637        122,947            nan     32.2
+  lstm-M-full               1489500  0.00638        123,202            nan     29.0
+  transformer-M-full        1578980  0.00670        119,886            nan     36.4
+  kneser-ney                      -      nan            nan      3,424,892      nan
+
+== Generated text (D1.6) ==
+  new tokens per sample: 22 (median review length of lm_train)
+    kneser-ney: real-text J 4.124; measured T = 0.5 to 1.2
+    rnn-S-full: real-text J 3.936; measured T = 0.5 to 1.2
+    lstm-S-full: real-text J 3.717; measured T = 0.5 to 1.2
+    transformer-S-full: real-text J 3.722; measured T = 0.5 to 1.2
+  chosen T = 1.01 (mean |gap| 0.043 nats)
+  each model's own T: {'kneser-ney': 1.010536290400334, 'rnn-S-full': 1.0020421466324825, 'lstm-S-full': 0.9979287480742836, 'transformer-S-full': 1.0149730523435108}
+    kneser-ney: written-text J 4.106, real-text J 4.181
+    rnn-S-full: written-text J 3.984, real-text J 3.962
+    lstm-S-full: written-text J 3.815, real-text J 3.761
+    transformer-S-full: written-text J 3.688, real-text J 3.771
+    lstm-own-frozen-s4213-full: written-text J 4.057, real-text J 3.870
+    lstm-glove-frozen-s4213-full: written-text J 4.341, real-text J 4.047
+    lstm-glove-trainable-s4213-full: written-text J 3.868, real-text J 3.777
+    lstm-random-frozen-s4213-full: written-text J 4.295, real-text J 4.107
+Wrote results/eval/generation.json
+
+Scores at the chosen T (300 test openings), real continuations first
+                                     seq-rep-2 seq-rep-4 distinct-1 distinct-2 copied-5gram unk
+  real                                   0.011     0.000     0.219     0.702     0.197     0.006
+  kneser-ney                             0.011     0.002     0.242     0.725     0.230     0.005
+  rnn-S-full                             0.013     0.003     0.209     0.676     0.135     0.005
+  lstm-S-full                            0.021     0.006     0.209     0.675     0.147     0.006
+  transformer-S-full                     0.021     0.004     0.213     0.680     0.153     0.006
+  lstm-own-frozen-s4213-full             0.013     0.002     0.219     0.698     0.117     0.006
+  lstm-glove-frozen-s4213-full           0.011     0.002     0.229     0.717     0.089     0.005
+  lstm-glove-trainable-s4213-full        0.014     0.005     0.214     0.694     0.140     0.006
+  lstm-random-frozen-s4213-full          0.013     0.002     0.215     0.702     0.104     0.007
+
+The samples are in results/eval/examples_generation.txt (the middle one of each prompt and model is marked >>). They are not printed here, because logs are kept in git and the text may repeat training reviews.
+
+Done. Results in results/eval/

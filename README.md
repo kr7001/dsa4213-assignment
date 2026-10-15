@@ -329,6 +329,48 @@ three files to `results/eval/`:
 
 `--stages test,costs,generation` runs a subset.
 
+## Step 9: Part III, frozen language models as sentiment features
+
+    uv sync   # adds scikit-learn
+    caffeinate -i uv run python scripts/part3.py 2>&1 | tee results/logs/part3.log
+
+Settings are in `configs/part3.yaml` (D3.1 to D3.3, locked 15 Oct, before any
+Part III result), including the comparisons fixed in advance. The script:
+
+- reads the two Part III piles, labels them (1-2 stars negative, 4-5 positive,
+  3 stars left out), balances each pile at random within each class (seed
+  4213) and checks the counts (74,344 training and 24,362 test reviews);
+- checks every language model first: it must reproduce, on the validation
+  pile, the best validation J its run recorded, and Part II input tables must
+  match their run's fingerprint; any failure stops the script before a feature
+  is made;
+- reads, for each of the 19 trained language models, the 100 numbers that feed
+  the output layer at the last word and averaged over the words (plus the top
+  hidden state for the six Part I S and M models), with a fingerprint of every
+  parameter before and after to show the models stayed frozen; also untrained
+  copies of the S models, average word vectors of three input tables, word and
+  word-pair counts, and review length;
+- fits one logistic regression per representation, choosing C by 5-fold
+  cross-validation on the training reviews (folds split by product, the same
+  for every representation), and scores the test reviews once;
+- writes `results/part3/part3.json`: accuracy with bootstrap intervals, by
+  length group and without reviews under 3 and 5 words, the fixed comparisons
+  (exact McNemar tests, Holm-corrected), the ranking agreement between test J
+  and accuracy (Kendall's tau), the seed spread, and costs;
+- also computes every interval a second way, resampling whole products instead
+  of single reviews, as a check: reviews of one product share sentiment, so
+  review-level intervals and McNemar p-values may be too narrow.
+
+Each representation's result is saved as soon as it is done
+(`data/part3/classified/`), so a run that stops part-way continues where it
+stopped when started again; language-model features are cached in
+`data/part3/features/` (about 1.3 GB). The appendix check on the top hidden
+state runs last and is the slowest part; `--without-hidden-check` skips it.
+Per-review test predictions go to `data/part3/predictions.npz`. All of
+`data/part3/` is git-ignored and can be deleted after the run, except the
+predictions file, which the error analysis (D3.4) reads. No review text is
+printed or written.
+
 ## Report
 
     uv run python scripts/make_report_figures.py

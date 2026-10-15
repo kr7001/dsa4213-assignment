@@ -1,0 +1,133 @@
+# Part III: frozen language models as feature extractors for sentiment.
+# D3.1 (labels), D3.2 (features) and D3.3 (classifier and statistics), all set
+# before any Part III result. scripts/part3.py reads this file.
+
+corpus: data/processed/reviews.jsonl.gz
+piles: configs/piles.yaml
+vocabulary: data/processed/vocab.json
+runs: results/runs
+checkpoints: checkpoints
+test_scores: results/eval/test.json # each language model's test J (D0.5)
+results: results/part3
+cache: data/part3 # features and per-review predictions; git-ignored with /data/
+device: mps
+batch_tokens: 8192
+seed: 4213
+
+# Reviews after balancing (results/data/pile_sizes.json); the script stops if
+# the counts differ, like the target-count check in Parts I and II.
+expected_reviews:
+  part3_train: 74344
+  part3_test: 24362
+
+# D3.2: every trained neural language model, in groups that each change one thing.
+models:
+  design: [rnn-S-full, lstm-S-full, transformer-S-full]
+  size: [rnn-M-full, lstm-M-full, transformer-M-full]
+  training_length: [rnn-S-e10-full, lstm-S-e10-full, transformer-S-e10-full]
+  word_table:
+    - lstm-own-frozen-s4213-full
+    - lstm-glove-frozen-s4213-full
+    - lstm-glove-trainable-s4213-full
+    - lstm-random-frozen-s4213-full
+  seed_repeats:
+    - lstm-random-s4214-full
+    - lstm-random-s4215-full
+    - lstm-own-frozen-s4214-full
+    - lstm-own-frozen-s4215-full
+    - lstm-glove-frozen-s4214-full
+    - lstm-glove-frozen-s4215-full
+
+# The main ranking (D3.3): the 13 seed-4213 models; the repeats only measure luck.
+ranking:
+  - rnn-S-full
+  - lstm-S-full
+  - transformer-S-full
+  - rnn-M-full
+  - lstm-M-full
+  - transformer-M-full
+  - rnn-S-e10-full
+  - lstm-S-e10-full
+  - transformer-S-e10-full
+  - lstm-own-frozen-s4213-full
+  - lstm-glove-frozen-s4213-full
+  - lstm-glove-trainable-s4213-full
+  - lstm-random-frozen-s4213-full
+
+# Within-group rankings: the pairs inside each group are compared.
+ranking_groups:
+  design: [rnn-S-full, lstm-S-full, transformer-S-full]
+  word_table:
+    - lstm-S-full
+    - lstm-own-frozen-s4213-full
+    - lstm-glove-frozen-s4213-full
+    - lstm-glove-trainable-s4213-full
+    - lstm-random-frozen-s4213-full
+# Size and training length are pairs with their S model (see comparisons).
+
+# The luck yardstick: settings trained with three seeds.
+seed_groups:
+  random_trainable: [lstm-S-full, lstm-random-s4214-full, lstm-random-s4215-full]
+  own_frozen:
+    - lstm-own-frozen-s4213-full
+    - lstm-own-frozen-s4214-full
+    - lstm-own-frozen-s4215-full
+  glove_frozen:
+    - lstm-glove-frozen-s4213-full
+    - lstm-glove-frozen-s4214-full
+    - lstm-glove-frozen-s4215-full
+
+layer: pre_output # the 100 numbers that feed the output layer (D3.2)
+poolings: [last, mean]
+hidden_check: # appendix: the top hidden state as well
+  - rnn-S-full
+  - lstm-S-full
+  - transformer-S-full
+  - rnn-M-full
+  - lstm-M-full
+  - transformer-M-full
+untrained: [rnn-S-full, lstm-S-full, transformer-S-full] # each run's starting weights
+
+# Average word vector of a review in an input table, no language model on top.
+tables:
+  learned: {checkpoint: lstm-S-full} # the table LSTM-S learned
+  skipgram: {file: data/embeddings/skipgram-scaled.npy} # our skip-gram (Part II)
+  glove: {file: data/embeddings/glove.npy} # GloVe 2024, aligned to our vocabulary
+
+word_counts:
+  orders: [1, 2] # single words and word pairs (Wang and Manning 2012)
+  min_documents: 2 # an n-gram must occur in at least 2 fitting reviews
+  sublinear_tf: true
+
+classifier:
+  folds: 5 # split by product, stratified by label, same for every representation
+  powers: [-4, 2] # C = 10^-4 ... 10^2 to start
+  limits: [-8, 6] # how far the range may grow
+  max_iter: 5000
+
+bootstrap: 2000
+length_groups: [[1, 2], [3, 6], [7, 20], [21, null]] # words (D0.8)
+minimum_words: [3, 5] # the ranking again without the shortest reviews (D0.8)
+
+# D3.3: the comparisons fixed in advance, each run at both poolings, plus last
+# word against average for every ranked model. One family, Holm-corrected.
+comparisons:
+  - [lstm-S-full, untrained/lstm-S-full]
+  - [rnn-S-full, untrained/rnn-S-full]
+  - [transformer-S-full, untrained/transformer-S-full]
+  - [rnn-S-full, lstm-S-full]
+  - [rnn-S-full, transformer-S-full]
+  - [lstm-S-full, transformer-S-full]
+  - [rnn-S-full, rnn-M-full]
+  - [lstm-S-full, lstm-M-full]
+  - [transformer-S-full, transformer-M-full]
+  - [rnn-S-full, rnn-S-e10-full]
+  - [lstm-S-full, lstm-S-e10-full]
+  - [transformer-S-full, transformer-S-e10-full]
+  - [lstm-S-full, lstm-own-frozen-s4213-full]
+  - [lstm-S-full, lstm-glove-frozen-s4213-full]
+  - [lstm-S-full, lstm-glove-trainable-s4213-full]
+  - [lstm-S-full, lstm-random-frozen-s4213-full]
+  - [rnn-S-full, word_counts]
+  - [lstm-S-full, word_counts]
+  - [transformer-S-full, word_counts]
