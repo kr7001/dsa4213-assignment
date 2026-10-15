@@ -1,0 +1,1726 @@
+{
+  "main": "transformer-M-full/pre_output/last",
+  "reference": "word_counts",
+  "group_definitions": {
+    "negation_words": [
+      "arent",
+      "cannot",
+      "cant",
+      "couldnt",
+      "didnt",
+      "doesnt",
+      "dont",
+      "hadnt",
+      "hasnt",
+      "havent",
+      "isnt",
+      "neither",
+      "never",
+      "no",
+      "nobody",
+      "none",
+      "nor",
+      "not",
+      "nothing",
+      "nowhere",
+      "shouldnt",
+      "wasnt",
+      "werent",
+      "wont",
+      "wouldnt"
+    ],
+    "negation_rule": "a negation word, or a token ending in n't",
+    "contrast_words": [
+      "although",
+      "but",
+      "except",
+      "however",
+      "nevertheless",
+      "nonetheless",
+      "though",
+      "whereas"
+    ],
+    "heavy_unk_share": 0.05,
+    "repeat": "the exact text of a part3_train review"
+  },
+  "group_accuracy": {
+    "transformer-M-full/pre_output/last": {
+      "all": {
+        "reviews": 24362,
+        "accuracy": 0.933010426073393,
+        "interval": [
+          0.9298023230603392,
+          0.9360819943623329
+        ]
+      },
+      "1 star": {
+        "reviews": 8563,
+        "accuracy": 0.95877612986103,
+        "interval": [
+          0.9543554969756812,
+          0.9627853229831357
+        ]
+      },
+      "2 stars": {
+        "reviews": 3618,
+        "accuracy": 0.8908236594803759,
+        "interval": [
+          0.8802441950755026,
+          0.9005740798693161
+        ]
+      },
+      "4 stars": {
+        "reviews": 2013,
+        "accuracy": 0.7863884749130651,
+        "interval": [
+          0.7679474468145224,
+          0.8037385401812986
+        ]
+      },
+      "5 stars": {
+        "reviews": 10168,
+        "accuracy": 0.9553501180173092,
+        "interval": [
+          0.9511608177459419,
+          0.9591954867135644
+        ]
+      },
+      "negation": {
+        "reviews": 12262,
+        "accuracy": 0.9288044364703963,
+        "interval": [
+          0.9241173580422715,
+          0.9332229259736826
+        ]
+      },
+      "no negation": {
+        "reviews": 12100,
+        "accuracy": 0.9372727272727273,
+        "interval": [
+          0.932812077856431,
+          0.9414558176709307
+        ]
+      },
+      "contrast": {
+        "reviews": 6033,
+        "accuracy": 0.8763467594894746,
+        "interval": [
+          0.8677998887930465,
+          0.8844146642933106
+        ]
+      },
+      "no contrast": {
+        "reviews": 18329,
+        "accuracy": 0.9516613017622347,
+        "interval": [
+          0.9484605026360575,
+          0.9546728189055269
+        ]
+      },
+      "any <unk>": {
+        "reviews": 3478,
+        "accuracy": 0.9120184013801035,
+        "interval": [
+          0.9021439003000067,
+          0.9209837561127925
+        ]
+      },
+      "<unk> share at least 5%": {
+        "reviews": 799,
+        "accuracy": 0.9036295369211514,
+        "interval": [
+          0.8811943832787101,
+          0.9222020942119393
+        ]
+      },
+      "1-2 words": {
+        "reviews": 1378,
+        "accuracy": 0.9564586357039188,
+        "interval": [
+          0.9443553615753936,
+          0.9660240397443612
+        ]
+      },
+      "3-6 words": {
+        "reviews": 3005,
+        "accuracy": 0.9474209650582363,
+        "interval": [
+          0.9388543817663884,
+          0.9548450825629635
+        ]
+      },
+      "7-20 words": {
+        "reviews": 8177,
+        "accuracy": 0.9357955240308181,
+        "interval": [
+          0.9302753862745977,
+          0.9409063907925487
+        ]
+      },
+      "21+ words": {
+        "reviews": 11802,
+        "accuracy": 0.924673784104389,
+        "interval": [
+          0.9197729382486752,
+          0.9292982639154537
+        ]
+      },
+      "repeats a part3_train review": {
+        "reviews": 1250,
+        "accuracy": 0.984,
+        "interval": [
+          0.9754154143445776,
+          0.9896188740718147
+        ]
+      },
+      "new text": {
+        "reviews": 23112,
+        "accuracy": 0.9302526825891312,
+        "interval": [
+          0.9268967490502521,
+          0.9334656148043851
+        ]
+      }
+    },
+    "word_counts": {
+      "all": {
+        "reviews": 24362,
+        "accuracy": 0.9360889910516378,
+        "interval": [
+          0.9329482993354135,
+          0.9390921773257361
+        ]
+      },
+      "1 star": {
+        "reviews": 8563,
+        "accuracy": 0.9625131379189537,
+        "interval": [
+          0.9582780422330135,
+          0.9663334424168262
+        ]
+      },
+      "2 stars": {
+        "reviews": 3618,
+        "accuracy": 0.8811498065229408,
+        "interval": [
+          0.8701985811933547,
+          0.8912925087280773
+        ]
+      },
+      "4 stars": {
+        "reviews": 2013,
+        "accuracy": 0.8276204669647292,
+        "interval": [
+          0.8105003383389261,
+          0.8434925643908985
+        ]
+      },
+      "5 stars": {
+        "reviews": 10168,
+        "accuracy": 0.9548583792289536,
+        "interval": [
+          0.9506482893924659,
+          0.9587249089067169
+        ]
+      },
+      "negation": {
+        "reviews": 12262,
+        "accuracy": 0.9310879138802806,
+        "interval": [
+          0.9264681428871725,
+          0.9354376656537812
+        ]
+      },
+      "no negation": {
+        "reviews": 12100,
+        "accuracy": 0.9411570247933885,
+        "interval": [
+          0.9368222547172733,
+          0.9452117702921874
+        ]
+      },
+      "contrast": {
+        "reviews": 6033,
+        "accuracy": 0.8866235703630034,
+        "interval": [
+          0.878375896892231,
+          0.894379198934207
+        ]
+      },
+      "no contrast": {
+        "reviews": 18329,
+        "accuracy": 0.952370560314256,
+        "interval": [
+          0.9491913110704128,
+          0.95536023033951
+        ]
+      },
+      "any <unk>": {
+        "reviews": 3478,
+        "accuracy": 0.9223691776883266,
+        "interval": [
+          0.913002792558648,
+          0.930803576785666
+        ]
+      },
+      "<unk> share at least 5%": {
+        "reviews": 799,
+        "accuracy": 0.918648310387985,
+        "interval": [
+          0.897629364787762,
+          0.9356609351211442
+        ]
+      },
+      "1-2 words": {
+        "reviews": 1378,
+        "accuracy": 0.951378809869376,
+        "interval": [
+          0.93871490075772,
+          0.961533092280257
+        ]
+      },
+      "3-6 words": {
+        "reviews": 3005,
+        "accuracy": 0.9474209650582363,
+        "interval": [
+          0.9388543817663884,
+          0.9548450825629635
+        ]
+      },
+      "7-20 words": {
+        "reviews": 8177,
+        "accuracy": 0.9395866454689984,
+        "interval": [
+          0.9342133205466603,
+          0.9445471390205793
+        ]
+      },
+      "21+ words": {
+        "reviews": 11802,
+        "accuracy": 0.9289950855787155,
+        "interval": [
+          0.9242205195825525,
+          0.9334904733458164
+        ]
+      },
+      "repeats a part3_train review": {
+        "reviews": 1250,
+        "accuracy": 0.9888,
+        "interval": [
+          0.9812880893028063,
+          0.9933167870978808
+        ]
+      },
+      "new text": {
+        "reviews": 23112,
+        "accuracy": 0.9332381446867428,
+        "interval": [
+          0.9299475823264026,
+          0.9363847134576363
+        ]
+      }
+    },
+    "rnn-S-full/pre_output/last": {
+      "all": {
+        "reviews": 24362,
+        "accuracy": 0.8491503160660044,
+        "interval": [
+          0.8446010485940685,
+          0.8535894911724733
+        ]
+      },
+      "1 star": {
+        "reviews": 8563,
+        "accuracy": 0.8955973373817587,
+        "interval": [
+          0.8889423669822311,
+          0.9018975280439857
+        ]
+      },
+      "2 stars": {
+        "reviews": 3618,
+        "accuracy": 0.8153676064123825,
+        "interval": [
+          0.8023925605431121,
+          0.8276736712192909
+        ]
+      },
+      "4 stars": {
+        "reviews": 2013,
+        "accuracy": 0.6383507203179334,
+        "interval": [
+          0.6171161645135701,
+          0.6590582455095628
+        ]
+      },
+      "5 stars": {
+        "reviews": 10168,
+        "accuracy": 0.8637883556254917,
+        "interval": [
+          0.8569836485101134,
+          0.8703182888971681
+        ]
+      },
+      "negation": {
+        "reviews": 12262,
+        "accuracy": 0.8138150383297994,
+        "interval": [
+          0.8068273983920753,
+          0.820606114900696
+        ]
+      },
+      "no negation": {
+        "reviews": 12100,
+        "accuracy": 0.8849586776859504,
+        "interval": [
+          0.8791509157752851,
+          0.8905220869399767
+        ]
+      },
+      "contrast": {
+        "reviews": 6033,
+        "accuracy": 0.7510359688380573,
+        "interval": [
+          0.739967137673977,
+          0.7617853136139717
+        ]
+      },
+      "no contrast": {
+        "reviews": 18329,
+        "accuracy": 0.8814447051121174,
+        "interval": [
+          0.8766846834849987,
+          0.8860448710910701
+        ]
+      },
+      "any <unk>": {
+        "reviews": 3478,
+        "accuracy": 0.7834962622196665,
+        "interval": [
+          0.7694996375009323,
+          0.7968673333455577
+        ]
+      },
+      "<unk> share at least 5%": {
+        "reviews": 799,
+        "accuracy": 0.8285356695869838,
+        "interval": [
+          0.8008442542432642,
+          0.8530831111561018
+        ]
+      },
+      "1-2 words": {
+        "reviews": 1378,
+        "accuracy": 0.9462989840348331,
+        "interval": [
+          0.9331080222498566,
+          0.9570085625063424
+        ]
+      },
+      "3-6 words": {
+        "reviews": 3005,
+        "accuracy": 0.9211314475873544,
+        "interval": [
+          0.9109480085909825,
+          0.9302395496900104
+        ]
+      },
+      "7-20 words": {
+        "reviews": 8177,
+        "accuracy": 0.8788064082181729,
+        "interval": [
+          0.8715544056407847,
+          0.885702660295931
+        ]
+      },
+      "21+ words": {
+        "reviews": 11802,
+        "accuracy": 0.798932384341637,
+        "interval": [
+          0.791604671364813,
+          0.8060655603261382
+        ]
+      },
+      "repeats a part3_train review": {
+        "reviews": 1250,
+        "accuracy": 0.9768,
+        "interval": [
+          0.9668796564527882,
+          0.9837987499871621
+        ]
+      },
+      "new text": {
+        "reviews": 23112,
+        "accuracy": 0.8422464520595362,
+        "interval": [
+          0.8374902652832574,
+          0.8468888877829313
+        ]
+      }
+    },
+    "rnn-S-full/pre_output/mean": {
+      "all": {
+        "reviews": 24362,
+        "accuracy": 0.892906986290124,
+        "interval": [
+          0.8889617828146484,
+          0.8967283002614551
+        ]
+      },
+      "1 star": {
+        "reviews": 8563,
+        "accuracy": 0.9303982249211725,
+        "interval": [
+          0.9248130959572785,
+          0.935597364004086
+        ]
+      },
+      "2 stars": {
+        "reviews": 3618,
+        "accuracy": 0.8565505804311775,
+        "interval": [
+          0.8447502707372918,
+          0.8675945486961001
+        ]
+      },
+      "4 stars": {
+        "reviews": 2013,
+        "accuracy": 0.7074018877297565,
+        "interval": [
+          0.6871474105376483,
+          0.726866292100262
+        ]
+      },
+      "5 stars": {
+        "reviews": 10168,
+        "accuracy": 0.9109952793076318,
+        "interval": [
+          0.905304222747573,
+          0.9163759060507589
+        ]
+      },
+      "negation": {
+        "reviews": 12262,
+        "accuracy": 0.8798727776871635,
+        "interval": [
+          0.8739991049662833,
+          0.8855085106568271
+        ]
+      },
+      "no negation": {
+        "reviews": 12100,
+        "accuracy": 0.9061157024793388,
+        "interval": [
+          0.9007891455503638,
+          0.911184477322714
+        ]
+      },
+      "contrast": {
+        "reviews": 6033,
+        "accuracy": 0.8131940991214984,
+        "interval": [
+          0.8031609244719627,
+          0.8228286804858315
+        ]
+      },
+      "no contrast": {
+        "reviews": 18329,
+        "accuracy": 0.9191445250695619,
+        "interval": [
+          0.9151095138085823,
+          0.9230038814614814
+        ]
+      },
+      "any <unk>": {
+        "reviews": 3478,
+        "accuracy": 0.8573893041978148,
+        "interval": [
+          0.8453735932323624,
+          0.8686164115974416
+        ]
+      },
+      "<unk> share at least 5%": {
+        "reviews": 799,
+        "accuracy": 0.8560700876095119,
+        "interval": [
+          0.8300258308078872,
+          0.8787068756916161
+        ]
+      },
+      "1-2 words": {
+        "reviews": 1378,
+        "accuracy": 0.9484760522496372,
+        "interval": [
+          0.9355071629954301,
+          0.9589514538815307
+        ]
+      },
+      "3-6 words": {
+        "reviews": 3005,
+        "accuracy": 0.9211314475873544,
+        "interval": [
+          0.9109480085909825,
+          0.9302395496900104
+        ]
+      },
+      "7-20 words": {
+        "reviews": 8177,
+        "accuracy": 0.9060780237250825,
+        "interval": [
+          0.8995630347748459,
+          0.9122116504367325
+        ]
+      },
+      "21+ words": {
+        "reviews": 11802,
+        "accuracy": 0.8701067615658363,
+        "interval": [
+          0.8639208594316146,
+          0.8760518083762296
+        ]
+      },
+      "repeats a part3_train review": {
+        "reviews": 1250,
+        "accuracy": 0.98,
+        "interval": [
+          0.9706419282173678,
+          0.9864168702121122
+        ]
+      },
+      "new text": {
+        "reviews": 23112,
+        "accuracy": 0.8881966078227761,
+        "interval": [
+          0.8840692531850024,
+          0.8921949391424119
+        ]
+      }
+    },
+    "lstm-S-full/pre_output/last": {
+      "all": {
+        "reviews": 24362,
+        "accuracy": 0.922584352680404,
+        "interval": [
+          0.9191614320912033,
+          0.9258740260438246
+        ]
+      },
+      "1 star": {
+        "reviews": 8563,
+        "accuracy": 0.9506014247343221,
+        "interval": [
+          0.945806176567887,
+          0.9549925643793181
+        ]
+      },
+      "2 stars": {
+        "reviews": 3618,
+        "accuracy": 0.8800442233278054,
+        "interval": [
+          0.869051984698743,
+          0.8902302840771592
+        ]
+      },
+      "4 stars": {
+        "reviews": 2013,
+        "accuracy": 0.7585692995529061,
+        "interval": [
+          0.7393933571469833,
+          0.7767602529680642
+        ]
+      },
+      "5 stars": {
+        "reviews": 10168,
+        "accuracy": 0.9465971675845791,
+        "interval": [
+          0.9420559414966061,
+          0.950801073309143
+        ]
+      },
+      "negation": {
+        "reviews": 12262,
+        "accuracy": 0.9142064916000653,
+        "interval": [
+          0.9091188720680619,
+          0.9190346658773607
+        ]
+      },
+      "no negation": {
+        "reviews": 12100,
+        "accuracy": 0.9310743801652892,
+        "interval": [
+          0.926422456442767,
+          0.9354526792727345
+        ]
+      },
+      "contrast": {
+        "reviews": 6033,
+        "accuracy": 0.856124647770595,
+        "interval": [
+          0.8470418386632431,
+          0.8647542270958576
+        ]
+      },
+      "no contrast": {
+        "reviews": 18329,
+        "accuracy": 0.9444595995417099,
+        "interval": [
+          0.9410498096667725,
+          0.9476831255193743
+        ]
+      },
+      "any <unk>": {
+        "reviews": 3478,
+        "accuracy": 0.8927544565842438,
+        "interval": [
+          0.8820342284423607,
+          0.9026080455701192
+        ]
+      },
+      "<unk> share at least 5%": {
+        "reviews": 799,
+        "accuracy": 0.8936170212765957,
+        "interval": [
+          0.8703228872560985,
+          0.9131443752890464
+        ]
+      },
+      "1-2 words": {
+        "reviews": 1378,
+        "accuracy": 0.9506531204644412,
+        "interval": [
+          0.9379119759321974,
+          0.9608886730655253
+        ]
+      },
+      "3-6 words": {
+        "reviews": 3005,
+        "accuracy": 0.9454242928452579,
+        "interval": [
+          0.9367193469926914,
+          0.9529918713076712
+        ]
+      },
+      "7-20 words": {
+        "reviews": 8177,
+        "accuracy": 0.9305368717133423,
+        "interval": [
+          0.9248217400222439,
+          0.9358476709963864
+        ]
+      },
+      "21+ words": {
+        "reviews": 11802,
+        "accuracy": 0.9079816980172852,
+        "interval": [
+          0.902633205720233,
+          0.9130646870212437
+        ]
+      },
+      "repeats a part3_train review": {
+        "reviews": 1250,
+        "accuracy": 0.9808,
+        "interval": [
+          0.9715897334966723,
+          0.9870641629301902
+        ]
+      },
+      "new text": {
+        "reviews": 23112,
+        "accuracy": 0.919435790931118,
+        "interval": [
+          0.9158568669897241,
+          0.9228753087149072
+        ]
+      }
+    },
+    "lstm-S-full/pre_output/mean": {
+      "all": {
+        "reviews": 24362,
+        "accuracy": 0.921968639684755,
+        "interval": [
+          0.9185336270225363,
+          0.9252705992647959
+        ]
+      },
+      "1 star": {
+        "reviews": 8563,
+        "accuracy": 0.9494336097162209,
+        "interval": [
+          0.9445878858190158,
+          0.9538762724122447
+        ]
+      },
+      "2 stars": {
+        "reviews": 3618,
+        "accuracy": 0.8725815367606412,
+        "interval": [
+          0.8613198568261254,
+          0.8830528692174499
+        ]
+      },
+      "4 stars": {
+        "reviews": 2013,
+        "accuracy": 0.7719821162444114,
+        "interval": [
+          0.7531462442440131,
+          0.7897819047242645
+        ]
+      },
+      "5 stars": {
+        "reviews": 10168,
+        "accuracy": 0.9461054287962234,
+        "interval": [
+          0.9415454793788174,
+          0.9503284292666081
+        ]
+      },
+      "negation": {
+        "reviews": 12262,
+        "accuracy": 0.9147773609525363,
+        "interval": [
+          0.909704527541433,
+          0.9195903915352392
+        ]
+      },
+      "no negation": {
+        "reviews": 12100,
+        "accuracy": 0.9292561983471075,
+        "interval": [
+          0.9245502230867482,
+          0.9336897030839411
+        ]
+      },
+      "contrast": {
+        "reviews": 6033,
+        "accuracy": 0.8602685231228244,
+        "interval": [
+          0.851290310061058,
+          0.8687882326093657
+        ]
+      },
+      "no contrast": {
+        "reviews": 18329,
+        "accuracy": 0.9422772655354902,
+        "interval": [
+          0.9388073690971274,
+          0.9455618126479778
+        ]
+      },
+      "any <unk>": {
+        "reviews": 3478,
+        "accuracy": 0.8924669350201265,
+        "interval": [
+          0.8817349376008613,
+          0.9023329277190765
+        ]
+      },
+      "<unk> share at least 5%": {
+        "reviews": 799,
+        "accuracy": 0.8811013767209012,
+        "interval": [
+          0.8568147432807429,
+          0.9017410005825215
+        ]
+      },
+      "1-2 words": {
+        "reviews": 1378,
+        "accuracy": 0.9586357039187228,
+        "interval": [
+          0.9467843275749623,
+          0.9679371058655541
+        ]
+      },
+      "3-6 words": {
+        "reviews": 3005,
+        "accuracy": 0.9447587354409318,
+        "interval": [
+          0.9360083460159307,
+          0.9523734569414355
+        ]
+      },
+      "7-20 words": {
+        "reviews": 8177,
+        "accuracy": 0.9219762749174514,
+        "interval": [
+          0.9159627958029343,
+          0.927593461183228
+        ]
+      },
+      "21+ words": {
+        "reviews": 11802,
+        "accuracy": 0.9118793424843247,
+        "interval": [
+          0.906630197157094,
+          0.9168604480384028
+        ]
+      },
+      "repeats a part3_train review": {
+        "reviews": 1250,
+        "accuracy": 0.9848,
+        "interval": [
+          0.9763816338563367,
+          0.9902477525574382
+        ]
+      },
+      "new text": {
+        "reviews": 23112,
+        "accuracy": 0.918570439598477,
+        "interval": [
+          0.9149745335060792,
+          0.9220272271465516
+        ]
+      }
+    }
+  },
+  "main_against_reference": {
+    "both_right": 21916,
+    "first_only": 814,
+    "second_only": 889,
+    "both_wrong": 743
+  },
+  "ranking_in_groups": {
+    "last": {
+      "all": {
+        "models": 13,
+        "pairs": 78,
+        "same_order": 66,
+        "opposite_order": 12,
+        "ties": 0,
+        "share_same_order": 0.8461538461538461,
+        "tau": 0.6923076923076922,
+        "p": 0.0005287205721233499,
+        "reviews": 24362,
+        "accuracy": {
+          "rnn-S-full": 0.8491503160660044,
+          "lstm-S-full": 0.922584352680404,
+          "transformer-S-full": 0.9149084640013135,
+          "rnn-M-full": 0.8382316722764962,
+          "lstm-M-full": 0.9342828995977341,
+          "transformer-M-full": 0.933010426073393,
+          "rnn-S-e10-full": 0.873327313028487,
+          "lstm-S-e10-full": 0.9308349068221,
+          "transformer-S-e10-full": 0.9161809375256547,
+          "lstm-own-frozen-s4213-full": 0.9200394056317215,
+          "lstm-glove-frozen-s4213-full": 0.8931532714883835,
+          "lstm-glove-trainable-s4213-full": 0.9172892209178228,
+          "lstm-random-frozen-s4213-full": 0.8820704375667022
+        }
+      },
+      "negation": {
+        "models": 13,
+        "pairs": 78,
+        "same_order": 66,
+        "opposite_order": 11,
+        "ties": 1,
+        "share_same_order": 0.8571428571428571,
+        "tau": 0.7096921893772,
+        "p": 0.0007744992696823885,
+        "reviews": 12262,
+        "accuracy": {
+          "rnn-S-full": 0.8138150383297994,
+          "lstm-S-full": 0.9142064916000653,
+          "transformer-S-full": 0.9026259990213669,
+          "rnn-M-full": 0.8030500733974881,
+          "lstm-M-full": 0.9291306475289512,
+          "transformer-M-full": 0.9288044364703963,
+          "rnn-S-e10-full": 0.8386070787799706,
+          "lstm-S-e10-full": 0.925705431414125,
+          "transformer-S-e10-full": 0.9060512151361931,
+          "lstm-own-frozen-s4213-full": 0.9116783558962649,
+          "lstm-glove-frozen-s4213-full": 0.8811776219213832,
+          "lstm-glove-trainable-s4213-full": 0.9060512151361931,
+          "lstm-random-frozen-s4213-full": 0.873919425868537
+        }
+      },
+      "contrast": {
+        "models": 13,
+        "pairs": 78,
+        "same_order": 67,
+        "opposite_order": 11,
+        "ties": 0,
+        "share_same_order": 0.8589743589743589,
+        "tau": 0.7179487179487178,
+        "p": 0.00028397849578405134,
+        "reviews": 6033,
+        "accuracy": {
+          "rnn-S-full": 0.7510359688380573,
+          "lstm-S-full": 0.856124647770595,
+          "transformer-S-full": 0.8498259572352064,
+          "rnn-M-full": 0.7442400132604011,
+          "lstm-M-full": 0.8770097795458313,
+          "transformer-M-full": 0.8763467594894746,
+          "rnn-S-e10-full": 0.778882811205039,
+          "lstm-S-e10-full": 0.8741919443063153,
+          "transformer-S-e10-full": 0.8475053870379579,
+          "lstm-own-frozen-s4213-full": 0.8533068125310791,
+          "lstm-glove-frozen-s4213-full": 0.819327034642798,
+          "lstm-glove-trainable-s4213-full": 0.8470081219956904,
+          "lstm-random-frozen-s4213-full": 0.8123653240510526
+        }
+      }
+    },
+    "mean": {
+      "all": {
+        "models": 13,
+        "pairs": 78,
+        "same_order": 72,
+        "opposite_order": 6,
+        "ties": 0,
+        "share_same_order": 0.9230769230769231,
+        "tau": 0.846153846153846,
+        "p": 5.202487841376731e-06,
+        "reviews": 24362,
+        "accuracy": {
+          "rnn-S-full": 0.892906986290124,
+          "lstm-S-full": 0.921968639684755,
+          "transformer-S-full": 0.9178228388473852,
+          "rnn-M-full": 0.8789918725884575,
+          "lstm-M-full": 0.9303833839586241,
+          "transformer-M-full": 0.9288235777029801,
+          "rnn-S-e10-full": 0.9087102865117807,
+          "lstm-S-e10-full": 0.9234463508743125,
+          "transformer-S-e10-full": 0.9172892209178228,
+          "lstm-own-frozen-s4213-full": 0.9159346523273951,
+          "lstm-glove-frozen-s4213-full": 0.8897052787127494,
+          "lstm-glove-trainable-s4213-full": 0.9214760692882358,
+          "lstm-random-frozen-s4213-full": 0.8833839586240867
+        }
+      },
+      "negation": {
+        "models": 13,
+        "pairs": 78,
+        "same_order": 70,
+        "opposite_order": 7,
+        "ties": 1,
+        "share_same_order": 0.9090909090909091,
+        "tau": 0.8129201441957018,
+        "p": 0.00011776484279695915,
+        "reviews": 12262,
+        "accuracy": {
+          "rnn-S-full": 0.8798727776871635,
+          "lstm-S-full": 0.9147773609525363,
+          "transformer-S-full": 0.9076007176643288,
+          "rnn-M-full": 0.8625020388191159,
+          "lstm-M-full": 0.9243190344152666,
+          "transformer-M-full": 0.9219540042407438,
+          "rnn-S-e10-full": 0.8961017778502691,
+          "lstm-S-e10-full": 0.9164899690099494,
+          "transformer-S-e10-full": 0.9079269287228837,
+          "lstm-own-frozen-s4213-full": 0.9073560593704126,
+          "lstm-glove-frozen-s4213-full": 0.8783232751590279,
+          "lstm-glove-trainable-s4213-full": 0.9147773609525363,
+          "lstm-random-frozen-s4213-full": 0.8802805415103572
+        }
+      },
+      "contrast": {
+        "models": 13,
+        "pairs": 78,
+        "same_order": 67,
+        "opposite_order": 10,
+        "ties": 1,
+        "share_same_order": 0.8701298701298701,
+        "tau": 0.7354991780818254,
+        "p": 0.0004939859426446926,
+        "reviews": 6033,
+        "accuracy": {
+          "rnn-S-full": 0.8131940991214984,
+          "lstm-S-full": 0.8602685231228244,
+          "transformer-S-full": 0.8513177523620089,
+          "rnn-M-full": 0.7951268025857782,
+          "lstm-M-full": 0.8763467594894746,
+          "transformer-M-full": 0.8708768440245317,
+          "rnn-S-e10-full": 0.8370628211503398,
+          "lstm-S-e10-full": 0.864578153489143,
+          "transformer-S-e10-full": 0.8470081219956904,
+          "lstm-own-frozen-s4213-full": 0.8503232222774739,
+          "lstm-glove-frozen-s4213-full": 0.8135256091496768,
+          "lstm-glove-trainable-s4213-full": 0.8644123984750539,
+          "lstm-random-frozen-s4213-full": 0.8135256091496768
+        }
+      }
+    }
+  },
+  "categories": [
+    "rating does not match the text",
+    "mixed feelings",
+    "negation missed",
+    "sarcasm",
+    "complaint not about the product",
+    "too short or vague to tell",
+    "other"
+  ],
+  "samples": {
+    "mistakes": [
+      {
+        "review_id": 30067,
+        "stars": 4,
+        "label": "positive",
+        "words": 26,
+        "flags": [
+          "negation",
+          "contrast",
+          "any <unk>"
+        ],
+        "probability_positive": {
+          "transformer-M-full/pre_output/last": 0.428,
+          "word_counts": 0.213
+        }
+      },
+      {
+        "review_id": 33430,
+        "stars": 5,
+        "label": "positive",
+        "words": 101,
+        "flags": [
+          "negation",
+          "contrast",
+          "any <unk>"
+        ],
+        "probability_positive": {
+          "transformer-M-full/pre_output/last": 0.231,
+          "word_counts": 0.227
+        }
+      },
+      {
+        "review_id": 62839,
+        "stars": 4,
+        "label": "positive",
+        "words": 62,
+        "flags": [
+          "negation",
+          "contrast"
+        ],
+        "probability_positive": {
+          "transformer-M-full/pre_output/last": 0.188,
+          "word_counts": 0.541
+        }
+      },
+      {
+        "review_id": 89244,
+        "stars": 5,
+        "label": "positive",
+        "words": 13,
+        "flags": [
+          "contrast"
+        ],
+        "probability_positive": {
+          "transformer-M-full/pre_output/last": 0.229,
+          "word_counts": 0.27
+        }
+      },
+      {
+        "review_id": 89732,
+        "stars": 2,
+        "label": "negative",
+        "words": 55,
+        "flags": [
+          "negation",
+          "contrast",
+          "any <unk>"
+        ],
+        "probability_positive": {
+          "transformer-M-full/pre_output/last": 0.797,
+          "word_counts": 0.525
+        }
+      },
+      {
+        "review_id": 100391,
+        "stars": 2,
+        "label": "negative",
+        "words": 20,
+        "flags": [
+          "contrast"
+        ],
+        "probability_positive": {
+          "transformer-M-full/pre_output/last": 0.972,
+          "word_counts": 0.844
+        }
+      },
+      {
+        "review_id": 128765,
+        "stars": 4,
+        "label": "positive",
+        "words": 10,
+        "flags": [
+          "contrast"
+        ],
+        "probability_positive": {
+          "transformer-M-full/pre_output/last": 0.342,
+          "word_counts": 0.732
+        }
+      },
+      {
+        "review_id": 153068,
+        "stars": 2,
+        "label": "negative",
+        "words": 6,
+        "flags": [
+          "negation"
+        ],
+        "probability_positive": {
+          "transformer-M-full/pre_output/last": 0.562,
+          "word_counts": 0.111
+        }
+      },
+      {
+        "review_id": 177729,
+        "stars": 5,
+        "label": "positive",
+        "words": 26,
+        "flags": [
+          "negation",
+          "contrast"
+        ],
+        "probability_positive": {
+          "transformer-M-full/pre_output/last": 0.465,
+          "word_counts": 0.639
+        }
+      },
+      {
+        "review_id": 204210,
+        "stars": 1,
+        "label": "negative",
+        "words": 47,
+        "flags": [
+          "contrast"
+        ],
+        "probability_positive": {
+          "transformer-M-full/pre_output/last": 0.902,
+          "word_counts": 0.715
+        }
+      },
+      {
+        "review_id": 231032,
+        "stars": 1,
+        "label": "negative",
+        "words": 13,
+        "flags": [],
+        "probability_positive": {
+          "transformer-M-full/pre_output/last": 0.522,
+          "word_counts": 0.094
+        }
+      },
+      {
+        "review_id": 239215,
+        "stars": 4,
+        "label": "positive",
+        "words": 53,
+        "flags": [
+          "negation"
+        ],
+        "probability_positive": {
+          "transformer-M-full/pre_output/last": 0.285,
+          "word_counts": 0.116
+        }
+      },
+      {
+        "review_id": 249827,
+        "stars": 1,
+        "label": "negative",
+        "words": 70,
+        "flags": [
+          "negation",
+          "any <unk>"
+        ],
+        "probability_positive": {
+          "transformer-M-full/pre_output/last": 0.632,
+          "word_counts": 0.12
+        }
+      },
+      {
+        "review_id": 266030,
+        "stars": 1,
+        "label": "negative",
+        "words": 63,
+        "flags": [
+          "negation"
+        ],
+        "probability_positive": {
+          "transformer-M-full/pre_output/last": 0.547,
+          "word_counts": 0.087
+        }
+      },
+      {
+        "review_id": 303284,
+        "stars": 1,
+        "label": "negative",
+        "words": 14,
+        "flags": [
+          "negation",
+          "contrast"
+        ],
+        "probability_positive": {
+          "transformer-M-full/pre_output/last": 0.792,
+          "word_counts": 0.074
+        }
+      },
+      {
+        "review_id": 318624,
+        "stars": 5,
+        "label": "positive",
+        "words": 76,
+        "flags": [
+          "negation",
+          "contrast",
+          "any <unk>"
+        ],
+        "probability_positive": {
+          "transformer-M-full/pre_output/last": 0.486,
+          "word_counts": 0.829
+        }
+      },
+      {
+        "review_id": 339444,
+        "stars": 4,
+        "label": "positive",
+        "words": 29,
+        "flags": [
+          "negation"
+        ],
+        "probability_positive": {
+          "transformer-M-full/pre_output/last": 0.183,
+          "word_counts": 0.212
+        }
+      },
+      {
+        "review_id": 345422,
+        "stars": 2,
+        "label": "negative",
+        "words": 48,
+        "flags": [
+          "contrast"
+        ],
+        "probability_positive": {
+          "transformer-M-full/pre_output/last": 0.712,
+          "word_counts": 0.806
+        }
+      },
+      {
+        "review_id": 360275,
+        "stars": 4,
+        "label": "positive",
+        "words": 64,
+        "flags": [
+          "negation"
+        ],
+        "probability_positive": {
+          "transformer-M-full/pre_output/last": 0.342,
+          "word_counts": 0.937
+        }
+      },
+      {
+        "review_id": 394605,
+        "stars": 1,
+        "label": "negative",
+        "words": 13,
+        "flags": [],
+        "probability_positive": {
+          "transformer-M-full/pre_output/last": 0.582,
+          "word_counts": 0.458
+        }
+      },
+      {
+        "review_id": 435003,
+        "stars": 4,
+        "label": "positive",
+        "words": 17,
+        "flags": [
+          "contrast",
+          "any <unk>"
+        ],
+        "probability_positive": {
+          "transformer-M-full/pre_output/last": 0.041,
+          "word_counts": 0.405
+        }
+      },
+      {
+        "review_id": 469436,
+        "stars": 5,
+        "label": "positive",
+        "words": 13,
+        "flags": [
+          "negation"
+        ],
+        "probability_positive": {
+          "transformer-M-full/pre_output/last": 0.489,
+          "word_counts": 0.155
+        }
+      },
+      {
+        "review_id": 481715,
+        "stars": 4,
+        "label": "positive",
+        "words": 249,
+        "flags": [
+          "negation",
+          "contrast",
+          "any <unk>"
+        ],
+        "probability_positive": {
+          "transformer-M-full/pre_output/last": 0.435,
+          "word_counts": 0.462
+        }
+      },
+      {
+        "review_id": 492029,
+        "stars": 1,
+        "label": "negative",
+        "words": 4,
+        "flags": [],
+        "probability_positive": {
+          "transformer-M-full/pre_output/last": 0.627,
+          "word_counts": 0.427
+        }
+      },
+      {
+        "review_id": 495149,
+        "stars": 2,
+        "label": "negative",
+        "words": 5,
+        "flags": [],
+        "probability_positive": {
+          "transformer-M-full/pre_output/last": 0.655,
+          "word_counts": 0.343
+        }
+      },
+      {
+        "review_id": 497963,
+        "stars": 5,
+        "label": "positive",
+        "words": 9,
+        "flags": [],
+        "probability_positive": {
+          "transformer-M-full/pre_output/last": 0.205,
+          "word_counts": 0.531
+        }
+      },
+      {
+        "review_id": 521651,
+        "stars": 5,
+        "label": "positive",
+        "words": 43,
+        "flags": [
+          "any <unk>"
+        ],
+        "probability_positive": {
+          "transformer-M-full/pre_output/last": 0.225,
+          "word_counts": 0.951
+        }
+      },
+      {
+        "review_id": 546935,
+        "stars": 1,
+        "label": "negative",
+        "words": 18,
+        "flags": [
+          "contrast"
+        ],
+        "probability_positive": {
+          "transformer-M-full/pre_output/last": 0.944,
+          "word_counts": 0.143
+        }
+      },
+      {
+        "review_id": 548438,
+        "stars": 2,
+        "label": "negative",
+        "words": 104,
+        "flags": [
+          "negation",
+          "any <unk>"
+        ],
+        "probability_positive": {
+          "transformer-M-full/pre_output/last": 0.636,
+          "word_counts": 0.434
+        }
+      },
+      {
+        "review_id": 562735,
+        "stars": 4,
+        "label": "positive",
+        "words": 43,
+        "flags": [
+          "negation"
+        ],
+        "probability_positive": {
+          "transformer-M-full/pre_output/last": 0.023,
+          "word_counts": 0.004
+        }
+      },
+      {
+        "review_id": 576095,
+        "stars": 2,
+        "label": "negative",
+        "words": 11,
+        "flags": [
+          "contrast"
+        ],
+        "probability_positive": {
+          "transformer-M-full/pre_output/last": 0.875,
+          "word_counts": 0.35
+        }
+      },
+      {
+        "review_id": 589730,
+        "stars": 5,
+        "label": "positive",
+        "words": 11,
+        "flags": [],
+        "probability_positive": {
+          "transformer-M-full/pre_output/last": 0.018,
+          "word_counts": 0.034
+        }
+      },
+      {
+        "review_id": 611918,
+        "stars": 5,
+        "label": "positive",
+        "words": 5,
+        "flags": [],
+        "probability_positive": {
+          "transformer-M-full/pre_output/last": 0.455,
+          "word_counts": 0.981
+        }
+      },
+      {
+        "review_id": 619765,
+        "stars": 5,
+        "label": "positive",
+        "words": 11,
+        "flags": [
+          "negation"
+        ],
+        "probability_positive": {
+          "transformer-M-full/pre_output/last": 0.019,
+          "word_counts": 0.687
+        }
+      },
+      {
+        "review_id": 636104,
+        "stars": 1,
+        "label": "negative",
+        "words": 2,
+        "flags": [],
+        "probability_positive": {
+          "transformer-M-full/pre_output/last": 0.555,
+          "word_counts": 0.429
+        }
+      },
+      {
+        "review_id": 640719,
+        "stars": 5,
+        "label": "positive",
+        "words": 5,
+        "flags": [
+          "negation"
+        ],
+        "probability_positive": {
+          "transformer-M-full/pre_output/last": 0.462,
+          "word_counts": 0.737
+        }
+      },
+      {
+        "review_id": 649462,
+        "stars": 5,
+        "label": "positive",
+        "words": 3,
+        "flags": [
+          "negation",
+          "repeats a part3_train review"
+        ],
+        "probability_positive": {
+          "transformer-M-full/pre_output/last": 0.001,
+          "word_counts": 0.0
+        }
+      },
+      {
+        "review_id": 672690,
+        "stars": 1,
+        "label": "negative",
+        "words": 12,
+        "flags": [
+          "any <unk>"
+        ],
+        "probability_positive": {
+          "transformer-M-full/pre_output/last": 0.727,
+          "word_counts": 0.192
+        }
+      },
+      {
+        "review_id": 678768,
+        "stars": 4,
+        "label": "positive",
+        "words": 22,
+        "flags": [],
+        "probability_positive": {
+          "transformer-M-full/pre_output/last": 0.02,
+          "word_counts": 0.23
+        }
+      },
+      {
+        "review_id": 679808,
+        "stars": 1,
+        "label": "negative",
+        "words": 10,
+        "flags": [],
+        "probability_positive": {
+          "transformer-M-full/pre_output/last": 0.902,
+          "word_counts": 0.557
+        }
+      }
+    ],
+    "main_right_reference_wrong": [
+      {
+        "review_id": 474204,
+        "stars": 1,
+        "label": "negative",
+        "words": 3,
+        "flags": [
+          "negation"
+        ],
+        "probability_positive": {
+          "transformer-M-full/pre_output/last": 0.024,
+          "word_counts": 0.911
+        }
+      },
+      {
+        "review_id": 588681,
+        "stars": 4,
+        "label": "positive",
+        "words": 31,
+        "flags": [
+          "negation"
+        ],
+        "probability_positive": {
+          "transformer-M-full/pre_output/last": 0.955,
+          "word_counts": 0.328
+        }
+      },
+      {
+        "review_id": 608157,
+        "stars": 2,
+        "label": "negative",
+        "words": 45,
+        "flags": [
+          "negation",
+          "contrast",
+          "any <unk>"
+        ],
+        "probability_positive": {
+          "transformer-M-full/pre_output/last": 0.397,
+          "word_counts": 0.512
+        }
+      },
+      {
+        "review_id": 613785,
+        "stars": 1,
+        "label": "negative",
+        "words": 12,
+        "flags": [],
+        "probability_positive": {
+          "transformer-M-full/pre_output/last": 0.005,
+          "word_counts": 0.761
+        }
+      },
+      {
+        "review_id": 631566,
+        "stars": 2,
+        "label": "negative",
+        "words": 10,
+        "flags": [
+          "contrast"
+        ],
+        "probability_positive": {
+          "transformer-M-full/pre_output/last": 0.299,
+          "word_counts": 0.898
+        }
+      }
+    ],
+    "reference_right_main_wrong": [
+      {
+        "review_id": 124050,
+        "stars": 1,
+        "label": "negative",
+        "words": 214,
+        "flags": [
+          "negation",
+          "contrast",
+          "any <unk>"
+        ],
+        "probability_positive": {
+          "transformer-M-full/pre_output/last": 0.587,
+          "word_counts": 0.313
+        }
+      },
+      {
+        "review_id": 274817,
+        "stars": 5,
+        "label": "positive",
+        "words": 69,
+        "flags": [
+          "negation",
+          "contrast",
+          "any <unk>"
+        ],
+        "probability_positive": {
+          "transformer-M-full/pre_output/last": 0.144,
+          "word_counts": 0.958
+        }
+      },
+      {
+        "review_id": 421446,
+        "stars": 4,
+        "label": "positive",
+        "words": 24,
+        "flags": [
+          "contrast"
+        ],
+        "probability_positive": {
+          "transformer-M-full/pre_output/last": 0.276,
+          "word_counts": 0.869
+        }
+      },
+      {
+        "review_id": 580986,
+        "stars": 2,
+        "label": "negative",
+        "words": 49,
+        "flags": [
+          "negation"
+        ],
+        "probability_positive": {
+          "transformer-M-full/pre_output/last": 0.501,
+          "word_counts": 0.062
+        }
+      },
+      {
+        "review_id": 687788,
+        "stars": 5,
+        "label": "positive",
+        "words": 5,
+        "flags": [],
+        "probability_positive": {
+          "transformer-M-full/pre_output/last": 0.483,
+          "word_counts": 0.692
+        }
+      }
+    ]
+  },
+  "seed": 4213,
+  "code": {
+    "commit": "00c57b24d83e6d1f8e0b3e3e3c2e528cf86143f5",
+    "code_changed": false
+  },
+  "machine": {
+    "device": null,
+    "python": "3.12.1",
+    "platform": "macOS-15.6-arm64-arm-64bit",
+    "torch": "2.14.1",
+    "numpy": "2.5.4",
+    "gensim": "4.4.0",
+    "chip": "Apple M4",
+    "memory_bytes": 17179869184
+  },
+  "finished": "2026-10-15T15:18:23"
+}

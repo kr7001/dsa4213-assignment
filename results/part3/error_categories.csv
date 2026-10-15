@@ -1,0 +1,41 @@
+sample,review_id,stars,label,category,reason
+1,30067,4,positive,mixed: real good and bad points,"hopeful, but notes the suction cups will not hold on their floor"
+2,33430,5,positive,mixed: real good and bad points,"praises the cleaning, then lists slowing down and hard-to-remove grips"
+3,62839,4,positive,mixed: real good and bad points,explicit pros and cons list; ends saying it turned out fine
+4,89244,5,positive,mixed: real good and bad points,"mixed: slow to start working, but it does stop the cramping"
+5,89732,2,negative,"negative, but with some praise",negative now; the praise is for the older version
+6,100391,2,negative,mixed: real good and bad points,messy against easy to carry
+7,128765,4,positive,mixed: real good and bad points,nice apart from a strong chemical smell
+8,153068,2,negative,"negative, but told as plain facts","a warning ('don't use if ...'), no opinion words"
+9,177729,5,positive,mixed: real good and bad points,praises these heads; the complaint is about the tool they fit
+10,204210,1,negative,"negative, but with some praise",negative; the packaging is called the only plus
+11,231032,1,negative,"negative, but told as plain facts","implicit complaint (too small, given away); a misspelling hides the word too"
+12,239215,4,positive,mixed: real good and bad points,"the child disliked the taste, the parent liked it"
+13,249827,1,negative,"negative, but told as plain facts","defects described as facts (melted cap, marks), few sentiment words"
+14,266030,1,negative,sarcasm,ironic recommendation of a product that tangles the beard
+15,303284,1,negative,mixed: real good and bad points,"nice looking and not bad, but the scent is off"
+16,318624,5,positive,mixed: real good and bad points,mixed: uneven quality against overall benefits
+17,339444,4,positive,too short or vague to tell,"a very strong baby-powder smell, without saying whether that is good"
+18,345422,2,negative,"negative, but told as plain facts",a story of trying it three ways; the verdict is one slang word at the end
+19,360275,4,positive,mixed: real good and bad points,likes the colour; the stamp shape and pen tip fall short
+20,394605,1,negative,"negative, but told as plain facts","complaint stated as a fact (stays wet, smears)"
+21,435003,4,positive,mixed: real good and bad points,had a reaction; overall good but others are less sticky
+22,469436,5,positive,positive overall,praise through negation (the edges do not curl)
+23,481715,4,positive,mixed: real good and bad points,long pros and cons review that ends recommending it
+24,492029,1,negative,"negative, but told as plain facts",four-word factual complaint (greasy residue)
+25,495149,2,negative,too short or vague to tell,garbled text; unclear what is meant
+26,497963,5,positive,too short or vague to tell,praise only implied by a rhetorical question
+27,521651,5,positive,positive overall,"positive; one complaint, called the only one, that went away"
+28,546935,1,negative,mixed: real good and bad points,"sticky and hard to work with, but looks good"
+29,548438,2,negative,"negative, but with some praise",negative; the design and stand are minor pluses ('that's about it')
+30,562735,4,positive,mixed: real good and bad points,likes most colours; two bottles arrived dried out
+31,576095,2,negative,mixed: real good and bad points,"mixed: many in the pack, but they fray quickly"
+32,589730,5,positive,stars do not match the text,"five stars, but the text says it cracked a shelf"
+33,611918,5,positive,positive overall,plainly positive; the model's probability was just under 0.5
+34,619765,5,positive,positive overall,"praise; 'cannot afford' is about price, not quality"
+35,636104,1,negative,too short or vague to tell,two words; unclear what is meant
+36,640719,5,positive,positive overall,praise through negation (the scent is not overpowering)
+37,649462,5,positive,stars do not match the text,"five stars, but the text says it did not work"
+38,672690,1,negative,"negative, but told as plain facts","complaint stated as facts (stains, rubs off); a typo becomes <unk>"
+39,678768,4,positive,mixed: real good and bad points,would be perfect except that it sweats off on hot days
+40,679808,1,negative,too short or vague to tell,"an injury is described, but the verdict is only implied"

@@ -1,0 +1,32 @@
+== Measured groups (D3.4, part 1) ==
+  group                         reviews  transformer-M-full/pre             word_counts  rnn-S-full/pre_output/  rnn-S-full/pre_output/  lstm-S-full/pre_output  lstm-S-full/pre_output
+  all                             24362                  0.9330                  0.9361                  0.8492                  0.8929                  0.9226                  0.9220
+  1 star                           8563                  0.9588                  0.9625                  0.8956                  0.9304                  0.9506                  0.9494
+  2 stars                          3618                  0.8908                  0.8811                  0.8154                  0.8566                  0.8800                  0.8726
+  4 stars                          2013                  0.7864                  0.8276                  0.6384                  0.7074                  0.7586                  0.7720
+  5 stars                         10168                  0.9554                  0.9549                  0.8638                  0.9110                  0.9466                  0.9461
+  negation                        12262                  0.9288                  0.9311                  0.8138                  0.8799                  0.9142                  0.9148
+  no negation                     12100                  0.9373                  0.9412                  0.8850                  0.9061                  0.9311                  0.9293
+  contrast                         6033                  0.8763                  0.8866                  0.7510                  0.8132                  0.8561                  0.8603
+  no contrast                     18329                  0.9517                  0.9524                  0.8814                  0.9191                  0.9445                  0.9423
+  any <unk>                        3478                  0.9120                  0.9224                  0.7835                  0.8574                  0.8928                  0.8925
+  <unk> share at least 5%           799                  0.9036                  0.9186                  0.8285                  0.8561                  0.8936                  0.8811
+  1-2 words                        1378                  0.9565                  0.9514                  0.9463                  0.9485                  0.9507                  0.9586
+  3-6 words                        3005                  0.9474                  0.9474                  0.9211                  0.9211                  0.9454                  0.9448
+  7-20 words                       8177                  0.9358                  0.9396                  0.8788                  0.9061                  0.9305                  0.9220
+  21+ words                       11802                  0.9247                  0.9290                  0.7989                  0.8701                  0.9080                  0.9119
+  repeats a part3_train review     1250                  0.9840                  0.9888                  0.9768                  0.9800                  0.9808                  0.9848
+  new text                        23112                  0.9303                  0.9332                  0.8422                  0.8882                  0.9194                  0.9186
+
+transformer-M-full/pre_output/last against word_counts: {'both_right': 21916, 'first_only': 814, 'second_only': 889, 'both_wrong': 743}
+  ranking, last, all      : 66 of 78 pairs in the same order (24,362 reviews)
+  ranking, last, negation : 66 of 78 pairs in the same order (12,262 reviews)
+  ranking, last, contrast : 67 of 78 pairs in the same order (6,033 reviews)
+  ranking, mean, all      : 72 of 78 pairs in the same order (24,362 reviews)
+  ranking, mean, negation : 70 of 78 pairs in the same order (12,262 reviews)
+  ranking, mean, contrast : 67 of 78 pairs in the same order (6,033 reviews)
+
+== Samples for reading (D3.4, part 2) ==
+Wrote results/part3/examples_errors.txt (review text; git-ignored)
+Wrote results/part3/error_categories.csv (one row per sampled mistake, category to fill in; no text)
+Wrote results/part3/errors.json
