@@ -1,0 +1,57 @@
+\begin{tabular}{@{}llrrrrl@{}}
+\toprule
+First & Second & Pool & Diff. (pts) & 95\% interval & Holm $p$ & Real? \\
+\midrule
+LSTM-S & Untrained LSTM-S & last word & +25.4 & +24.8 to +26.1 & $<$0.001 & yes \\
+LSTM-S & Untrained LSTM-S & average & +18.9 & +18.3 to +19.5 & $<$0.001 & yes \\
+RNN-S & Untrained RNN-S & last word & +24.2 & +23.6 to +24.9 & $<$0.001 & yes \\
+RNN-S & Untrained RNN-S & average & +16.8 & +16.2 to +17.4 & $<$0.001 & yes \\
+Transformer-S & Untrained Transformer-S & last word & +29.3 & +28.6 to +30.0 & $<$0.001 & yes \\
+Transformer-S & Untrained Transformer-S & average & +20.0 & +19.4 to +20.6 & $<$0.001 & yes \\
+RNN-S & LSTM-S & last word & $-$7.3 & $-$7.8 to $-$6.9 & $<$0.001 & yes \\
+RNN-S & LSTM-S & average & $-$2.9 & $-$3.2 to $-$2.6 & $<$0.001 & yes \\
+RNN-S & Transformer-S & last word & $-$6.6 & $-$7.0 to $-$6.1 & $<$0.001 & yes \\
+RNN-S & Transformer-S & average & $-$2.5 & $-$2.8 to $-$2.2 & $<$0.001 & yes \\
+LSTM-S & Transformer-S & last word & +0.8 & +0.4 to +1.1 & $<$0.001 & yes \\
+LSTM-S & Transformer-S & average & +0.4 & +0.1 to +0.7 & 0.078 & no \\
+RNN-S & RNN-M & last word & +1.1 & +0.7 to +1.5 & $<$0.001 & yes \\
+RNN-S & RNN-M & average & +1.4 & +1.0 to +1.7 & $<$0.001 & yes \\
+LSTM-S & LSTM-M & last word & $-$1.2 & $-$1.4 to $-$0.9 & $<$0.001 & yes \\
+LSTM-S & LSTM-M & average & $-$0.8 & $-$1.1 to $-$0.6 & $<$0.001 & yes \\
+Transformer-S & Transformer-M & last word & $-$1.8 & $-$2.1 to $-$1.5 & $<$0.001 & yes \\
+Transformer-S & Transformer-M & average & $-$1.1 & $-$1.4 to $-$0.8 & $<$0.001 & yes \\
+RNN-S & RNN-S, 10 ep. & last word & $-$2.4 & $-$2.8 to $-$2.1 & $<$0.001 & yes \\
+RNN-S & RNN-S, 10 ep. & average & $-$1.6 & $-$1.9 to $-$1.3 & $<$0.001 & yes \\
+LSTM-S & LSTM-S, 10 ep. & last word & $-$0.8 & $-$1.1 to $-$0.6 & $<$0.001 & yes \\
+LSTM-S & LSTM-S, 10 ep. & average & $-$0.1 & $-$0.4 to +0.1 & 1.000 & no \\
+Transformer-S & Transformer-S, 10 ep. & last word & $-$0.1 & $-$0.4 to +0.2 & 1.000 & no \\
+Transformer-S & Transformer-S, 10 ep. & average & +0.1 & $-$0.2 to +0.3 & 1.000 & no \\
+LSTM-S & Own, frozen & last word & +0.3 & 0.0 to +0.6 & 0.805 & no \\
+LSTM-S & Own, frozen & average & +0.6 & +0.3 to +0.9 & $<$0.001 & yes \\
+LSTM-S & GloVe, frozen & last word & +2.9 & +2.6 to +3.3 & $<$0.001 & yes \\
+LSTM-S & GloVe, frozen & average & +3.2 & +2.9 to +3.6 & $<$0.001 & yes \\
+LSTM-S & GloVe, trainable & last word & +0.5 & +0.3 to +0.8 & 0.002 & yes \\
+LSTM-S & GloVe, trainable & average & 0.0 & $-$0.2 to +0.3 & 1.000 & no \\
+LSTM-S & Random, frozen & last word & +4.1 & +3.7 to +4.4 & $<$0.001 & yes \\
+LSTM-S & Random, frozen & average & +3.9 & +3.5 to +4.2 & $<$0.001 & yes \\
+RNN-S & Word counts (tf-idf) & last word & $-$8.7 & $-$9.2 to $-$8.2 & $<$0.001 & yes \\
+RNN-S & Word counts (tf-idf) & average & $-$4.3 & $-$4.7 to $-$3.9 & $<$0.001 & yes \\
+LSTM-S & Word counts (tf-idf) & last word & $-$1.4 & $-$1.7 to $-$1.0 & $<$0.001 & yes \\
+LSTM-S & Word counts (tf-idf) & average & $-$1.4 & $-$1.8 to $-$1.1 & $<$0.001 & yes \\
+Transformer-S & Word counts (tf-idf) & last word & $-$2.1 & $-$2.5 to $-$1.8 & $<$0.001 & yes \\
+Transformer-S & Word counts (tf-idf) & average & $-$1.8 & $-$2.2 to $-$1.5 & $<$0.001 & yes \\
+RNN-S & RNN-S & last vs average & $-$4.4 & $-$4.8 to $-$3.9 & $<$0.001 & yes \\
+LSTM-S & LSTM-S & last vs average & +0.1 & $-$0.3 to +0.4 & 1.000 & no \\
+Transformer-S & Transformer-S & last vs average & $-$0.3 & $-$0.6 to 0.0 & 0.825 & no \\
+RNN-M & RNN-M & last vs average & $-$4.1 & $-$4.6 to $-$3.6 & $<$0.001 & yes \\
+LSTM-M & LSTM-M & last vs average & +0.4 & +0.1 to +0.7 & 0.185 & no \\
+Transformer-M & Transformer-M & last vs average & +0.4 & +0.1 to +0.7 & 0.147 & no \\
+RNN-S, 10 ep. & RNN-S, 10 ep. & last vs average & $-$3.5 & $-$4.0 to $-$3.1 & $<$0.001 & yes \\
+LSTM-S, 10 ep. & LSTM-S, 10 ep. & last vs average & +0.7 & +0.4 to +1.1 & $<$0.001 & yes \\
+Transformer-S, 10 ep. & Transformer-S, 10 ep. & last vs average & $-$0.1 & $-$0.5 to +0.2 & 1.000 & no \\
+Own, frozen & Own, frozen & last vs average & +0.4 & +0.1 to +0.7 & 0.211 & no \\
+GloVe, frozen & GloVe, frozen & last vs average & +0.3 & 0.0 to +0.7 & 0.753 & no \\
+GloVe, trainable & GloVe, trainable & last vs average & $-$0.4 & $-$0.8 to $-$0.1 & 0.211 & no \\
+Random, frozen & Random, frozen & last vs average & $-$0.1 & $-$0.5 to +0.3 & 1.000 & no \\
+\bottomrule
+\end{tabular}

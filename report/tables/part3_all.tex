@@ -1,0 +1,67 @@
+\begin{tabular}{@{}llrrrrr@{}}
+\toprule
+Representation & Pool & $C$ & CV acc. & Test acc. & 95\% interval & Macro-F1 \\
+\midrule
+RNN-S & last word & $10^{-2}$ & 84.9 & 84.9 & 84.5--85.4 & 84.9 \\
+RNN-S & average & $10^{1}$ & 89.2 & 89.3 & 88.9--89.7 & 89.3 \\
+LSTM-S & last word & $10^{1}$ & 92.1 & 92.3 & 91.9--92.6 & 92.3 \\
+LSTM-S & average & $10^{-1}$ & 92.1 & 92.2 & 91.9--92.5 & 92.2 \\
+Transformer-S & last word & $10^{2}$ & 91.2 & 91.5 & 91.1--91.8 & 91.5 \\
+Transformer-S & average & $10^{1}$ & 91.7 & 91.8 & 91.4--92.1 & 91.8 \\
+RNN-M & last word & $10^{-2}$ & 83.5 & 83.8 & 83.4--84.3 & 83.8 \\
+RNN-M & average & $10^{2}$ & 88.1 & 87.9 & 87.5--88.3 & 87.9 \\
+LSTM-M & last word & $10^{-1}$ & 93.3 & 93.4 & 93.1--93.7 & 93.4 \\
+LSTM-M & average & $10^{-1}$ & 92.9 & 93.0 & 92.7--93.4 & 93.0 \\
+Transformer-M & last word & $10^{-1}$ & 93.4 & 93.3 & 93.0--93.6 & 93.3 \\
+Transformer-M & average & $10^{-1}$ & 92.7 & 92.9 & 92.6--93.2 & 92.9 \\
+RNN-S, 10 ep. & last word & $10^{-2}$ & 87.3 & 87.3 & 86.9--87.7 & 87.3 \\
+RNN-S, 10 ep. & average & $10^{1}$ & 90.8 & 90.9 & 90.5--91.2 & 90.9 \\
+LSTM-S, 10 ep. & last word & $10^{-1}$ & 92.8 & 93.1 & 92.8--93.4 & 93.1 \\
+LSTM-S, 10 ep. & average & $10^{-1}$ & 92.2 & 92.3 & 92.0--92.7 & 92.3 \\
+Transformer-S, 10 ep. & last word & $10^{-2}$ & 91.5 & 91.6 & 91.3--92.0 & 91.6 \\
+Transformer-S, 10 ep. & average & $10^{-1}$ & 91.7 & 91.7 & 91.4--92.1 & 91.7 \\
+Own, frozen & last word & $10^{-1}$ & 91.9 & 92.0 & 91.7--92.3 & 92.0 \\
+Own, frozen & average & $10^{-2}$ & 91.5 & 91.6 & 91.2--92.0 & 91.6 \\
+GloVe, frozen & last word & $10^{-2}$ & 89.1 & 89.3 & 88.9--89.7 & 89.3 \\
+GloVe, frozen & average & $10^{1}$ & 88.9 & 89.0 & 88.6--89.4 & 89.0 \\
+GloVe, trainable & last word & $10^{2}$ & 91.7 & 91.7 & 91.4--92.1 & 91.7 \\
+GloVe, trainable & average & $10^{0}$ & 91.9 & 92.1 & 91.8--92.5 & 92.1 \\
+Random, frozen & last word & $10^{-2}$ & 88.3 & 88.2 & 87.8--88.6 & 88.2 \\
+Random, frozen & average & $10^{0}$ & 88.4 & 88.3 & 87.9--88.7 & 88.3 \\
+Random, trainable (seed 4214) & last word & $10^{-2}$ & 92.6 & 92.8 & 92.4--93.1 & 92.8 \\
+Random, trainable (seed 4214) & average & $10^{1}$ & 92.1 & 92.3 & 91.9--92.6 & 92.3 \\
+Random, trainable (seed 4215) & last word & $10^{-2}$ & 92.5 & 92.3 & 92.0--92.7 & 92.3 \\
+Random, trainable (seed 4215) & average & $10^{-1}$ & 92.3 & 92.4 & 92.0--92.7 & 92.4 \\
+Own, frozen (seed 4214) & last word & $10^{1}$ & 91.8 & 91.9 & 91.5--92.2 & 91.9 \\
+Own, frozen (seed 4214) & average & $10^{-1}$ & 91.8 & 91.9 & 91.5--92.2 & 91.9 \\
+Own, frozen (seed 4215) & last word & $10^{-1}$ & 91.4 & 91.4 & 91.0--91.7 & 91.4 \\
+Own, frozen (seed 4215) & average & $10^{-1}$ & 91.8 & 91.8 & 91.4--92.1 & 91.8 \\
+GloVe, frozen (seed 4214) & last word & $10^{1}$ & 90.0 & 90.0 & 89.6--90.3 & 90.0 \\
+GloVe, frozen (seed 4214) & average & $10^{2}$ & 89.7 & 89.9 & 89.5--90.2 & 89.9 \\
+GloVe, frozen (seed 4215) & last word & $10^{-3}$ & 89.6 & 89.6 & 89.2--90.0 & 89.6 \\
+GloVe, frozen (seed 4215) & average & $10^{0}$ & 89.6 & 89.6 & 89.3--90.0 & 89.6 \\
+Untrained RNN-S & last word & $10^{-1}$ & 60.3 & 60.7 & 60.1--61.3 & 60.6 \\
+Untrained RNN-S & average & $10^{1}$ & 72.6 & 72.5 & 71.9--73.1 & 72.5 \\
+Untrained LSTM-S & last word & $10^{-1}$ & 66.7 & 66.8 & 66.2--67.4 & 66.8 \\
+Untrained LSTM-S & average & $10^{2}$ & 73.0 & 73.3 & 72.8--73.9 & 73.3 \\
+Untrained Transformer-S & last word & $10^{2}$ & 62.5 & 62.2 & 61.6--62.8 & 61.9 \\
+Untrained Transformer-S & average & $10^{0}$ & 71.8 & 71.8 & 71.2--72.4 & 71.8 \\
+Averaged table, LSTM-S's own &  & $10^{-1}$ & 87.6 & 87.9 & 87.5--88.3 & 87.9 \\
+Averaged table, skip-gram &  & $10^{-1}$ & 89.2 & 89.4 & 89.0--89.8 & 89.4 \\
+Averaged table, GloVe &  & $10^{2}$ & 82.7 & 82.8 & 82.3--83.3 & 82.8 \\
+Word counts (tf-idf) &  & $10^{1}$ & 93.0 & 93.6 & 93.3--93.9 & 93.6 \\
+Length only &  & $10^{-4}$ & 53.0 & 52.3 & 51.7--53.0 & 52.3 \\
+RNN-S (top hidden) & last word & $10^{-3}$ & 85.3 & 85.1 & 84.7--85.6 & 85.1 \\
+RNN-S (top hidden) & average & $10^{1}$ & 90.5 & 90.6 & 90.2--90.9 & 90.6 \\
+LSTM-S (top hidden) & last word & $10^{-1}$ & 92.3 & 92.3 & 91.9--92.6 & 92.3 \\
+LSTM-S (top hidden) & average & $10^{0}$ & 92.4 & 92.4 & 92.1--92.8 & 92.4 \\
+Transformer-S (top hidden) & last word & $10^{-2}$ & 91.2 & 91.4 & 91.1--91.8 & 91.4 \\
+Transformer-S (top hidden) & average & $10^{-2}$ & 91.7 & 91.7 & 91.4--92.1 & 91.7 \\
+RNN-M (top hidden) & last word & $10^{-3}$ & 84.2 & 84.4 & 83.9--84.8 & 84.4 \\
+RNN-M (top hidden) & average & $10^{-1}$ & 90.2 & 90.0 & 89.6--90.3 & 90.0 \\
+LSTM-M (top hidden) & last word & $10^{-1}$ & 93.7 & 93.7 & 93.4--94.0 & 93.7 \\
+LSTM-M (top hidden) & average & $10^{2}$ & 93.5 & 93.6 & 93.3--93.9 & 93.6 \\
+Transformer-M (top hidden) & last word & $10^{-1}$ & 93.6 & 93.6 & 93.3--93.9 & 93.6 \\
+Transformer-M (top hidden) & average & $10^{0}$ & 93.1 & 93.2 & 92.9--93.5 & 93.2 \\
+\bottomrule
+\end{tabular}

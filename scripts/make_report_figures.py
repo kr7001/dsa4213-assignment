@@ -12,7 +12,9 @@ results/ngram/ngram.json and results/pilot/pilot.json. It writes:
   (Appendix A);
 - figures/batch_size.pdf: training speed and memory by batch size in the test
   run (Appendix B);
-- tables/*.tex: the tables whose numbers come straight from those files.
+- tables/*.tex: the tables whose numbers come straight from those files;
+- the results figures and tables of Parts I to III, and report/facts.json, the
+  derived numbers the text quotes (scripts/report_results.py).
 
 Every number in these figures and tables is read from a file, never typed, so
 the report cannot drift from the results.
@@ -30,6 +32,7 @@ from typing import Any
 import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.ticker import NullFormatter
+from report_results import build_results  # scripts/ is on the path when run as a script
 
 from a1.viz import (
     INK,
@@ -474,6 +477,13 @@ def main() -> int:
             "data/pile_sizes.json",
             "ngram/ngram.json",
             "pilot/pilot.json",
+            "eval/test.json",
+            "eval/costs.json",
+            "eval/generation.json",
+            "part2/embeddings.json",
+            "part3/part3.json",
+            "part3/errors.json",
+            "part3/error_categories.csv",
         )
         if not (RESULTS / p).exists()
     ]
@@ -490,6 +500,8 @@ def main() -> int:
     table_language(tables / "language.tex")
     table_pilot(tables / "pilot.tex")
     table_models(tables / "models.tex")
+    for note in build_results(args.out):
+        print(note)
     print(f"Wrote figures to {figures} and tables to {tables}")
     return 0
 

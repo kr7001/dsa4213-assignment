@@ -1,0 +1,28 @@
+\begin{tabular}{@{}lrrr@{}}
+\toprule
+Representation & $J$ & Last & Avg. \\
+\midrule
+\multicolumn{4}{@{}l}{\emph{Design (S)}} \\
+\quad RNN-S & 3.914 & 84.9 & 89.3 \\
+\quad LSTM-S & 3.708 & 92.3 & 92.2 \\
+\quad Transformer-S & 3.718 & 91.5 & 91.8 \\
+\multicolumn{4}{@{}l}{\emph{Size (M)}} \\
+\quad RNN-M & 4.001 & 83.8 & 87.9 \\
+\quad LSTM-M & 3.602 & 93.4 & 93.0 \\
+\quad Transformer-M & 3.570 & 93.3 & 92.9 \\
+\multicolumn{4}{@{}l}{\emph{Training length (S, 10 epochs)}} \\
+\quad RNN-S & 3.855 & 87.3 & 90.9 \\
+\quad LSTM-S & 3.684 & 93.1 & 92.3 \\
+\quad Transformer-S & 3.700 & 91.6 & 91.7 \\
+\multicolumn{4}{@{}l}{\emph{Word table (LSTM-S)}} \\
+\quad Own, frozen & 3.811 & 92.0 & 91.6 \\
+\quad GloVe, frozen & 3.973 & 89.3 & 89.0 \\
+\quad GloVe, trainable & 3.729 & 91.7 & 92.1 \\
+\quad Random, frozen & 4.027 & 88.2 & 88.3 \\
+\multicolumn{4}{@{}l}{\emph{References}} \\
+\quad Untrained (S) & -- & 60.7--66.8 & 71.8--73.3 \\
+\quad Tables, averaged & -- & & 82.8--89.4 \\
+\quad Word counts (153K col.) & -- & \multicolumn{2}{c}{93.6} \\
+\quad Length only & -- & \multicolumn{2}{c}{52.3} \\
+\bottomrule
+\end{tabular}

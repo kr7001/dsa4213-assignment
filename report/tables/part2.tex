@@ -1,0 +1,13 @@
+\begin{tabular}{@{}lrrrrr@{}}
+\toprule
+ & \multicolumn{2}{c}{Test $J$} & \multicolumn{2}{c}{Valid $J$, epoch} & \\
+\cmidrule(lr){2-3}\cmidrule(lr){4-5}
+Input table & Mean & SD & 1 & 6 & V$-$T \\
+\midrule
+Random, trainable & 3.705 & 0.003 & 4.095 & 3.709 & 0.142 \\
+Own, frozen & 3.805 & 0.009 & 4.188 & 3.811 & 0.082 \\
+GloVe, frozen & 3.962 & 0.010 & 4.358 & 3.965 & 0.060 \\
+GloVe, trainable & 3.729 & -- & 4.111 & 3.732 & 0.128 \\
+Random, frozen & 4.027 & -- & 4.445 & 4.029 & 0.063 \\
+\bottomrule
+\end{tabular}

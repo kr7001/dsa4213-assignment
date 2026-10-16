@@ -3,6 +3,53 @@
 Language models, word embeddings and learned representations, compared on
 Amazon beauty-product reviews (NUS DSA4213, Semester 1 AY2026/27).
 
+**Question.** Does a language model that predicts the next word better also
+give better features for sentiment classification, and what does the better
+prediction cost?
+
+**What is here.** One corpus (587,133 reviews after cleaning), one tokenizer and
+one vocabulary feed three parts:
+
+- Part I: a Kneser-Ney 5-gram (plus the course's add-k) and an RNN, LSTM and
+  Transformer whose cores match within 2.3% in parameters, all scored on the
+  same 1,115,210 test targets; costs, learning curves and generated text.
+- Part II: the LSTM with three input tables (random and trainable, our own
+  skip-gram vectors frozen, GloVe 2024 frozen), three seeds each, plus GloVe
+  trainable and a frozen random table.
+- Part III: the 19 trained networks, frozen, as features for sentiment
+  classification with one logistic regression; the ranking by test
+  cross-entropy compared with the ranking by accuracy; error analysis.
+
+The report is `report/main.pdf` (source `report/main.tex`). Every number in its
+tables and figures is written by a script from the result files in `results/`,
+and `scripts/check_report_numbers.py` traces the numbers in its text back to
+them.
+
+**Repository map.**
+
+| Path | Contents |
+|---|---|
+| `src/a1/data/` | cleaning, filters, deduplication, cap per product, vocabulary, piles |
+| `src/a1/models/` | n-gram models, RNN, LSTM, Transformer, word tables |
+| `src/a1/training/` | the shared training recipe, learning-rate tuning, early stopping |
+| `src/a1/evaluation/` | test scoring, loss by position, FLOPs, timing |
+| `src/a1/generation.py` | temperature sampling and the generated-text scores |
+| `src/a1/part3/` | Part III features, classifier, statistics and error groups |
+| `scripts/` | one script per step below, plus the report scripts |
+| `configs/` | every setting of every run (YAML) |
+| `results/` | counts-only result files and logs (no review text, no data) |
+| `report/` | the report, its generated tables and figures |
+| `tests/` | 168 tests, including end-to-end runs on synthetic data |
+
+**Hardware and time.** Everything ran on one Apple M4 MacBook Pro (10 cores,
+16 GB, macOS 15.6; PyTorch 2.14.1 on the GPU through MPS; the n-gram models and
+skip-gram on the CPU). The 44 neural training runs took 8 to 57 minutes each,
+about 25 hours in total; every other step takes minutes. Each run records its
+git commit, configuration, device and machine in `results/runs/<run>/run.json`.
+
+**Seeds.** 4213 for every random choice (splits, sampling, initialisation, batch
+order, classifier folds); Part II also uses 4214 and 4215 for its repeats.
+
 ## Setup
 
 1. Install [uv](https://docs.astral.sh/uv/), which installs Python 3.12 and the
@@ -390,21 +437,52 @@ test reviews, and writes:
   of the main representation and 5 random reviews from each side of its
   disagreement with word counts, with their text;
 - `results/part3/error_categories.csv`: one row per sampled mistake, with the
-  category column filled in by hand from the fixed list in
-  `src/a1/part3/errors.py` (no text).
+  category column filled in by hand (no text). The list in
+  `src/a1/part3/errors.py` was fixed before any mistake was read; after a first
+  reading the author revised it (the comment there and the report's Appendix F
+  give the original list and every change), so the committed `errors.json`
+  still lists the original categories the run used.
 
 ## Report
 
     uv run python scripts/make_report_figures.py
+    uv run python scripts/check_report_numbers.py
     cd report && pdflatex main && bibtex main && pdflatex main && pdflatex main
 
-`make_report_figures.py` reads only the counts-only result files in `results/`
-and writes the report's figures (`report/figures/`) and data tables
-(`report/tables/`), so no number in them is typed by hand; it also checks that
+`make_report_figures.py` reads the result files in `results/` and writes the
+report's figures (`report/figures/`) and data tables (`report/tables/`), so no
+number in them is typed by hand; it also checks that
 the filter counts add up and that every neural model has the same word tables.
+The results figures and tables of Parts I to III come from
+`scripts/report_results.py`, which also writes `report/facts.json`: every result
+and every derived number (difference, ratio, share) that the text quotes. Two
+inputs are git-ignored and only exist on the machine that ran the experiments:
+`results/eval/examples_generation.txt` (for the tables of generated samples) and
+`data/part3/predictions.npz` (for the exploratory McNemar tests); without them
+the script keeps the committed tables and says so. The report itself quotes a
+few short review fragments and shows one generated sample per model for two
+prompts; the full sample files stay git-ignored.
+
+`check_report_numbers.py` reads the text of `report/main.tex` and traces every
+number in it to `report/facts.json`, the generated tables, the configurations
+or the result files, after rounding the way the text shows it. It lists any
+number it cannot trace and fails if one is in the body. A traced number can
+still be the wrong one of two similar values, so the text was also checked by
+reading it against the tables.
+
 The report uses the ACL style files (`report/acl.sty`, `report/acl_natbib.bst`,
 from https://github.com/acl-org/acl-style-files). On Overleaf, upload the
 contents of `report/` and compile `main.tex` with pdfLaTeX.
+
+## AI use
+
+Claude (Anthropic) was used throughout, as the assignment allows: it researched
+and set out the options for each decision with their evidence, wrote the code,
+its tests and the analysis scripts, drafted a category for each sampled error,
+and drafted the report text. The author chose every option, ran every
+experiment on the author's machine, checked the result files, decided every error
+category, and checked the report. The report's Appendix G gives the full
+statement.
 
 ## Checks
 

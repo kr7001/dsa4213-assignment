@@ -13,7 +13,8 @@ Everything here was fixed before any mistake was read.
    - an exact repeat of a part3_train review (which comes with its label).
 2. Seeded random samples for reading: mistakes of the main representation,
    and reviews where it and a reference disagree. Each mistake gets one main
-   category from CATEGORIES; if several fit, the first in the list wins.
+   category; the list fixed in advance is ORIGINAL_CATEGORIES, and the one used
+   after the first reading is CATEGORIES (see the comment above them).
 """
 
 from __future__ import annotations
@@ -59,7 +60,9 @@ NEGATION = frozenset(
 CONTRAST = frozenset(
     {"but", "however", "although", "though", "except", "whereas", "nevertheless", "nonetheless"}
 )
-CATEGORIES = (
+# The list fixed before any mistake was read (D3.4, 15 Oct); the first category
+# that applies wins. The run that wrote results/part3/errors.json used this list.
+ORIGINAL_CATEGORIES = (
     "rating does not match the text",
     "mixed feelings",
     "negation missed",
@@ -67,6 +70,28 @@ CATEGORIES = (
     "complaint not about the product",
     "too short or vague to tell",
     "other",
+)
+# After a first reading of the 40 sampled mistakes (15 Oct), the author revised
+# the list, and results/part3/error_categories.csv uses the revised names:
+# - "mixed" now requires real good and bad points of the product as it is now;
+#   a review that calls one side the only good or bad thing ("the only plus",
+#   "only complaint") or praises an older version belongs to its overall side;
+# - "other" held reviews any reader can label at once, so it was split by
+#   overall side: "negative, but told as plain facts", "negative, but with some
+#   praise" and "positive overall";
+# - "negation missed" was dropped: its positive reviews that praise through
+#   "not" moved to "positive overall", and its one negative warning ("don't
+#   use if ...") to "negative, but told as plain facts";
+# - "rating does not match the text" became "stars do not match the text".
+CATEGORIES = (
+    "stars do not match the text",
+    "sarcasm",
+    "too short or vague to tell",
+    "complaint not about the product",
+    "mixed: real good and bad points",
+    "negative, but with some praise",
+    "negative, but told as plain facts",
+    "positive overall",
 )
 
 

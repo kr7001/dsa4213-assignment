@@ -1,0 +1,16 @@
+\begin{tabular}{@{}lrrrr@{}}
+\toprule
+Text & Rep-4 & Dist-2 & Copied & Gap \\
+\midrule
+Real continuation & 0.0\% & 0.702 & 19.7\% &  \\
+Kneser-Ney 5-gram & 0.2\% & 0.725 & 23.0\% & $-$0.07 \\
+RNN-S & 0.3\% & 0.676 & 13.5\% & +0.02 \\
+LSTM-S & 0.6\% & 0.675 & 14.7\% & +0.05 \\
+Transformer-S & 0.4\% & 0.680 & 15.3\% & $-$0.08 \\
+\midrule
+Own skip-gram, frozen & 0.2\% & 0.698 & 11.7\% & +0.19 \\
+GloVe, frozen & 0.2\% & 0.717 & 8.9\% & +0.29 \\
+GloVe, trainable & 0.5\% & 0.694 & 14.0\% & +0.09 \\
+Random, frozen & 0.2\% & 0.702 & 10.4\% & +0.19 \\
+\bottomrule
+\end{tabular}

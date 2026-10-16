@@ -1,7 +1,8 @@
 """Shared chart style, so every figure in the project looks the same.
 
 Colours come from a validated colour-blind-safe palette. Categorical series
-(later: one fixed colour per model) take ``SERIES`` in order. Star ratings use
+take ``SERIES`` in order, and every model family keeps one fixed colour
+(``MODEL_COLOURS``) in every figure. Star ratings use
 a diverging pair with a grey midpoint: red for low ratings, grey for three
 stars, blue for high ratings.
 """

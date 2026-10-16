@@ -6,8 +6,8 @@ apostrophe into a straight one, then keep words (with an optional apostrophe
 part, so "don't" stays whole) and six punctuation marks. Everything else,
 including digits, other symbols and emoji, is dropped.
 
-The noise patterns below only measure what the raw reviews contain. Which
-cleaning steps to apply is decided later, from those measurements.
+The noise patterns below only measure what the raw reviews contain; the
+cleaning steps in clean.py were chosen from those measurements (D0.4).
 """
 
 from __future__ import annotations

@@ -1,0 +1,12 @@
+\begin{tabularx}{\textwidth}{@{}l>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X@{}}
+\toprule
+ & Own skip-gram (10.7M training tokens of reviews) & GloVe 2024 (11.9B tokens of Wikipedia and Gigaword) \\
+\midrule
+WordSim353 Spearman (204 of 353 pairs) & 0.39 & 0.52 \\
+Analogies correct (6,863 of 19,544) & 22.1\% & 57.5\% \\
+Neighbours of ``cheap'' & cheaply, flimsy, cheep, crappy, cheapy & inexpensive, cheaper, expensive, easy, affordable \\
+Neighbours of ``broke'' & snapped, fell, popped, tore, ripped & breaking, break, pulled, came, broken \\
+Neighbours of ``gift'' & present, christmas, stuffer, stocking, birthday & gifts, items, offering, item, item's \\
+Neighbours of ``great'' & fantastic, good, awesome, wonderful, excellent & greatest, lot's, good, well, there's \\
+\bottomrule
+\end{tabularx}
